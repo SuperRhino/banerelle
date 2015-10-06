@@ -1,0 +1,30 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+.jumbotron {
+    background-image: url(https://d27v8envyltg3v.cloudfront.net/bg/7939217/14221474025939/bg_blur.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.jumbotron .container {
+    background-color: rgba(255,255,255,.35);
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
