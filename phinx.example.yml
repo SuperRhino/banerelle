@@ -9,7 +9,7 @@ environments:
         host: localhost
         name: banerelle
         user: banerelle
-        pass: 'B4n3r3ll3!'
+        pass: ''
         port: 3306
         charset: utf8
 
