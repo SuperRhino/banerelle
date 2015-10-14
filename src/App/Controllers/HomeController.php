@@ -13,14 +13,16 @@ class HomeController extends BaseController
         $password = $this->app->config('db.pass');
 
         // Create connection
-        $conn = new \mysqli($hostname, $username, $password, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        mysql_connect($hostname,$username,$password);
+        @mysql_select_db($dbname) or die( "Unable to select database");
+
+        $query = "SELECT * FROM table;";
+        mysql_query($query);
+
+
 
         $sql = "SELECT title, description, details, post_date FROM events";
-        $result = $conn->query($sql);
+        $result = mysql_query($sql);
 
         if ($result->num_rows > 0) {
             // output data of each row
@@ -33,7 +35,7 @@ class HomeController extends BaseController
         } else {
             echo "NO results";
         }
-        $conn->close();
+        mysql_close();
 
 
 
