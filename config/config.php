@@ -5,11 +5,9 @@ return [
     'routes.case_sensitive'       => true,
     'routes.controller_namespace' => '\\App\\Controllers\\',
 
-    'db.connection' => [
-        'host'      => 'localhost',
-        'database'  => 'banerelle',
-        'username'  => 'banerelle',
-        'password'  => getenv('DB_PASS'),
-        'charset'   => 'utf8',
-    ],
+    'db.host'    => 'localhost',
+    'db.name'    => 'banerelle',
+    'db.user'    => 'banerelle',
+    'db.pass'    => getenv('DB_PASS'),
+    'db.charset' => 'utf8',
 ];
