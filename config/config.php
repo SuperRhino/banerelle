@@ -1,6 +1,10 @@
 <?php
 
 return [
+
+    'routes.case_sensitive'       => true,
+    'routes.controller_namespace' => '\\App\\Controllers\\',
+
     'db.connection' => [
         'host'      => 'localhost',
         'database'  => 'banerelle',

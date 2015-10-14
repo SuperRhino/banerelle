@@ -5,8 +5,8 @@ use Core\BaseController;
 
 class HomeController extends BaseController
 {
-    public function index()
+    public function index($page = null)
     {
-        echo "<h1>Squad API - OK</h1>";
+        include("index.html");
     }
 }

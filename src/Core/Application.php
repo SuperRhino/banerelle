@@ -1,8 +1,14 @@
 <?php
 namespace Core;
 
+use Slim\Route;
 use Slim\Slim;
 
+/**
+ * Core Application
+ * @property array                    settings
+ * @package Core
+ */
 class Application extends Slim {
 
     /**
@@ -30,6 +36,28 @@ class Application extends Slim {
     public function getCurrentUser()
     {}
 
+    /**
+     * Override the default behavior to use our own callable parsing.
+     * @author @dhrrgn
+     * @param $args
+     * @return Route
+     */
+    protected function mapRoute($args)
+    {
+        $pattern  = array_shift($args);
+        $callable = array_pop($args);
+        $callable = $this->getRouteClosure($callable);
+        if (substr($pattern, -1) !== '/') {
+            $pattern .= '/';
+        }
+        $route = new Route($pattern, $callable, $this->settings['routes.case_sensitive']);
+        $this->router->map($route);
+        if (count($args) > 0) {
+            $route->setMiddleware($args);
+        }
+        return $route;
+    }
+
     private function loadRoutes()
     {
         $routes = $this->loadConfigFile('routes');
@@ -54,4 +82,31 @@ class Application extends Slim {
         return is_file($file) ? require($file) : false;
     }
 
+    /**
+     * Generates a closure for the given definition.
+     * @param $callable
+     * @return callable
+     */
+    private function getRouteClosure($callable)
+    {
+        if (! is_string($callable)) {
+            return $callable;
+        }
+        list($controller, $method) = $this->parseRouteCallable($callable);
+        return function () use ($controller, $method) {
+            $class = $this->settings['routes.controller_namespace'].$controller;
+            $refClass  = new \ReflectionClass($class);
+            $refMethod = $refClass->getMethod($method);
+            return $refMethod->invokeArgs($refClass->newInstance($this), func_get_args());
+        };
+    }
+    /**
+     * Parses the route definition string (i.e. 'HomeController:index')
+     * @param $callable
+     * @return array
+     */
+    private function parseRouteCallable($callable)
+    {
+        return explode(':', $callable);
+    }
 }
