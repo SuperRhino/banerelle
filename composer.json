@@ -4,7 +4,8 @@
         "robmorgan/phinx": "^0.4.6",
         "slim/slim": "^2.6",
         "aura/sqlquery": "^2.5",
-        "aura/sql": "^2.4"
+        "aura/sql": "^2.4",
+        "vlucas/phpdotenv": "^2.0"
     },
     "authors": [
       {

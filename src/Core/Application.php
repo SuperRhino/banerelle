@@ -4,6 +4,7 @@ namespace Core;
 
 use Aura\Sql\ExtendedPdo;
 use Aura\SqlQuery\QueryFactory;
+use Dotenv\Dotenv;
 use Slim\Route;
 use Slim\Slim;
 
@@ -40,6 +41,9 @@ class Application extends Slim {
     public function __construct($basePath)
     {
         $this->basePath = rtrim($basePath, '/');
+
+        $dotenv = new Dotenv($this->basePath);
+        $dotenv->load();
 
         $config = $this->loadConfigFile('config') ?: [];
         parent::__construct($config);
@@ -87,9 +91,9 @@ class Application extends Slim {
     private function setupServices()
     {
         $this->db = new ExtendedPdo(
-            'mysql:host=localhost;dbname=banerelle',
-            'banerelle',
-            'B4n3r3ll3!'
+            'mysql:host='.getenv('DB_HOST').';dbname='.getenv('DB_NAME'),
+            getenv('DB_USER'),
+            getenv('DB_PASS')
         );
         $this->query = new QueryFactory('mysql');
     }
