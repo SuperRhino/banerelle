@@ -72,12 +72,12 @@
     <!-- Example row of columns -->
     <div class="row">
         <?php
-        var_dump($events); die;
             for ($i=0; $i<3; $i++) :
-                $title = $events['title'];
-                $description = $events['description'];
-                $details = $events['details'];
-                $date = ! empty($events['event_date']) ? $events['event_date'] : $events['post_date'];
+                $event = $events[$i];
+                $title = $event['title'];
+                $description = $event['description'];
+                $details = $event['details'];
+                $date = ! empty($event['event_date']) ? $event['event_date'] : $event['post_date'];
         ?>
         <div class="col-md-4">
             <h2><?= $title; ?></h2>
