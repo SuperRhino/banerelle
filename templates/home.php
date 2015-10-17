@@ -78,9 +78,11 @@
                 $description = $event['description'];
                 $details = $event['details'];
                 $date = ! empty($event['event_date']) ? $event['event_date'] : $event['post_date'];
+                $date = date('M j, Y', strtotime($date));
         ?>
         <div class="col-md-4">
             <h2><?= $title; ?></h2>
+            <p><em><?= $date; ?></em></p>
             <p><?= $description; ?></p>
             <?php if ($details): ?>
             <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
