@@ -74,7 +74,7 @@
             <p><em><?= $date; ?></em></p>
             <p><?= $description; ?></p>
             <?php if ($details): ?>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            <p><a class="btn btn-default" href="https://www.facebook.com/shayna.bane/posts/10153811147650628" role="button">View details &raquo;</a></p>
             <?php endif; ?>
         </div>
         <?php endfor; ?>
