@@ -6,6 +6,8 @@
  * Time: 2:47 PM
  */
 
+    /** @var $events [id, title, description, details, post_date, event_date] */
+
 ?><!doctype html>
 <html class="no-js" lang="">
 <head>
@@ -69,21 +71,21 @@
 <div class="container">
     <!-- Example row of columns -->
     <div class="row">
+        <?php
+            for ($i=0; $i<3; $i++) :
+                $title = $events['title'];
+                $description = $events['description'];
+                $details = $events['details'];
+                $date = ! empty($events['event_date']) ? $events['event_date'] : $events['post_date'];
+        ?>
         <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <h2><?= $title; ?></h2>
+            <p><?= $description; ?></p>
+            <?php if ($details): ?>
             <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            <?php endif; ?>
         </div>
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
+        <?php endfor; ?>
     </div>
 
     <hr>
@@ -110,4 +112,3 @@
 </script>
 </body>
 </html>
-<?php var_dump($events); ?>
