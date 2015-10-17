@@ -9,7 +9,10 @@ use Slim\Slim;
 
 /**
  * Core Application
- * @property array                    settings
+ * @property array                       settings
+ * @property \Aura\Sql\ExtendedPdo       db
+ * @property \Aura\SqlQuery\QueryFactory query
+ * @property \Slim\View                  view
  * @package Core
  */
 class Application extends Slim {

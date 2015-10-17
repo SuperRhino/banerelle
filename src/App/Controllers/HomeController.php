@@ -10,7 +10,15 @@ class HomeController extends BaseController
         $data = [
             'events' => $this->_getEventData(),
         ];
-        include("index.html");
+
+        $this->app->view->display('home.php', $data);
+
+        //try {
+        //} catch (\RuntimeException $e) {
+        //    throw new NotFoundException('Page not found');
+        //}
+
+        //include("index.html");
     }
 
     public function _getEventData()
@@ -20,6 +28,5 @@ class HomeController extends BaseController
               ->from('events');
 
         return $this->app->db->fetchAll($query);
-
     }
 }
