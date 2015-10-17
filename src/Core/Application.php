@@ -1,6 +1,9 @@
 <?php
 namespace Core;
 
+
+use Aura\Sql\ExtendedPdo;
+use Aura\SqlQuery\QueryFactory;
 use Slim\Route;
 use Slim\Slim;
 
@@ -68,12 +71,12 @@ class Application extends Slim {
 
     private function setupServices()
     {
-        //$this->db = new ExtendedPdo(
-        //    'mysql:host=localhost;dbname=banerelle',
-        //    'banerelle',
-        //    ''
-        //);
-        //$this->query = new QueryFactory('mysql');
+        $this->db = new ExtendedPdo(
+            'mysql:host=localhost;dbname=banerelle',
+            'banerelle',
+            'B4n3r3ll3!'
+        );
+        $this->query = new QueryFactory('mysql');
     }
 
     private function loadConfigFile($file)

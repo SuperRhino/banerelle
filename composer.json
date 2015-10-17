@@ -2,7 +2,9 @@
     "name": "superrhino/banerelle",
     "require": {
         "robmorgan/phinx": "^0.4.6",
-        "slim/slim": "^2.6"
+        "slim/slim": "^2.6",
+        "aura/sqlquery": "^2.5",
+        "aura/sql": "^2.4"
     },
     "authors": [
       {
