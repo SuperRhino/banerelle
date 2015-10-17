@@ -72,6 +72,7 @@
     <!-- Example row of columns -->
     <div class="row">
         <?php
+        var_dump($events); die;
             for ($i=0; $i<3; $i++) :
                 $title = $events['title'];
                 $description = $events['description'];
