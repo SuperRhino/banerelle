@@ -15,9 +15,21 @@ use Slim\Slim;
 class Application extends Slim {
 
     /**
-     * @var string The basePath to use for the application
+     * The basePath to use for the application
+     * @var string
      */
     public $basePath;
+
+    /**
+     * Lazy DB connection
+     * @var  \Aura\Sql\ExtendedPdo
+     */
+    public $db;
+
+    /**
+     * @var  \Aura\SqlQuery\QueryFactory
+     */
+    public $query;
 
     /**
      * @param $basePath
