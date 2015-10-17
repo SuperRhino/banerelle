@@ -72,13 +72,13 @@
     <!-- Example row of columns -->
     <div class="row">
         <?php
-            for ($i=0; $i<3; $i++) :
-                $event = $events[$i];
-                $title = $event['title'];
-                $description = $event['description'];
-                $details = $event['details'];
-                $date = ! empty($event['event_date']) ? $event['event_date'] : $event['post_date'];
-                $date = date('M j, Y', strtotime($date));
+        for ($i=0; $i<3; $i++) :
+            $event = $events[$i];
+            $title = $event['title'];
+            $description = $event['description'];
+            $details = $event['details'];
+            $date = ! empty($event['event_date']) ? $event['event_date'] : $event['post_date'];
+            $date = date('M j, Y', strtotime($date));
         ?>
         <div class="col-md-4">
             <h2><?= $title; ?></h2>
