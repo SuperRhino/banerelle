@@ -53,7 +53,7 @@
     <div class="container">
         <h1>Banerelle!</h1>
         <p>The start of something awesome.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Coming Soon. Stay tuned...</a></p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Buttons are cool! More coming soon...</a></p>
     </div>
 </div>
 
@@ -83,7 +83,7 @@
     <hr>
 
     <footer>
-        <p>&copy; Company 2015</p>
+        <p>&copy; SuperRhino 2015.</p>
     </footer>
 </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
@@ -100,7 +100,7 @@
         e=o.createElement(i);r=o.getElementsByTagName(i)[0];
         e.src='//www.google-analytics.com/analytics.js';
         r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-    ga('create','UA-67735723-2','auto');ga('send','pageview');
+    ga('create','UA-67735723-4','auto');ga('send','pageview');
 </script>
 </body>
 </html>
