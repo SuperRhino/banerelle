@@ -20,21 +20,6 @@ class HomeController extends BaseController
         ];
     }
 
-    /**
-     * @param      $page
-     * @param null $data
-     */
-    private function _renderPage($page, $data = null)
-    {
-        try {
-            $this->app->view->display('_includes/head.php', $this->metadata);
-            $this->app->view->display($page.'.php', $data);
-            $this->app->view->display('_includes/foot.php', $this->metadata);
-        } catch (\RuntimeException $e) {
-            //throw new NotFoundException('Page not found');
-        }
-    }
-
     public function index()
     {
         $data = [
@@ -64,4 +49,20 @@ class HomeController extends BaseController
 
         return $this->app->db->fetchAll($query);
     }
+
+    /**
+     * @param      $page
+     * @param null $data
+     */
+    private function _renderPage($page, $data = null)
+    {
+        try {
+            $this->app->view->display('_includes/head.php', $this->metadata);
+            $this->app->view->display($page.'.php', $data);
+            $this->app->view->display('_includes/foot.php', $this->metadata);
+        } catch (\RuntimeException $e) {
+            //throw new NotFoundException('Page not found');
+        }
+    }
+
 }
