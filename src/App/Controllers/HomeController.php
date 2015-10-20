@@ -21,7 +21,7 @@ class HomeController extends BaseController
      * @param      $page
      * @param null $data
      */
-    private function _renderPage($page, $data = null)
+    public function _renderPage($page, $data = null)
     {
         try {
             $this->app->view->display('_includes/head.php', $this->metadata);
@@ -51,7 +51,7 @@ class HomeController extends BaseController
      *
      * @return array
      */
-    private function _getEventData()
+    public function _getEventData()
     {
         $query = $this->app->query->newSelect();
         $query->cols(['*'])
