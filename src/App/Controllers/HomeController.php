@@ -10,8 +10,10 @@ class HomeController extends BaseController
      */
     private $metadata;
 
-    function __construct()
+    function __construct(Application $app)
     {
+        parent::__construct($app);
+
         $this->metadata = [
             'title' => 'Banerelle',
         ];
@@ -21,7 +23,7 @@ class HomeController extends BaseController
      * @param      $page
      * @param null $data
      */
-    public function _renderPage($page, $data = null)
+    private function _renderPage($page, $data = null)
     {
         try {
             $this->app->view->display('_includes/head.php', $this->metadata);
@@ -51,7 +53,7 @@ class HomeController extends BaseController
      *
      * @return array
      */
-    public function _getEventData()
+    private function _getEventData()
     {
         $query = $this->app->query->newSelect();
         $query->cols(['*'])
