@@ -2,6 +2,8 @@
 
 return [
 
+    'ENV' => getenv('ENV'),
+
     'routes.case_sensitive'       => true,
     'routes.controller_namespace' => '\\App\\Controllers\\',
 
