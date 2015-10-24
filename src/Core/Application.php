@@ -55,6 +55,11 @@ class Application extends Slim {
 
     }
 
+    public function isProd()
+    {
+        return ($this->config('ENV') === 'prod');
+    }
+
     public function getCurrentUser()
     {}
 
@@ -91,9 +96,9 @@ class Application extends Slim {
     private function setupServices()
     {
         $this->db = new ExtendedPdo(
-            'mysql:host='.getenv('DB_HOST').';dbname='.getenv('DB_NAME'),
-            getenv('DB_USER'),
-            getenv('DB_PASS')
+            'mysql:host='.$this->config('db.host').';dbname='.$this->config('db.name'),
+            $this->config('db.user'),
+            $this->config('db.pass')
         );
         $this->query = new QueryFactory('mysql');
     }
