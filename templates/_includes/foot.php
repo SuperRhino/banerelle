@@ -19,7 +19,7 @@
 <script src="js/vendor/bootstrap.min.js"></script>
 
 <script src="js/plugins.js"></script>
-<script src="js/main.js"></script>
+<script src="js/bundle.js"></script>
 
 <!-- Google Analytics -->
 <script>

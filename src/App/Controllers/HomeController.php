@@ -23,7 +23,7 @@ class HomeController extends BaseController
     public function index()
     {
         $data = [
-            'events' => $this->_getEventData(),
+            'events' => $this->app->isProd() ? $this->_getEventData() : [],
         ];
 
         $this->_renderPage('home', $data);
