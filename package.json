@@ -1,0 +1,19 @@
+{
+  "name": "banerelle.com",
+  "version": "1.0.0",
+  "description": "## Environment Setup",
+  "main": "js/bundle.js",
+  "scripts": {
+    "start": "php -S localhost:8080 -t public/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SuperRhino/banerelle.com.git"
+  },
+  "author": "Ryan Pastorelle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SuperRhino/banerelle.com/issues"
+  },
+  "homepage": "https://github.com/SuperRhino/banerelle.com#readme"
+}
