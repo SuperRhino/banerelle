@@ -13,20 +13,11 @@ environments:
         port: 3306
         charset: utf8
 
-    development:
+    local:
         adapter: mysql
         host: localhost
-        name: development_db
-        user: root
-        pass: ''
-        port: 3306
-        charset: utf8
-
-    testing:
-        adapter: mysql
-        host: localhost
-        name: testing_db
-        user: root
+        name: banerelle
+        user: banerelle
         pass: ''
         port: 3306
         charset: utf8
