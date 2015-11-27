@@ -12,7 +12,6 @@ class HomeController extends BaseController
             'events' => $this->app->isProd() ? $this->_getEventData() : [],
         ];
 
-        var_dump($data); die;
         return $this->view('home.html', $data);
     }
 
@@ -28,6 +27,7 @@ class HomeController extends BaseController
      */
     private function _getEventData()
     {
+        return [[1],[2]];
         $query = $this->app->query->newSelect();
         $query->cols(['*'])
               ->from('events')
