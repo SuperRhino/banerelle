@@ -109,7 +109,7 @@ class Application extends App {
             return $view;
         };
 
-        var_dump($c['settings']['db.host']); die;
+        var_dump($container['settings']['db.host']); die;
         $container['db'] = function ($c) {
             return new ExtendedPdo(
                 'mysql:host='.$c['settings']['db.host'].';dbname='.$c['settings']['db.name'],
