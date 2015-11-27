@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import path from 'path';
 import Utils from '../Utils/Utils';
+import RsvpForm from '../Views/RsvpForm';
 
 export default class Routes {
 
@@ -21,14 +22,14 @@ export default class Routes {
 
   static home() {
     console.log('Home route');
-    // ReactDOM.render(
-    //   <HelloWorld />,
-    //   document.getElementById('example')
-    // );
   }
 
   static rsvp() {
     console.log('rsvp');
+    ReactDOM.render(
+      <RsvpForm />,
+      document.getElementById('RsvpForm')
+    );
   }
 
 }
