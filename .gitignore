@@ -1,5 +1,10 @@
 .DS_Store
-vendor/
 phinx.yml
 .env
 .htaccess
+
+vendor/
+node_modules/
+bower_components/
+test/
+tests/

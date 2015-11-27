@@ -1,0 +1,7 @@
+{
+    "compact": true,
+    "comments": false,
+    "plugins": ["transform-class-properties"],
+    "presets": ["stage-1", "es2015", "react"],
+    "sourceMaps": false
+}

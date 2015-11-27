@@ -3,13 +3,14 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Ryan Pastorelle -- Developer -- @rpastorelle
+    Shayna Bane -- Content Engineer -- @shaynabane
 
 # THANKS
 
-    <name>
+    Everyone
 
 # TECHNOLOGY COLOPHON
 
     HTML5, CSS3
-    jQuery, Modernizr
+    jQuery, Modernizr, React
