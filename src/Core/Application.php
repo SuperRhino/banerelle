@@ -65,7 +65,7 @@ class Application extends App {
 
     public function isProd()
     {
-        return ($this->getSetting('ENV') === 'prod');
+        return ($this->getSetting('env') === 'prod');
     }
 
     public function getCurrentUser()
