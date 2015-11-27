@@ -182,9 +182,13 @@ gulp.task('common-css', function() {
   return bundleCss(config.commonCss, 'common');
 });
 
-gulp.task('build', ['common-js' ,'js', 'common-css' ,'css'], function(){
+gulp.task('async-build', ['common-js' ,'js', 'common-css' ,'css']);
+
+gulp.task('build', function(){
   if (utils.isProduction()) {
-    runSequence('clean');
+    runSequence('clean', 'async-build');
+  } else {
+    runSequence('async-build');
   }
 });
 
