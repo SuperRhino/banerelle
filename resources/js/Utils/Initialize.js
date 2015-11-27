@@ -1,4 +1,4 @@
-import $ from 'jquery';
+var $ = require('jquery');
 
 export default class Initialize {
 
@@ -11,17 +11,19 @@ export default class Initialize {
     require('bootstrap');
   }
 
-  static jqueryReady() {
+  static onReady() {
+
     // Click on big button:
-    $('a.btn-lg').on('click', function(){
-        if (ga) ga('send', 'event', 'buttons', 'click', 'stay tuned');
-        console.log('send', 'event', 'buttons', 'click', 'stay tuned');
-    });
+    document.getElementById('btnComingSoon').onclick = function(){
+      if (ga) ga('send', 'event', 'buttons', 'click', 'stay tuned');
+      console.log('send', 'event', 'buttons', 'click', 'stay tuned');
+      return false;
+    };
   }
 
   static onLoad() {
     Initialize.globals();
     Initialize.bootstrap();
-    Initialize.jqueryReady();
+    Initialize.onReady();
   }
 }
