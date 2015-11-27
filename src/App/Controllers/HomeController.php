@@ -57,11 +57,11 @@ class HomeController extends BaseController
         */
 
         $query = $this->app->query->newSelect();
-        // $query->cols(['*'])
-        //       ->from('events')
-        //       ->orderBy(['event_date desc', 'post_date desc'])
-        //       ->limit(3);
-        //
-        // return $this->app->db->fetchAll($query);
+        $query->cols(['*'])
+              ->from('events')
+              ->orderBy(['event_date desc', 'post_date desc'])
+              ->limit(3);
+
+        return $this->app->db->fetchAll($query);
     }
 }
