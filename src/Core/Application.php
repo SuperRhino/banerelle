@@ -109,13 +109,17 @@ class Application extends App {
             return $view;
         };
 
-        $this->db = new ExtendedPdo(
-            'mysql:host='.$container['settings']['db.host'].';dbname='.$container['settings']['db.name'],
-            $container['settings']['db.user'],
-            $container['settings']['db.pass']
-        );
+        $container['db'] = function ($c) {
+            return new ExtendedPdo(
+                'mysql:host='.$c['settings']['db.host'].';dbname='.$c['settings']['db.name'],
+                $c['settings']['db.user'],
+                $c['settings']['db.pass']
+            );
+        };
 
-        $this->query = new QueryFactory('mysql');
+        $container['query'] = function ($c) {
+            return new QueryFactory('mysql');
+        };
 
         // $container['ga'] = function ($c) {
         //     return new Core\Analytics\Google($c['settings']['ga.tracking_id'], http_host());
