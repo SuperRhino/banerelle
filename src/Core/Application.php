@@ -39,10 +39,11 @@ class Application extends App {
      */
     public function __construct($container = [])
     {
+        $this->setupServices($container);
+
         parent::__construct($container);
         $this->getContainer()['app'] = function () { return $this; };
 
-        $this->setupServices();
         $this->setupEnvData();
         $this->loadRoutes();
         $this->setupNotFound();
@@ -96,10 +97,8 @@ class Application extends App {
     /**
      * Service Definitions
      */
-    private function setupServices()
+    private function setupServices(&$container)
     {
-        $container = $this->getContainer();
-
         $container['view'] = function ($c) {
             $view = new \Slim\Views\Twig($c['settings']['base_path'].'/resources/templates');
             $view->addExtension(new \Slim\Views\TwigExtension(
