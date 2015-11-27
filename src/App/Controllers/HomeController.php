@@ -26,7 +26,7 @@ class HomeController extends BaseController
      */
     private function _getEventData()
     {
-        var_dump($this->app); die;
+        var_dump($this->app->db); die;
         $query = $this->app->query->newSelect();
         $query->cols(['*'])
               ->from('events')
