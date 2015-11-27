@@ -56,7 +56,11 @@ class HomeController extends BaseController
         ];
         */
 
-        $query = $this->app->query->newSelect();
+        try{
+            $query = $this->app->query->newSelect();
+        } catch(\Exception $e) {
+            var_dump($e->getMessage()); die;
+        }
         // $query->cols(['*'])
         //       ->from('events')
         //       ->orderBy(['event_date desc', 'post_date desc'])
