@@ -27,4 +27,8 @@ export default class Routes {
     // );
   }
 
+  static rsvp() {
+    console.log('rsvp');
+  }
+
 }
