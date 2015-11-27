@@ -55,6 +55,7 @@ class HomeController extends BaseController
             ],
         ];
         */
+       var_dump($this->app->query); die;
 
         $query = $this->app->query->newSelect();
         $query->cols(['*'])
