@@ -117,11 +117,13 @@ class Application extends App {
             );
             return $db;
         };
+        $this->db = $container['db'];
 
         $container['query'] = function ($c) {
             $query = new QueryFactory('mysql');
             return $query;
         };
+        $this->query = $container['query'];
 
         // $container['ga'] = function ($c) {
         //     return new Core\Analytics\Google($c['settings']['ga.tracking_id'], http_host());
