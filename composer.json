@@ -4,11 +4,11 @@
         "robmorgan/phinx": "^0.4.6",
         "slim/slim": "^3.0@RC",
         "guzzlehttp/guzzle": "^6.1",
-        "aura/sqlquery": "^2.5",
         "aura/sql": "^2.4",
         "vlucas/phpdotenv": "^2.1",
         "twig/twig": "^1.23",
-        "slim/twig-view": "^2.0"
+        "slim/twig-view": "^2.0",
+        "aura/sqlquery": "^2.6"
     },
     "authors": [
       {

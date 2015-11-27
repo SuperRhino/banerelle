@@ -39,11 +39,10 @@ class Application extends App {
      */
     public function __construct($container = [])
     {
-        $this->setupServices();
-
         parent::__construct($container);
         $this->getContainer()['app'] = function () { return $this; };
 
+        $this->setupServices();
         $this->setupEnvData();
         $this->loadRoutes();
         $this->setupNotFound();
