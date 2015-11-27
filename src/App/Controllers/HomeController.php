@@ -1,37 +1,23 @@
 <?php
 namespace App\Controllers;
 
-use Core\Application;
 use Core\BaseController;
+use Slim\Container;
 
 class HomeController extends BaseController
 {
-    /**
-     * @var array
-     */
-    private $metadata;
-
-    function __construct(Application $app)
-    {
-        parent::__construct($app);
-
-        $this->metadata = [
-            'title' => 'Banerelle',
-        ];
-    }
-
     public function index()
     {
         $data = [
             'events' => $this->app->isProd() ? $this->_getEventData() : [],
         ];
 
-        $this->_renderPage('home', $data);
+        return $this->view('home.html', $data);
     }
 
     public function rsvp()
     {
-        $this->_renderPage('rsvp');
+        return $this->view('rsvp.html');
     }
 
     /**
@@ -49,20 +35,4 @@ class HomeController extends BaseController
 
         return $this->app->db->fetchAll($query);
     }
-
-    /**
-     * @param      $page
-     * @param null $data
-     */
-    private function _renderPage($page, $data = null)
-    {
-        try {
-            $this->app->view->display('_includes/head.php', $this->metadata);
-            $this->app->view->display($page.'.php', $data);
-            $this->app->view->display('_includes/foot.php', $this->metadata);
-        } catch (\RuntimeException $e) {
-            //throw new NotFoundException('Page not found');
-        }
-    }
-
 }

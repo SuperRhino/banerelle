@@ -1,0 +1,22 @@
+{
+  "name": "banerelle.com",
+  "version": "1.0.0",
+  "authors": [
+    "Banerelles"
+  ],
+  "copyright": "Banerelles",
+  "description": "Banerelle.com website",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4"
+  }
+}

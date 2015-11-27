@@ -1,0 +1,27 @@
+<!doctype html>
+<html class="no-js" lang="">
+{% include "_includes/head.html" %}
+<body>
+    {% include "_includes/navbar.html" %}
+    {% include "_includes/jumbotron.html" %}
+
+    <div class="container">
+        <div class="row">
+            {% for event in data.events %}
+            <div class="col-md-4">
+                <h2>{{ event.title }}</h2>
+                <p><em>{{ event.event_date is empty ? event.post_date|date("M j, Y") : event.event_date|date("M j, Y") }}</em></p>
+                <p>{{ event.description }}</p>
+                {% if event.details %}
+                <p><a class="btn btn-default" href="https://www.facebook.com/shayna.bane/posts/10153811147650628" role="button">View details &raquo;</a></p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        {% include "_includes/footer.html" %}
+    </div>
+
+    {% include "_includes/scripts.html" %}
+</body>
+</html>

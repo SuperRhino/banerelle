@@ -4,25 +4,24 @@ namespace Core;
 
 use Aura\Sql\ExtendedPdo;
 use Aura\SqlQuery\QueryFactory;
-use Dotenv\Dotenv;
-use Slim\Route;
-use Slim\Slim;
+use Core\Http\Exception as HttpException;
+use Interop\Container\ContainerInterface;
+use Slim\App;
 
 /**
  * Core Application
- * @property array                       settings
- * @property \Aura\Sql\ExtendedPdo       db
- * @property \Aura\SqlQuery\QueryFactory query
- * @property \Slim\View                  view
- * @package Core
+ * @property-read array                         envData
+ * @property-read \Aura\Sql\ExtendedPdo         db
+ * @property-read \Aura\SqlQuery\QueryFactory   query
+ * @property-read \Slim\Views\Twig              view
  */
-class Application extends Slim {
+class Application extends App {
 
     /**
-     * The basePath to use for the application
-     * @var string
+     * The environment data used for all template rendering
+     * @var array
      */
-    public $basePath;
+    public $envData;
 
     /**
      * Lazy DB connection
@@ -36,55 +35,56 @@ class Application extends Slim {
     public $query;
 
     /**
-     * @param $basePath
+     * @param ContainerInterface|array $container
      */
-    public function __construct($basePath)
+    public function __construct($container = [])
     {
-        $this->basePath = rtrim($basePath, '/');
+        parent::__construct($container);
+        $this->getContainer()['app'] = function () { return $this; };
 
-        $dotenv = new Dotenv($this->basePath);
-        $dotenv->load();
-
-        $config = $this->loadConfigFile('config') ?: [];
-        parent::__construct($config);
-
-        $this->loadRoutes();
         $this->setupServices();
-        //$this->setupErrorHandler();
-        //$this->setupNotFound();
+        $this->setupEnvData();
+        $this->loadRoutes();
+        $this->setupNotFound();
+        $this->setupErrorHandler();
+    }
 
+    /**
+     * Gets a setting or returns the default.
+     * @param $key
+     * @param null $default
+     * @return null
+     */
+    public function getSetting($key, $default = null)
+    {
+        if (! isset($this->settings[$key])) {
+            return $default;
+        }
+        return $this->settings[$key];
     }
 
     public function isProd()
     {
-        return ($this->config('ENV') === 'prod');
+        return ($this->getSetting('ENV') === 'prod');
     }
 
     public function getCurrentUser()
     {}
 
-    /**
-     * Override the default behavior to use our own callable parsing.
-     * @author @dhrrgn
-     * @param $args
-     * @return Route
-     */
-    protected function mapRoute($args)
+    private function setupEnvData()
     {
-        $pattern  = array_shift($args);
-        $callable = array_pop($args);
-        $callable = $this->getRouteClosure($callable);
-        if (substr($pattern, -1) !== '/') {
-            $pattern .= '/';
-        }
-        $route = new Route($pattern, $callable, $this->settings['routes.case_sensitive']);
-        $this->router->map($route);
-        if (count($args) > 0) {
-            $route->setMiddleware($args);
-        }
-        return $route;
+        $this->envData = [
+            'app_name' => $this->getSetting('app.name'),
+            'ga_tracking_id' => $this->getSetting('ga.tracking_id'),
+            'assets' => $this->getSetting('app.assets'),
+            'js_build_path' => $this->getSetting('app.paths.js'),
+            'css_build_path' => $this->getSetting('app.paths.css'),
+        ];
     }
 
+    /**
+     * Load the routes file
+     */
     private function loadRoutes()
     {
         $routes = $this->loadConfigFile('routes');
@@ -93,47 +93,98 @@ class Application extends Slim {
         }
     }
 
+    /**
+     * Service Definitions
+     */
     private function setupServices()
     {
-        $this->db = new ExtendedPdo(
-            'mysql:host='.$this->config('db.host').';dbname='.$this->config('db.name'),
-            $this->config('db.user'),
-            $this->config('db.pass')
-        );
-        $this->query = new QueryFactory('mysql');
+        $container = $this->getContainer();
+
+        $container['view'] = function ($c) {
+            $view = new \Slim\Views\Twig($c['settings']['base_path'].'/resources/templates');
+            $view->addExtension(new \Slim\Views\TwigExtension(
+                $c['router'],
+                $c['request']->getUri()
+            ));
+            return $view;
+        };
+
+        $container['db'] = function ($c) {
+            return new ExtendedPdo(
+                'mysql:host='.$this->getSetting('db.host').';dbname='.$this->getSetting('db.name'),
+                $this->getSetting('db.user'),
+                $this->getSetting('db.pass')
+            );
+        };
+
+        $container['query'] = function ($c) {
+            return new QueryFactory('mysql');
+        };
+
+        // $container['ga'] = function ($c) {
+        //     return new Core\Analytics\Google($c['settings']['ga.tracking_id'], http_host());
+        // };
     }
 
-    private function loadConfigFile($file)
+    private function setupNotFound()
     {
-        $file = $this->basePath.'/config/'.$file.'.php';
-        return is_file($file) ? require($file) : false;
-    }
-
-    /**
-     * Generates a closure for the given definition.
-     * @param $callable
-     * @return callable
-     */
-    private function getRouteClosure($callable)
-    {
-        if (! is_string($callable)) {
-            return $callable;
-        }
-        list($controller, $method) = $this->parseRouteCallable($callable);
-        return function () use ($controller, $method) {
-            $class = $this->settings['routes.controller_namespace'].$controller;
-            $refClass  = new \ReflectionClass($class);
-            $refMethod = $refClass->getMethod($method);
-            return $refMethod->invokeArgs($refClass->newInstance($this), func_get_args());
+        $container = $this->getContainer();
+        //Override the default Not Found Handler
+        $container['notFoundHandler'] = function ($c) {
+            return function ($request, $response) use ($c) {
+                return $c['view']
+                    ->render($c['response'], 'errors/404.html', $this->getErrorTemplateData())
+                    ->withStatus(404);
+            };
         };
     }
-    /**
-     * Parses the route definition string (i.e. 'HomeController:index')
-     * @param $callable
-     * @return array
-     */
-    private function parseRouteCallable($callable)
+
+    private function setupErrorHandler()
     {
-        return explode(':', $callable);
+        $container = $this->getContainer();
+        $c['errorHandler'] = function ($c) {
+            return function ($request, $response, \Exception $exception) use ($c) {
+                if ($e instanceof HttpException) {
+                    if ($e->getStatusCode() === 404) {
+                        return $this->notFound();
+                    }
+                    return $c['view']
+                                ->render($c['response'], 'errors/http-error.html', $this->getErrorTemplateData([
+                                    'code' => $e->getStatusCode(),
+                                    'message' => $e->getMessage(),
+                                ]))
+                                ->withStatus($e->getStatusCode());
+                } else {
+                    return $c['view']
+                                ->render($c['response'], 'errors/500.html', $this->getErrorTemplateData())
+                                ->withStatus(500);
+                }
+            };
+        };
+    }
+
+    /**
+     * Gets template data for error handling pages
+     * @return array template data
+     */
+    private function getErrorTemplateData()
+    {
+        return [
+          'env'  => $this->envData,
+          'meta' => [
+              'title' => $this->getSetting('app.name'),
+          ],
+        ];
+    }
+
+    /**
+     * Load a config file.
+     * @param $file
+     * @return bool|mixed
+     */
+    private function loadConfigFile($file)
+    {
+        $file = $this->getSetting('base_path').'/config/'.$file.'.php';
+        return is_file($file) ? require($file) : false;
     }
 }

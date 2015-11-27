@@ -1,0 +1,22 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ meta.title }}</title>
+    <meta name="description" content="{{ meta.description }}">
+    <meta name="keywords" content="{{ meta.keywords }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="{{ meta.title }}">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="apple-touch-icon.png">
+    <meta property="og:site_name" content="">
+    <meta property="og:description" content="{{ meta.description }}">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link rel="stylesheet" href="{{ env.css_build_path }}/{{ env.assets['common.css'] }}">
+    <link rel="stylesheet" href="{{ env.css_build_path }}/{{ env.assets['main.css'] }}">
+
+    <!-- <script src="js/vendor/modernizr-2.8.3.min.js"></script> -->
+</head>
