@@ -27,6 +27,7 @@ class HomeController extends BaseController
      */
     private function _getEventData()
     {
+        /*
         return [
             [
                 'id' => 4,
@@ -53,6 +54,7 @@ class HomeController extends BaseController
                 'event_date' => '2015-10-17 21:05:00',
             ],
         ];
+        */
 
         $query = $this->app->query->newSelect();
         $query->cols(['*'])

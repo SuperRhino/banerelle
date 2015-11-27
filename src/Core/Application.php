@@ -141,6 +141,7 @@ class Application extends App {
 
     private function setupErrorHandler()
     {
+        /*
         $container = $this->getContainer();
         $c['errorHandler'] = function ($c) {
             return function ($request, $response, \Exception $exception) use ($c) {
@@ -161,6 +162,7 @@ class Application extends App {
                 }
             };
         };
+        */
     }
 
     /**
