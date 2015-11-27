@@ -111,9 +111,9 @@ class Application extends App {
 
         $container['db'] = function ($c) {
             return new ExtendedPdo(
-                'mysql:host='.$this->getSetting('db.host').';dbname='.$this->getSetting('db.name'),
-                $this->getSetting('db.user'),
-                $this->getSetting('db.pass')
+                'mysql:host='.$c['settings']['db.host'].';dbname='.$c['settings']['db.name'],
+                $c['settings']['db.user'],
+                $c['settings']['db.pass']
             );
         };
 
