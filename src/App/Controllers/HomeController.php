@@ -12,6 +12,7 @@ class HomeController extends BaseController
             'events' => $this->app->isProd() ? $this->_getEventData() : [],
         ];
 
+        var_dump($data); die;
         return $this->view('home.html', $data);
     }
 
