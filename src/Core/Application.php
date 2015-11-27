@@ -39,11 +39,10 @@ class Application extends App {
      */
     public function __construct($container = [])
     {
-        $this->setupServices($container);
-
         parent::__construct($container);
         $this->getContainer()['app'] = function () { return $this; };
 
+        $this->setupServices();
         $this->setupEnvData();
         $this->loadRoutes();
         $this->setupNotFound();
@@ -97,8 +96,10 @@ class Application extends App {
     /**
      * Service Definitions
      */
-    private function setupServices(&$container)
+    private function setupServices()
     {
+        $container = $this->getContainer();
+
         $container['view'] = function ($c) {
             $view = new \Slim\Views\Twig($c['settings']['base_path'].'/resources/templates');
             $view->addExtension(new \Slim\Views\TwigExtension(
@@ -109,15 +110,17 @@ class Application extends App {
         };
 
         $container['db'] = function ($c) {
-            return new ExtendedPdo(
+            $db = new ExtendedPdo(
                 'mysql:host='.$c['settings']['db.host'].';dbname='.$c['settings']['db.name'],
                 $c['settings']['db.user'],
                 $c['settings']['db.pass']
             );
+            return $db;
         };
 
         $container['query'] = function ($c) {
-            return new QueryFactory('mysql');
+            $query = new QueryFactory('mysql');
+            return $query;
         };
 
         // $container['ga'] = function ($c) {
