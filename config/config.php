@@ -2,9 +2,17 @@
 // Load Env Config
 (new Dotenv\Dotenv('../'))->load();
 
+$env = strtolower(getenv('ENV'));
+$assets = json_decode(file_get_contents('../asset-manifest.json'), true);
+switch ($env) {
+    case 'dev':
+        $assets = array_combine(array_keys($assets), array_keys($assets));
+        break;
+}
+
 $container = new Slim\Container([
     'settings' => [
-        'env' => strtolower(getenv('ENV')),
+        'env' => $env,
         'base_path' => realpath(__DIR__.'/../'),
 
         'app.name'        => 'Banerelle — The start of something awesome',
@@ -14,7 +22,7 @@ $container = new Slim\Container([
         'app.urls.assets' => '/build',
         'app.paths.js'    => '/build/js',
         'app.paths.css'   => '/build/css',
-        'app.assets'      => json_decode(file_get_contents('../asset-manifest.json'), true),
+        'app.assets'      => $assets,
 
         'db.host'    => getenv('DB_HOST'),
         'db.name'    => getenv('DB_NAME'),
