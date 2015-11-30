@@ -145,9 +145,8 @@ class Application extends App {
 
     private function setupErrorHandler()
     {
-        /*
         $container = $this->getContainer();
-        $c['errorHandler'] = function ($c) {
+        $container['errorHandler'] = function ($c) {
             return function ($request, $response, \Exception $exception) use ($c) {
                 if ($e instanceof HttpException) {
                     if ($e->getStatusCode() === 404) {
@@ -166,7 +165,6 @@ class Application extends App {
                 }
             };
         };
-        */
     }
 
     /**
