@@ -22,7 +22,7 @@ export default class LoginForm extends React.Component {
         <div className="form-group" style={styles.formField}>
           <input ref="password" type="password" placeholder="password" className="form-control" />
         </div>
-        <button type="submit" className="btn btn-success">Sign in</button>
+        <button type="submit" className="btn btn-default">Sign in</button>
       </form>
     );
   }
