@@ -1,4 +1,5 @@
 .DS_Store
+.vagrant
 phinx.yml
 .env
 .htaccess
