@@ -2,6 +2,7 @@
 namespace Core;
 
 use Core\Http\Exception;
+use Core\Http\Exception\NotFoundException;
 use Slim\Container;
 
 /**
@@ -35,9 +36,20 @@ class BaseApiController extends BaseController
         $this->container = $container;
         $this->app = $container['app'];
 
-        // TODO Set up own Not Found & Error handlers?
+        // Set up Api error handlers
+        $this->setupNotFound();
+        $this->setupErrorHandler();
 
         $this->jsonParams = $this->getJsonParams();
+    }
+
+    /**
+     * Not Found Route
+     * @return $response
+     */
+    public function notFound()
+    {
+        throw new NotFoundException('Route not found');
     }
 
     /**
@@ -148,5 +160,29 @@ class BaseApiController extends BaseController
             return array_get($union, $key, $default);
         }
         return $union;
+    }
+
+    private function setupNotFound()
+    {
+        $c = $this->app->getContainer();
+        $c['notFoundHandler'] = function ($c) {
+            return function ($request, $response, $e) use ($c) {
+                $statusCode = $e->getStatusCode();
+                if (! $statusCode) $statusCode = 500;
+                return $c['response']->withJson($e->toArray())->withStatus($statusCode);
+            };
+        };
+    }
+
+    private function setupErrorHandler()
+    {
+        $c = $this->app->getContainer();
+        $c['errorHandler'] = function ($c) {
+            return function ($request, $response, $e) use ($c) {
+                $statusCode = $e->getStatusCode();
+                if (! $statusCode) $statusCode = 500;
+                return $c['response']->withJson($e->toArray())->withStatus($statusCode);
+            };
+        };
     }
 }

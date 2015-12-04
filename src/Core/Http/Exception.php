@@ -36,6 +36,24 @@ class Exception extends \Exception
     }
 
     /**
+     * Converts the Exception to Array
+     * @param bool $withStackTrace
+     * @return array
+     */
+    public function toArray($withStackTrace = false)
+    {
+        $data = [
+            'ok'      => false,
+            'error'   => ($this),
+            'message' => $this->getMessage(),
+        ];
+        if ($withStackTrace) {
+            $data['trace'] = $this->getTrace();
+        }
+        return $data;
+    }
+
+    /**
      * Converts the Exception to JSON
      * @param bool $withStackTrace
      * @return string
