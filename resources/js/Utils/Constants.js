@@ -11,8 +11,8 @@ var isProd     = true,
 switch (ENV) {
     case 'dev':
         isProd   = false;
-        apiHost  = 'http://localhost:8888/api';
-        siteRoot = 'http://localhost:8888';
+        apiHost  = 'http://dev.banerelle.com/api';
+        siteRoot = 'http://dev.banerelle.com';
         break;
 }
 
