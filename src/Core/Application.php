@@ -24,6 +24,11 @@ class Application extends App {
     public $envData;
 
     /**
+     * @var array
+     */
+    protected $currentUser;
+
+    /**
      * Lazy DB connection
      * @var  \Aura\Sql\ExtendedPdo
      */
@@ -68,8 +73,40 @@ class Application extends App {
         return ($this->getSetting('env') === 'prod');
     }
 
+    public function isApi()
+    {
+        $uri = $this->request->getUri();
+        $path = $uri->getPath();
+        return (stripos($path, '/api') === 0);
+    }
+
+
+    /**
+     * Get the current user.
+     * @return User
+     */
     public function getCurrentUser()
-    {}
+    {
+        return $this->currentUser;
+    }
+
+    /**
+     * Set the current user.
+     * @param User $user
+     */
+    public function setCurrentUser($user = null)
+    {
+        $this->currentUser = $user;
+    }
+
+    public function validateToken($token)
+    {
+        // TODO --- Validate session ---
+        // 1. find userId from sessions for given $token
+        // 2. if valid, set setCurrentUser, return true
+
+        return false;
+    }
 
     private function setupEnvData()
     {
@@ -132,6 +169,11 @@ class Application extends App {
 
     private function setupNotFound()
     {
+        if ($this->isApi()) {
+            $this->setupApiNotFound();
+            return;
+        }
+
         $container = $this->getContainer();
         //Override the default Not Found Handler
         $container['notFoundHandler'] = function ($c) {
@@ -145,6 +187,11 @@ class Application extends App {
 
     private function setupErrorHandler()
     {
+        if ($this->isApi()) {
+            $this->setupApiErrorHandler();
+            return;
+        }
+
         $container = $this->getContainer();
         $container['errorHandler'] = function ($c) {
             return function ($request, $response, \Exception $exception) use ($c) {
@@ -166,6 +213,31 @@ class Application extends App {
             };
         };
     }
+
+    private function setupApiNotFound()
+    {
+        $c = $this->getContainer();
+        $c['notFoundHandler'] = function ($c) {
+            return function ($request, $response, $e) use ($c) {
+                $statusCode = $e->getStatusCode();
+                if (! $statusCode) $statusCode = 500;
+                return $c['response']->withJson($e->toArray())->withStatus($statusCode);
+            };
+        };
+    }
+
+    private function setupApiErrorHandler()
+    {
+        $c = $this->getContainer();
+        $c['errorHandler'] = function ($c) {
+            return function ($request, $response, $e) use ($c) {
+                $statusCode = $e->getStatusCode();
+                if (! $statusCode) $statusCode = 500;
+                return $c['response']->withJson($e->toArray())->withStatus($statusCode);
+            };
+        };
+    }
+
 
     /**
      * Gets template data for error handling pages

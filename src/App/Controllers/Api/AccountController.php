@@ -20,14 +20,6 @@ class AccountController extends BaseApiController
         // 5. respond / redirect
     }
 
-    public function validate()
-    {
-        // TODO --- Validate session
-        // 1. if not found locally (sessionid cookie), throw error / redirect
-        // 2. find userId from sessions
-        // 3. if valid, reset cookie expiration
-    }
-
     public function logout()
     {
         // TODO --- Clean Session

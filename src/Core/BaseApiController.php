@@ -36,10 +36,6 @@ class BaseApiController extends BaseController
         $this->container = $container;
         $this->app = $container['app'];
 
-        // Set up Api error handlers
-        $this->setupNotFound();
-        $this->setupErrorHandler();
-
         $this->jsonParams = $this->getJsonParams();
     }
 
@@ -160,29 +156,5 @@ class BaseApiController extends BaseController
             return array_get($union, $key, $default);
         }
         return $union;
-    }
-
-    private function setupNotFound()
-    {
-        $c = $this->app->getContainer();
-        $c['notFoundHandler'] = function ($c) {
-            return function ($request, $response, $e) use ($c) {
-                $statusCode = $e->getStatusCode();
-                if (! $statusCode) $statusCode = 500;
-                return $c['response']->withJson($e->toArray())->withStatus($statusCode);
-            };
-        };
-    }
-
-    private function setupErrorHandler()
-    {
-        $c = $this->app->getContainer();
-        $c['errorHandler'] = function ($c) {
-            return function ($request, $response, $e) use ($c) {
-                $statusCode = $e->getStatusCode();
-                if (! $statusCode) $statusCode = 500;
-                return $c['response']->withJson($e->toArray())->withStatus($statusCode);
-            };
-        };
     }
 }
