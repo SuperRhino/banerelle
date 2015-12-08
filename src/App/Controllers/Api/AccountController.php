@@ -1,16 +1,20 @@
 <?php
 namespace App\Controllers\Api;
 
+use App\Models\User;
 use Core\BaseApiController;
 
 class AccountController extends BaseApiController
 {
     public function login()
     {
-        return $this->success($this->json());
+        // return $this->success($this->json());
 
         $username = $this->json('username');
         $password = $this->json('password');
+
+        $user = User::findByUsername($username);
+        return $this->success($user->toArray());
 
         // TODO --- Login User
         // 1. select from users table where username and password
@@ -27,4 +31,6 @@ class AccountController extends BaseApiController
         // 2. delete/expire cookie
         // 3. respond / redirect
     }
+
+    public function getSession() {}
 }

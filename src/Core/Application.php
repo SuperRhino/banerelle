@@ -4,6 +4,7 @@ namespace Core;
 
 use Aura\Sql\ExtendedPdo;
 use Aura\SqlQuery\QueryFactory;
+use Core\Database\Model;
 use Core\Http\Exception as HttpException;
 use Interop\Container\ContainerInterface;
 use Slim\App;
@@ -52,6 +53,8 @@ class Application extends App {
         $this->loadRoutes();
         $this->setupNotFound();
         $this->setupErrorHandler();
+
+        Model::setApp($this);
     }
 
     /**
