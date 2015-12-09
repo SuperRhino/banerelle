@@ -44,8 +44,10 @@ class Exception extends \Exception
     {
         $data = [
             'ok'      => false,
-            'error'   => ($this),
-            'message' => $this->getMessage(),
+            'error'   => [
+                'code' => $this->getStatusCode(),
+                'message' => $this->getMessage(),
+            ],
         ];
         if ($withStackTrace) {
             $data['trace'] = $this->getTrace();
@@ -60,14 +62,6 @@ class Exception extends \Exception
      */
     public function toJson($withStackTrace = false)
     {
-        $jsonData = [
-            'ok'      => false,
-            'error'   => ($this),
-            'message' => $this->getMessage(),
-        ];
-        if ($withStackTrace) {
-            $jsonData['trace'] = $this->getTrace();
-        }
-        return json_encode($jsonData);
+        return json_encode($this->toArray($withStackTrace));
     }
 }

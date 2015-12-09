@@ -24,6 +24,9 @@ $container = new Slim\Container([
         'app.paths.css'   => '/build/css',
         'app.assets'      => $assets,
 
+        'hashids.salt'       => 'NfDPDtGEHmzC7WPHfv6N73WxzUKbbyE2',
+        'hashids.min-length' => 3,
+
         'db.host'    => getenv('DB_HOST'),
         'db.name'    => getenv('DB_NAME'),
         'db.user'    => getenv('DB_USER'),

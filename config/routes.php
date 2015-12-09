@@ -21,7 +21,8 @@ $must_auth = function($request, $response, $next)
 $this->get('/', 'App\Controllers\HomeController:index');
 $this->get('/rsvp', 'App\Controllers\HomeController:rsvp');
 
-$this->post('/api/login', 'App\Controllers\Api\AccountController:login');
+$this->post('/api/account/login', 'App\Controllers\Api\AccountController:login');
+$this->post('/api/account/logout', 'App\Controllers\Api\AccountController:logout')->add($must_auth);
 $this->get('/api/sessions', 'App\Controllers\Api\AccountController:getSession')->add($must_auth);
 // Catch all for any API route
 $this->any('/api/{endpoint}', 'Core\BaseApiController:notFound');

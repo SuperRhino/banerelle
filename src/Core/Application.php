@@ -2,6 +2,7 @@
 namespace Core;
 
 
+use App\Models\User;
 use Aura\Sql\ExtendedPdo;
 use Aura\SqlQuery\QueryFactory;
 use Core\Database\Model;
@@ -25,7 +26,7 @@ class Application extends App {
     public $envData;
 
     /**
-     * @var array
+     * @var \App\Models\User
      */
     protected $currentUser;
 
@@ -39,6 +40,11 @@ class Application extends App {
      * @var  \Aura\SqlQuery\QueryFactory
      */
     public $query;
+
+    /**
+     * @var  \Hashids\Hashids
+     */
+    public $hashids;
 
     /**
      * @param ContainerInterface|array $container
@@ -104,9 +110,11 @@ class Application extends App {
 
     public function validateToken($token)
     {
-        // TODO --- Validate session ---
-        // 1. find userId from sessions for given $token
-        // 2. if valid, set setCurrentUser, return true
+        $user = User::findByToken($token);
+        if ($user) {
+            $this->setCurrentUser($user);
+            return true;
+        }
 
         return false;
     }
@@ -164,6 +172,15 @@ class Application extends App {
             return $query;
         };
         $this->query = $container['query'];
+
+        $container['hashids'] = function ($c) {
+            $hashids = new \Hashids\Hashids(
+                $c['settings']['hashids.salt'],
+                $c['settings']['hashids.min-length']
+            );
+            return $hashids;
+        };
+        $this->hashids = $container['hashids'];
 
         // $container['ga'] = function ($c) {
         //     return new Core\Analytics\Google($c['settings']['ga.tracking_id'], http_host());
