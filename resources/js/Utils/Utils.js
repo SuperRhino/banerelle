@@ -46,17 +46,21 @@ export default class Utils {
   }
 
   /**
-   * @param endpoint
+   * Convert an object to a query string.
+   * credit: http://stackoverflow.com/a/1714899
+   * @param obj
+   * @param prefix
    * @returns {string}
    */
-  static buildUrl(endpoint) {
-      endpoint = Utils.trimChar(endpoint, '/');
-
-      if (endpoint.indexOf(Config.api_root) === -1) {
-          endpoint = Config.api_root + endpoint;
+  static toQueryString(obj, prefix) {
+    var str = [];
+    for (var p in obj) {
+      if (obj.hasOwnProperty(p)) {
+        var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
+        str.push(typeof v == "object" ?
+          Utils.toQueryString(v, k) : encodeURIComponent(k) + "=" + encodeURIComponent(v));
       }
-
-      return endpoint;
+    }
+    return str.join("&");
   }
-
 }

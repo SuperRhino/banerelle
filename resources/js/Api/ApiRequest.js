@@ -1,0 +1,182 @@
+import { Config, } from '../Utils/Constants';
+import Utils from '../Utils';
+import ApiUtils from './ApiUtils';
+import Request from 'superagent';
+
+export default class ApiRequest {
+
+  static activeRequests = 0;
+
+  static updateNetworkIndicator(dir = '-') {
+    if (dir === '+') {
+      ApiRequest.activeRequests++;
+    } else {
+      ApiRequest.activeRequests--;
+    }
+
+    if (ApiRequest.activeRequests <= 0) {
+      ApiRequest.activeRequests = 0;
+      // hide network activity indicator
+    } else {
+      // show network activity indicator
+    }
+  }
+
+  /**
+   * Create an API Request Object
+   * @param method {string} get|post|put|del|head|options (optional, default: get)
+   * @param endpoint {string}
+   */
+  static create(method, endpoint) {
+    return new this(method, endpoint);
+  }
+
+  static createAnon(method, endpoint) {
+    var request = new this(method, endpoint);
+    request.setAnonymous(true);
+
+    return request;
+  }
+
+  static get(endpoint) {
+    return new this('get', endpoint);
+  }
+
+  static post(endpoint) {
+    return new this('post', endpoint);
+  }
+
+  static put(endpoint) {
+    return new this('put', endpoint);
+  }
+
+  static delete(endpoint) {
+    return new this('delete', endpoint);
+  }
+
+  constructor(method, endpoint) {
+    if (endpoint === undefined) {
+      endpoint = method;
+      method = 'get';
+    } else {
+      method = method.toLowerCase();
+    }
+
+    if (endpoint.indexOf('?') !== -1) {
+      throw new Error('You must set query string data via the `query` function');
+    }
+
+    this.isAnonymous = false;
+    this.handleErrors = true;
+    this.ignoreNetworkError = false;
+    this.url = ApiUtils.buildUrl(endpoint);
+    this._setupRequest(method);
+  }
+
+  setAnonymous(isAnonymous) {
+    this.isAnonymous = isAnonymous;
+
+    return this;
+  }
+
+  setHandleErrors(handleErrors) {
+    this.handleErrors = handleErrors;
+
+    return this;
+  }
+
+  setIgnoreNetworkError(ignoreNetworkError) {
+    this.ignoreNetworkError = ignoreNetworkError;
+
+    return this;
+  }
+
+  configure(callback) {
+    callback(this.request);
+
+    return this;
+  }
+
+  send(callback, errCallback) {
+    if (this.isAnonymous) {
+      return this._sendIt(callback, errCallback);
+    }
+
+    // TODO Implement Token Param...
+    // Send with proper authentication:
+    // AccessToken.get().then(token => {
+    //   this.query({token});
+    //   this._sendIt(callback, errCallback);
+    // });
+  }
+
+  /****************************
+   * Helper/Wrapper Functions *
+   ****************************/
+
+  data(data) {
+    this.requestBody = JSON.stringify(data);
+
+    return this;
+  }
+
+  query(data) {
+    this.queryData = Object.assign(this.queryData, data);
+
+    return this;
+  }
+
+  header(header, value) {
+    this.requestHeaders[header] = value;
+
+    return this;
+  }
+
+  headers(headers) {
+    this.requestHeaders = Object.assign(this.requestHeaders, headers)
+
+    return this;
+  }
+
+  _setupRequest(method) {
+    this.requestMethod = (! method) ? 'get' : method;
+    this.requestHeaders = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    };
+
+    this.queryData = {};
+    this.requestBody = {};
+    this.request = null;
+  }
+
+  _sendIt(callback, errCallback) {
+    let qs = Utils.toQueryString(this.queryData);
+
+    if (qs) {
+      this.url += '?'+qs;
+    }
+
+    ApiRequest.updateNetworkIndicator('+');
+
+    this.request = Request[this.requestOptions.method](this.url)
+      .send(this.requestBody)
+      //.withCredentials()
+      .end((err, res) => {
+        if (res.ok) {
+          // TODO Do what you do with successful requests....
+          callback(res);
+        } else if (err.status === 401) {
+          // TODO unauth
+          console.log('Unauth...');
+        } else {
+          // Network response was not OK:
+          if (this.handleErrors) {
+            //response.json().then(ApiUtils.handleError);
+          }
+          // Call the error callback so views can respond:
+          if (errCallback) errCallback();
+        }
+      });
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import Utils from '../Utils/Utils';
+import ApiUtils from '../Api/ApiUtils';
 
 export default class LoginForm extends React.Component {
   static propTypes = {};
@@ -34,7 +34,7 @@ export default class LoginForm extends React.Component {
       password: this.refs.password.value,
     };
 
-    console.log('onSubmit:', Utils.buildUrl('/login'), data);
+    console.log('onSubmit:', ApiUtils.buildUrl('/login'), data);
   }
 }
 
