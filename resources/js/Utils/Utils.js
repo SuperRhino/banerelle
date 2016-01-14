@@ -63,4 +63,17 @@ export default class Utils {
     }
     return str.join("&");
   }
+
+  /**
+   * Is object empty?
+   * @param  obj
+   * @return {Boolean}
+   */
+  static isEmpty(obj) {
+    if (obj == null) return true;
+    if (obj.length > 0) return false;
+    if (obj.length === 0) return true;
+    if (Object.getOwnPropertyNames(obj).length > 0) return false;
+    return true;
+  }
 }
