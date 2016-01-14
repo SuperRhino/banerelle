@@ -1,5 +1,5 @@
 import React from 'react';
-import ApiUtils from '../Api/ApiUtils';
+import ApiRequest from '../Api/ApiRequest';
 
 export default class LoginForm extends React.Component {
   static propTypes = {};
@@ -34,7 +34,11 @@ export default class LoginForm extends React.Component {
       password: this.refs.password.value,
     };
 
-    console.log('onSubmit:', ApiUtils.buildUrl('/login'), data);
+    console.log('onSubmit:', '/account/login', data);
+    ApiRequest.post('/account/login')
+      .data(data)
+      .setAnonymous(true)
+      .send(res => console.log('Yas!', res), err => console.log('FAIL', err));
   }
 }
 

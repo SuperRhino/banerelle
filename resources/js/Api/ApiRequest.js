@@ -1,5 +1,5 @@
 import { Config, } from '../Utils/Constants';
-import Utils from '../Utils';
+import Utils from '../Utils/Utils';
 import ApiUtils from './ApiUtils';
 import Request from 'superagent';
 
@@ -102,8 +102,8 @@ export default class ApiRequest {
       return this._sendIt(callback, errCallback);
     }
 
-    // TODO Implement Token Param...
-    // Send with proper authentication:
+    // TODO Send with proper authentication:
+    console.log('TODO Implement Token Param');
     // AccessToken.get().then(token => {
     //   this.query({token});
     //   this._sendIt(callback, errCallback);
@@ -151,31 +151,36 @@ export default class ApiRequest {
   }
 
   _sendIt(callback, errCallback) {
-    let qs = Utils.toQueryString(this.queryData);
-
-    if (qs) {
-      this.url += '?'+qs;
-    }
-
     ApiRequest.updateNetworkIndicator('+');
 
-    this.request = Request[this.requestOptions.method](this.url)
+    this.request = Request[this.requestMethod](this.url);
+
+    if (! Utils.isEmpty(this.queryData)) {
+      this.request.query(this.queryData);
+    }
+
+    if (! Utils.isEmpty(this.requestHeaders)) {
+      this.request.set(this.requestHeaders);
+    }
+
+    this.request
       .send(this.requestBody)
       //.withCredentials()
       .end((err, res) => {
+        ApiRequest.updateNetworkIndicator();
         if (res.ok) {
           // TODO Do what you do with successful requests....
-          callback(res);
-        } else if (err.status === 401) {
+          callback(res.body);
+        } else if (res.unauthorized) {
           // TODO unauth
           console.log('Unauth...');
         } else {
           // Network response was not OK:
           if (this.handleErrors) {
-            //response.json().then(ApiUtils.handleError);
+            ApiUtils.handleError(res.body.error);
           }
           // Call the error callback so views can respond:
-          if (errCallback) errCallback();
+          if (errCallback) errCallback(res.body.error);
         }
       });
   }
