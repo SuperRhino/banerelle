@@ -23,6 +23,7 @@ $this->get('/rsvp', 'App\Controllers\HomeController:rsvp');
 
 $this->post('/api/account/login', 'App\Controllers\Api\AccountController:login');
 $this->post('/api/account/logout', 'App\Controllers\Api\AccountController:logout')->add($must_auth);
-$this->get('/api/sessions', 'App\Controllers\Api\AccountController:getSession')->add($must_auth);
+$this->get('/api/account', 'App\Controllers\Api\AccountController:getUser')->add($must_auth);
+
 // Catch all for any API route
 $this->any('/api/{endpoint}', 'Core\BaseApiController:notFound');

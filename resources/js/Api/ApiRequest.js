@@ -1,6 +1,7 @@
-import { Config, } from '../Utils/Constants';
 import Utils from '../Utils/Utils';
+import Actions from '../Utils/Actions';
 import ApiUtils from './ApiUtils';
+import AccessToken from './AccessToken';
 import Request from 'superagent';
 
 export default class ApiRequest {
@@ -102,12 +103,11 @@ export default class ApiRequest {
       return this._sendIt(callback, errCallback);
     }
 
-    // TODO Send with proper authentication:
-    console.log('TODO Implement Token Param');
-    // AccessToken.get().then(token => {
-    //   this.query({token});
-    //   this._sendIt(callback, errCallback);
-    // });
+    // Send with proper authentication:
+    AccessToken.get().then(token => {
+      this.query({token});
+      this._sendIt(callback, errCallback);
+    });
   }
 
   /****************************
@@ -169,11 +169,11 @@ export default class ApiRequest {
       .end((err, res) => {
         ApiRequest.updateNetworkIndicator();
         if (res.ok) {
-          // TODO Do what you do with successful requests....
+          // I know when that hot line bling:
           callback(res.body);
         } else if (res.unauthorized) {
-          // TODO unauth
-          console.log('Unauth...');
+          // Unauthorized request:
+          Actions.unauth();
         } else {
           // Network response was not OK:
           if (this.handleErrors) {

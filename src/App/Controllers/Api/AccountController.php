@@ -45,5 +45,13 @@ class AccountController extends BaseApiController
         // 3. respond / redirect
     }
 
-    public function getSession() {}
+    public function getUser()
+    {
+        $user = $this->app->getCurrentUser();
+        if (! $user) {
+            throw new NotFoundException('User not found');
+        }
+
+        return $this->success($user->toArray());
+    }
 }

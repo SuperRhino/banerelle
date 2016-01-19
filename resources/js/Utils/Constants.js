@@ -1,3 +1,5 @@
+var keyMirror = require('keyMirror');
+
 var ENV = (
     'dev'
     //'production'
@@ -19,5 +21,9 @@ switch (ENV) {
 export var Config = {
   ENV: ENV,
   api_root: apiHost+'/',
-  site_root: siteRoot+'/'
+  site_root: siteRoot+'/',
+
+  Storage: keyMirror({
+    ACCESS_TOKEN: null,
+  }),
 };

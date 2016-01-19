@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LoginForm from '../Components/LoginForm';
+import Actions from '../Utils/Actions';
+import UserNav from '../Components/UserNav';
 
 export default class Initialize {
 
@@ -24,14 +25,19 @@ export default class Initialize {
 
     // Show that login form:
     ReactDOM.render(
-      <LoginForm />,
-      document.getElementById('LoginForm')
+      <UserNav />,
+      document.getElementById('UserNav')
     );
+  }
+
+  static authUser() {
+    Actions.auth();
   }
 
   static onLoad() {
     Initialize.globals();
     Initialize.bootstrap();
     Initialize.onReady();
+    Initialize.authUser();
   }
 }

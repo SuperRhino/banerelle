@@ -1,4 +1,5 @@
 import React from 'react';
+import Actions from '../Utils/Actions';
 import ApiRequest from '../Api/ApiRequest';
 
 export default class LoginForm extends React.Component {
@@ -34,11 +35,7 @@ export default class LoginForm extends React.Component {
       password: this.refs.password.value,
     };
 
-    console.log('onSubmit:', '/account/login', data);
-    ApiRequest.post('/account/login')
-      .data(data)
-      .setAnonymous(true)
-      .send(res => console.log('Yas!', res), err => console.log('FAIL', err));
+    Actions.login(data);
   }
 }
 

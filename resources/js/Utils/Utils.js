@@ -2,6 +2,10 @@ import { Config, } from './Constants';
 
 export default class Utils {
 
+  static alertError(message) {
+    alert(message);
+  }
+
   /**
    * Get JSON data from another server. Supported back to IE6.
    * credit: http://gomakethings.com/ditching-jquery
