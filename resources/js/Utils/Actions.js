@@ -10,8 +10,9 @@ var Actions = Reflux.createActions([
   // user actions
   "auth",
   "unauth",
+  "noauth",
   {"login": {asyncResult: true}},
-  "logout",
+  {"logout": {asyncResult: true}},
   {"loadUser": {asyncResult: true}},
 ]);
 
@@ -21,12 +22,7 @@ var Actions = Reflux.createActions([
 Actions.auth.listen(() => {
   AccessToken.get(true)
     .then(accessToken => Actions.loadUser(accessToken))
-    .catch(() => Actions.logout());
-});
-
-Actions.unauth.listen(() => {
-  AccessToken.clear();
-  Actions.logout();
+    .catch(() => Actions.noauth());
 });
 
 export default Actions;

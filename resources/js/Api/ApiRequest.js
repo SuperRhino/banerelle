@@ -104,10 +104,12 @@ export default class ApiRequest {
     }
 
     // Send with proper authentication:
-    AccessToken.get().then(token => {
-      this.query({token});
-      this._sendIt(callback, errCallback);
-    });
+    AccessToken.get()
+      .then(token => {
+        this.query({token});
+        this._sendIt(callback, errCallback);
+      })
+      // .catch(() => Actions.logout());
   }
 
   /****************************
@@ -173,7 +175,7 @@ export default class ApiRequest {
           callback(res.body);
         } else if (res.unauthorized) {
           // Unauthorized request:
-          Actions.unauth();
+          console.log('¡Unauthorized Request!');
         } else {
           // Network response was not OK:
           if (this.handleErrors) {

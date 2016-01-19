@@ -44,7 +44,7 @@ class User extends Model {
               ->from('sessions')
               ->where('user_id="'.$this->id.'"')
               ->limit(1);
-        $this->session_id = static::$app->db->fetchValue($query) ?: null;
+        $this->session_id = (int) static::$app->db->fetchValue($query) ?: null;
     }
 
     protected function createSession()
@@ -73,7 +73,7 @@ class User extends Model {
 
     public static function findByToken($token)
     {
-        $sessionId = (int) static::$app->hashids->decode($token);
+        $sessionId = static::$app->hashids->decode($token)[0];
         $query = static::$app->query->newSelect();
         $query->cols(['u.id', 'u.username', 'u.password'])
               ->from('sessions as s')

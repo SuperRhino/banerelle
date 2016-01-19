@@ -22,6 +22,7 @@ export default class AccessToken {
       let access_token = localStorage.getItem(Config.Storage.ACCESS_TOKEN);
 
       if (access_token === null) {
+        AccessToken.clear();
         return reject(new Error({code: 403, message: 'Unauthorized'}));
       }
 

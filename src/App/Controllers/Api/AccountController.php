@@ -25,8 +25,6 @@ class AccountController extends BaseApiController
         // Create [Db] Session
         $user->findOrCreateSession();
 
-        // TODO Set sessionid cookie (hashid of sessions.id)
-
         return $this->success($user->toArray());
     }
 
@@ -39,10 +37,6 @@ class AccountController extends BaseApiController
 
         $user->removeSession();
         return $this->success([]);
-        // TODO --- Clean Session
-        // 1. find/delete session from sessionid cookie
-        // 2. delete/expire cookie
-        // 3. respond / redirect
     }
 
     public function getUser()

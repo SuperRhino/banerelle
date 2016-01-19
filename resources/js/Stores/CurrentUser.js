@@ -52,8 +52,19 @@ export default Reflux.createStore({
   // User Logout:
   // -------------------------------
   onLogout() {
+    ApiRequest.post('/account/logout')
+      .setHandleErrors(false)
+      .setIgnoreNetworkError(true)
+      .send(Actions.logout.completed, Actions.logout.failed);
+
     // reset currentUser to default
     this.update(defaultUser);
+  },
+  onLogoutCompleted() {
+    AccessToken.clear();
+  },
+  onLogoutFailed() {
+    AccessToken.clear();
   },
 
   // Load User:
