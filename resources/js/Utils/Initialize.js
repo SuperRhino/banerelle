@@ -23,7 +23,7 @@ export default class Initialize {
       return false;
     };
 
-    // Show that login form:
+    // Show that user nav:
     ReactDOM.render(
       <UserNav />,
       document.getElementById('UserNav')

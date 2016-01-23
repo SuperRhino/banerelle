@@ -2,6 +2,7 @@ import React from 'react';
 import Actions from '../Utils/Actions';
 import CurrentUser from '../Stores/CurrentUser';
 import LoginForm from './LoginForm';
+import UserMenu from './UserMenu';
 
 export default class UserNav extends React.Component {
   static propTypes = {};
@@ -34,11 +35,7 @@ export default class UserNav extends React.Component {
 
   renderUserMenu() {
     return (
-      <div className="navbar-right" style={styles.username}>
-        Welcome, {this.state.user.username}
-        {' '}
-        <a href="#" onClick={this._onLogoutPress}>sign out</a>
-      </div>
+      <UserMenu user={this.state.user} />
     );
   }
 
@@ -52,11 +49,6 @@ export default class UserNav extends React.Component {
         {this.state.user.id ? this.renderUserMenu() : this.renderLoginForm()}
       </div>
     );
-  }
-
-  _onLogoutPress(e) {
-    e.preventDefault();
-    Actions.logout();
   }
 
   _onUserChange(user) {
