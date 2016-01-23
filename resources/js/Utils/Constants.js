@@ -1,8 +1,8 @@
 var keyMirror = require('keyMirror');
 
 var ENV = (
-    'dev'
-    //'production'
+    // 'dev'
+    'production'
 );
 
 var isProd     = true,
