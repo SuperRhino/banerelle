@@ -1,20 +1,18 @@
 var keyMirror = require('keyMirror');
 
-var ENV = (
-    'dev'
-    // 'production'
-);
+const HOST_NAME = "banerelle.com";
+const ENV = (window.location.hostname === HOST_NAME) ? 'production' : 'dev';
 
 var isProd     = true,
     apiVersion = 'v1',
-    apiHost    = 'http://banerelle.com/api',
-    siteRoot   = 'http://banerelle.com';
+    apiHost    = 'http://'+HOST_NAME+'/api',
+    siteRoot   = 'http://'+HOST_NAME;
 
 switch (ENV) {
     case 'dev':
         isProd   = false;
-        apiHost  = 'http://dev.banerelle.com/api';
-        siteRoot = 'http://dev.banerelle.com';
+        apiHost  = 'http://dev.'+HOST_NAME+'/api';
+        siteRoot = 'http://dev.'+HOST_NAME;
         break;
 }
 
