@@ -18,9 +18,15 @@ $must_auth = function($request, $response, $next)
     return $next($request, $response);
 };
 
+/**
+ * Public Pages Routes:
+ */
 $this->get('/', 'App\Controllers\HomeController:index');
 $this->get('/rsvp', 'App\Controllers\HomeController:rsvp');
 
+/**
+ * API Routes:
+ */
 $this->post('/api/account/login', 'App\Controllers\Api\AccountController:login');
 $this->post('/api/account/logout', 'App\Controllers\Api\AccountController:logout')->add($must_auth);
 $this->get('/api/account', 'App\Controllers\Api\AccountController:getUser')->add($must_auth);
