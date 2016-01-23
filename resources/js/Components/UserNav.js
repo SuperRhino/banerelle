@@ -28,22 +28,28 @@ export default class UserNav extends React.Component {
     this.stopAuthListen();
   }
 
+  renderLoginForm() {
+    return <LoginForm />;
+  }
+
+  renderUserMenu() {
+    return (
+      <div className="navbar-right" style={styles.username}>
+        Welcome, {this.state.user.username}
+        {' '}
+        <a href="#" onClick={this._onLogoutPress}>sign out</a>
+      </div>
+    );
+  }
+
   render() {
     if (this.state.loading) {
       return null;
     }
 
-    if (! this.state.user.id) {
-        return <LoginForm />;
-    }
-
     return (
-      <div className="navbar-right">
-        <div style={styles.username}>
-          Welcome, {this.state.user.username}
-          {' '}
-          <a href="#" onClick={this._onLogoutPress}>sign out</a>
-        </div>
+      <div style={styles.container}>
+        {this.state.user.id ? this.renderUserMenu() : this.renderLoginForm()}
       </div>
     );
   }
@@ -60,6 +66,9 @@ export default class UserNav extends React.Component {
 }
 
 var styles = {
+  container: {
+    height: '56px',
+  },
   username: {
     margin: 3,
     lineHeight: '44px',
