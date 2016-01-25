@@ -17,11 +17,14 @@ export default class Initialize {
 
   static onReady() {
     // Click on big button:
-    document.getElementById('btnComingSoon').onclick = function(){
-      if (ga) ga('send', 'event', 'buttons', 'click', 'stay tuned');
-      console.log('send', 'event', 'buttons', 'click', 'stay tuned');
-      return false;
-    };
+    let baButton = document.getElementById('btnComingSoon');
+    if (baButton) {
+      baButton.onclick = function(){
+        if (ga) ga('send', 'event', 'buttons', 'click', 'stay tuned');
+        console.log('send', 'event', 'buttons', 'click', 'stay tuned');
+        return false;
+      };
+    }
 
     // Show that user nav:
     ReactDOM.render(
