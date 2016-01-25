@@ -175,7 +175,8 @@ export default class ApiRequest {
           callback(res.body);
         } else if (res.unauthorized) {
           // Unauthorized request:
-          console.log('¡Unauthorized Request!');
+          AccessToken.clear();
+          Actions.noauth();
         } else {
           // Network response was not OK:
           if (this.handleErrors) {
