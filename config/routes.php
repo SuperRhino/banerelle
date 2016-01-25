@@ -23,6 +23,7 @@ $must_auth = function($request, $response, $next)
  */
 $this->get('/', 'App\Controllers\HomeController:index');
 $this->get('/rsvp', 'App\Controllers\HomeController:rsvp');
+$this->get('/add-event', 'App\Controllers\HomeController:addEvent');
 
 /**
  * API Routes:

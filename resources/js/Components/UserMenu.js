@@ -38,15 +38,31 @@ export default class UserMenu extends React.Component {
             <span className="caret"></span>
           </a>
           <ul className="dropdown-menu">
-            <li><a href="#">Add Page</a></li>
-            <li><a href="#">Edit Page</a></li>
+            <li>
+              <a href="/add-event">
+                <span className="glyphicon glyphicon-plus-sign" aria-hidden="true" style={styles.icon}></span>
+                Add Event
+              </a>
+            </li>
+            <li><a href="#" onClick={this._onEditPress}>
+              <span className="glyphicon glyphicon-edit" aria-hidden="true" style={styles.icon}></span>
+              Edit Something
+            </a></li>
             <li role="separator" className="divider"></li>
             <li className="dropdown-header">My Account</li>
-            <li><a href="#" onClick={this._onLogoutPress}>Sign Out</a></li>
+            <li><a href="#" onClick={this._onLogoutPress}>
+              <span className="glyphicon glyphicon-log-out" aria-hidden="true" style={styles.icon}></span>
+              Sign Out
+            </a></li>
           </ul>
         </li>
       </ul>
     );
+  }
+
+  _onEditPress(e) {
+    e.preventDefault();
+    console.log("_onEditPress");
   }
 
   _onLogoutPress(e) {
@@ -58,3 +74,9 @@ export default class UserMenu extends React.Component {
     this.setState({user});
   }
 }
+
+var styles = {
+  icon: {
+    paddingRight: '5px',
+  },
+};

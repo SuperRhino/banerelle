@@ -20,6 +20,15 @@ class HomeController extends BaseController
     }
 
     /**
+     * ADMIN ROUTE
+     * add an event
+     */
+    public function addEvent()
+    {
+        return $this->view('add-event.html');
+    }
+
+    /**
      * Get event data for homepage display
      *
      * @return array

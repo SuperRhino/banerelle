@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import path from 'path';
 import Utils from '../Utils/Utils';
 import RsvpForm from '../Views/RsvpForm';
+import AddEventForm from '../Components/AddEventForm';
 
 export default class Routes {
 
@@ -29,6 +30,13 @@ export default class Routes {
     ReactDOM.render(
       <RsvpForm />,
       document.getElementById('RsvpForm')
+    );
+  }
+
+  static addEvent() {
+    ReactDOM.render(
+      <AddEventForm />,
+      document.getElementById('AddEventForm')
     );
   }
 
