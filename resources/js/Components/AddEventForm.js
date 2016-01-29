@@ -42,8 +42,11 @@ export default class AddEventForm extends React.Component {
           <p className="lead"><em>Add an event to the homepage and optionally add details page.</em></p>
           <form className="" role="form" onSubmit={this.onSubmit}>
               <div className="form-group has-success has-feedback">
-                  <input ref="headline" id="inputHeadline" className="form-control input-lg" type="text" placeholder="Headline" />
+                  <input ref="title" className="form-control input-lg" type="text" placeholder="Headline" />
                   <span className="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+              </div>
+              <div className="form-group">
+                <textarea name="description" className="form-control input-lg" rows="3" placeholder="Enter short description"></textarea>
               </div>
               <button type="submit" className="btn btn-success">ADD EVENT</button>
           </form>
@@ -54,7 +57,8 @@ export default class AddEventForm extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     var data = {
-      headline: this.refs.headline.value,
+      title: this.refs.title.value,
+      description: this.refs.description.value,
     };
     console.log('onSubmit', data);
   }
