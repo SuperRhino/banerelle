@@ -12,8 +12,8 @@
                 <h2>{{ event.title }}</h2>
                 <p><em>{{ event.event_date is empty ? event.post_date|date("M j, Y") : event.event_date|date("M j, Y") }}</em></p>
                 <p>{{ event.description }}</p>
-                {% if event.details %}
-                <p><a class="btn btn-default" href="https://www.facebook.com/shayna.bane/posts/10153811147650628" role="button">View details &raquo;</a></p>
+                {% if event.details_uri %}
+                <p><a class="btn btn-default" href="{{ event.details_uri }}" role="button">View details &raquo;</a></p>
                 {% endif %}
             </div>
             {% endfor %}
