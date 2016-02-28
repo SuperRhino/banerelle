@@ -165,7 +165,7 @@ export default class PageEditor extends React.Component {
                 onChange={e => this._setStatePage({category: e.target.value})}>
                 <option value="">— Choose Category —</option>
                 {categories.map((category, index) => {
-                  return (<option key={'category-'+category}>{category}</option>);
+                  return (<option key={'category-'+category} value={category}>{category}</option>);
                 })}
               </select>
             </div>
