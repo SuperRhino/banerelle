@@ -151,8 +151,14 @@ class Page extends Model {
             'meta_keywords' => $this->meta_keywords,
             'post_date' => $this->post_date,
             'updated_date' => $this->updated_date,
+            'author_id' => $this->author_id,
             'status' => $this->status,
         ];
+    }
+
+    public function isPublished()
+    {
+        return ($this->status === 1);
     }
 
     public static function findMostRecent($limit = 3)

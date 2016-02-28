@@ -56,7 +56,12 @@ class PageController extends BaseApiController
         }
 
         $pageData = $this->json();
-        $pageData['author_id'] = $user->id;
+
+        if ($page->isPublished()) {
+            unset($pageData['status']);
+        } else {
+            $pageData['author_id'] = $user->id;
+        }
 
         $page->updateData($pageData);
         $page->save();
