@@ -21,7 +21,7 @@ export default class PageEditor extends React.Component {
 
     this.postTimestamp = null;
     this.hasCustomUri = false;
-    this.isLocationSet = false;
+    this.isLocationSet = !! Utils.getQueryParam('id');
     this.autosaveId = null;
 
     this.state = {
