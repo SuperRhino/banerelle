@@ -7,7 +7,7 @@ export default class ApiUtils {
 
   static handleError(err) {
     console.warn(err);
-    Utils.alertError(err.message || DEFAULT_ERROR);
+    Utils.showError(err.message || DEFAULT_ERROR);
   }
 
   static handleNetworkError(err) {

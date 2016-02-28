@@ -59,7 +59,7 @@ class User extends Model {
         static::$app->db->query($delete);
     }
 
-    public static function findByUsername($username, $password)
+    public static function findByUsername($username)
     {
         $query = static::$app->query->newSelect();
         $query->cols(['id', 'username', 'password'])

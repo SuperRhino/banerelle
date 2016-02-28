@@ -1,0 +1,28 @@
+<!doctype html>
+<html class="no-js" lang="">
+{% include "_includes/head.html" %}
+<body>
+    {% include "_includes/navbar.html" %}
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1>{{ data.page.title }}</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <article class="row">
+          <div class="col-xs-8 col-xs-offset-2">
+            <p><em>{{ page.updated_date is empty ? page.post_date|date("M j, Y") : page.updated_date|date("M j, Y") }}</em></p>
+            {{ data.page.article|raw }}
+          </div>
+
+        </article>
+
+        {% include "_includes/footer.html" %}
+    </div>
+
+    {% include "_includes/scripts.html" %}
+</body>
+</html>

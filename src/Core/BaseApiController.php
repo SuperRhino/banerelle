@@ -79,16 +79,16 @@ class BaseApiController extends BaseController
         $isOk = $status >= 200 && $status < 300;
         // We merge here so that you can override this in the $data array.
         $data = array_merge(['ok' => $isOk], $data);
-        return $this->app->response->withJson($data);
+        return $this->container->response->withJson($data);
     }
 
     private function getJsonParams()
     {
-        if (strpos($this->app->request->getContentType(), 'application/json') === false) {
+        if (strpos($this->container->request->getContentType(), 'application/json') === false) {
             return [];
         }
 
-        $jsonParams = json_decode($this->app->request->getBody(), true);
+        $jsonParams = json_decode($this->container->request->getBody(), true);
 
         if (json_last_error() === JSON_ERROR_NONE) {
             return $jsonParams;
@@ -148,7 +148,7 @@ class BaseApiController extends BaseController
      */
     protected function params($key = null, $default = null)
     {
-        $union = array_merge($this->app->request->get(), $this->app->request->post());
+        $union = array_merge($this->container->request->get(), $this->container->request->post());
         if (is_array($this->jsonParams)) {
             $union = array_merge($union, $this->jsonParams);
         }

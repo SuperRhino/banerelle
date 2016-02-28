@@ -20,6 +20,7 @@ export var Config = {
   ENV: ENV,
   api_root: apiHost+'/',
   site_root: siteRoot+'/',
+  uploads_dir: siteRoot+'/uploads/',
 
   Storage: keyMirror({
     ACCESS_TOKEN: null,

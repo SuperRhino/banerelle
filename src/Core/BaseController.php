@@ -50,7 +50,8 @@ class BaseController {
     protected function view($template, $data = [])
     {
         try {
-            return $this->app->view->render($this->app->response, $template, $this->getTemplateData($data));
+            // @SLIM3
+            return $this->container->view->render($this->container->response, $template, $this->getTemplateData($data));
         } catch (\Twig_Error $e) {
             $this->app->notFound();
         }

@@ -1,10 +1,24 @@
 import { Config, } from './Constants';
+import Humane from 'humane-js';
 
 export default class Utils {
 
-  static alertError(message) {
-    alert(message);
-  }
+  static showMessage = Humane.spawn({
+    addnCls: 'bg-info text-info',
+    waitForMove: true,
+  });
+
+  static showSuccess = Humane.spawn({
+    addnCls: 'bg-success text-success',
+    waitForMove: true,
+  });
+
+  static showError = Humane.spawn({
+    addnCls: 'bg-danger text-danger',
+    timeout: 5000,
+    clickToClose: true,
+    waitForMove: true,
+  });
 
   /**
    * Get JSON data from another server. Supported back to IE6.
@@ -69,6 +83,22 @@ export default class Utils {
   }
 
   /**
+   * Credit: http://stackoverflow.com/a/901144/5780385
+   * @param  {[type]} name [description]
+   * @param  {[type]} url  [description]
+   * @return {[type]}      [description]
+   */
+  static getQueryParam(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+  /**
    * Is object empty?
    * @param  obj
    * @return {Boolean}
@@ -79,5 +109,17 @@ export default class Utils {
     if (obj.length === 0) return true;
     if (Object.getOwnPropertyNames(obj).length > 0) return false;
     return true;
+  }
+
+  /**
+   * Clean string for use in URL
+   * @param  {string} str
+   * @return {string} uri
+   * Credit: http://stackoverflow.com/a/14962369/5780385
+   */
+  static cleanForUrl(str) {
+    return str.replace(/(^\-+|[^a-zA-Z0-9\/_| -]+|\-+$)/g, '')
+              .toLowerCase()
+              .replace(/[\/_| -]+/g, '-');
   }
 }

@@ -7,14 +7,20 @@
 
     <div class="container">
         <div class="row">
-            {% for event in data.events %}
-            <div class="col-md-4">
-                <h2>{{ event.title }}</h2>
-                <p><em>{{ event.event_date is empty ? event.post_date|date("M j, Y") : event.event_date|date("M j, Y") }}</em></p>
-                <p>{{ event.description }}</p>
-                {% if event.details_uri %}
-                <p><a class="btn btn-default" href="{{ event.details_uri }}" role="button">View details &raquo;</a></p>
-                {% endif %}
+            {% for page in data.pages %}
+            <div class="col-xs-4">
+              <h2>
+              {% if page.uri %}
+                <a href="{{ page.uri }}">{{ page.title }}</a>
+              {% else %}
+                {{ page.title }}
+              {% endif %}
+              </h2>
+
+              <section>
+                <p><em>{{ page.updated_date is empty ? page.post_date|date("M j, Y") : page.updated_date|date("M j, Y") }}</em></p>
+                <p>{{ page.meta_description }}</p>
+              </section>
             </div>
             {% endfor %}
         </div>

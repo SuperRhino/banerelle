@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import path from 'path';
 import Utils from '../Utils/Utils';
 import RsvpForm from '../Views/RsvpForm';
-import AddEventForm from '../Components/AddEventForm';
+import PageEditor from '../Views/PageEditor';
+import PageInventory from '../Views/PageInventory';
 
 export default class Routes {
 
@@ -33,10 +34,23 @@ export default class Routes {
     );
   }
 
-  static addEvent() {
+  //----------------------------
+  // Admin Routes:
+  //----------------------------
+
+  static pageEditor() {
+    let pageId = Utils.getQueryParam('id') || null;
+    if (pageId) pageId = parseInt(pageId);
     ReactDOM.render(
-      <AddEventForm />,
-      document.getElementById('AddEventForm')
+      <PageEditor pageId={pageId} />,
+      document.getElementById('PageEditor')
+    );
+  }
+
+  static pageInventory() {
+    ReactDOM.render(
+      <PageInventory />,
+      document.getElementById('PageInventory')
     );
   }
 

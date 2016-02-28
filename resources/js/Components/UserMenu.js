@@ -39,15 +39,17 @@ export default class UserMenu extends React.Component {
           </a>
           <ul className="dropdown-menu">
             <li>
-              <a href="/add-event">
+              <a href="/admin/page-editor">
                 <span className="glyphicon glyphicon-plus-sign" aria-hidden="true" style={styles.icon}></span>
-                Add Event
+                Add Page
               </a>
             </li>
-            <li><a href="#" onClick={this._onEditPress}>
-              <span className="glyphicon glyphicon-edit" aria-hidden="true" style={styles.icon}></span>
-              Edit Something
-            </a></li>
+            <li>
+              <a href="/admin/page-inventory">
+                <span className="glyphicon glyphicon-edit" aria-hidden="true" style={styles.icon}></span>
+                Edit Something
+              </a>
+            </li>
             <li role="separator" className="divider"></li>
             <li className="dropdown-header">My Account</li>
             <li><a href="#" onClick={this._onLogoutPress}>
@@ -58,11 +60,6 @@ export default class UserMenu extends React.Component {
         </li>
       </ul>
     );
-  }
-
-  _onEditPress(e) {
-    e.preventDefault();
-    console.log("_onEditPress");
   }
 
   _onLogoutPress(e) {

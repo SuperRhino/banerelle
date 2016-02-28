@@ -1,14 +1,16 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\Page;
 use Core\BaseController;
+use Core\Http\Exception\NotFoundException;
 
 class HomeController extends BaseController
 {
     public function index()
     {
         $data = [
-            'events' => $this->getEventData(),
+            'pages' => Page::findMostRecent(6),
         ];
 
         return $this->view('home.html', $data);
@@ -19,28 +21,20 @@ class HomeController extends BaseController
         return $this->view('rsvp.html');
     }
 
-    /**
-     * ADMIN ROUTE
-     * add an event
-     */
-    public function addEvent()
+    public function showPage($request)
     {
-        return $this->view('add-event.html');
-    }
+        $pageName = $request->getAttribute('pageName');
+        $page = Page::findByPageName($pageName);
+        if (! $page) {
+            throw new NotFoundException('Page not found');
+        }
 
-    /**
-     * Get event data for homepage display
-     *
-     * @return array
-     */
-    private function getEventData()
-    {
-        $query = $this->app->query->newSelect();
-        $query->cols(['*'])
-              ->from('events')
-              ->orderBy(['event_date desc', 'post_date desc'])
-              ->limit(3);
+        $this->setMetadata([
+            'title' => $page->meta_title,
+            'description' => $page->meta_description,
+            'keywords' => $page->meta_keywords,
+        ]);
 
-        return $this->app->db->fetchAll($query);
+        return $this->view('internal-page.html', ['page' => $page->toArray()]);
     }
 }

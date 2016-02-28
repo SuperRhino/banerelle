@@ -4,11 +4,18 @@
   "description": "## Environment Setup",
   "main": "js/bundle.js",
   "dependencies": {
+    "bootstrap": "^3.3.6",
+    "dropzone": "^4.2.0",
+    "humane-js": "^3.2.2",
+    "jquery": "^2.2.0",
     "keymirror": "^0.1.1",
-    "react": "^0.14.2",
-    "react-dom": "^0.14.2",
+    "moment": "^2.11.2",
+    "react": "^0.14.7",
+    "react-bootstrap-datetimepicker": "0.0.22",
+    "react-dom": "^0.14.7",
+    "react-medium-editor": "^1.6.2",
     "reflux": "^0.3.0",
-    "superagent": "^1.6.1"
+    "superagent": "^1.7.2"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.1.4",

@@ -23,7 +23,13 @@ $must_auth = function($request, $response, $next)
  */
 $this->get('/', 'App\Controllers\HomeController:index');
 $this->get('/rsvp', 'App\Controllers\HomeController:rsvp');
-$this->get('/add-event', 'App\Controllers\HomeController:addEvent');
+$this->get('/{pageName}', 'App\Controllers\HomeController:showPage');
+
+/**
+ * Admin Page Routes:
+ */
+$this->get('/admin/page-editor', 'App\Controllers\AdminController:pageEditor');
+$this->get('/admin/page-inventory', 'App\Controllers\AdminController:pageInventory');
 
 /**
  * API Routes:
@@ -31,6 +37,12 @@ $this->get('/add-event', 'App\Controllers\HomeController:addEvent');
 $this->post('/api/account/login', 'App\Controllers\Api\AccountController:login');
 $this->post('/api/account/logout', 'App\Controllers\Api\AccountController:logout')->add($must_auth);
 $this->get('/api/account', 'App\Controllers\Api\AccountController:getUser')->add($must_auth);
+
+$this->get('/api/pages',         'App\Controllers\Api\PageController:getPages')->add($must_auth);
+$this->post('/api/pages',        'App\Controllers\Api\PageController:addPage')->add($must_auth);
+$this->get('/api/pages/{id}',   'App\Controllers\Api\PageController:getPage')->add($must_auth);
+$this->post('/api/pages/{id}',   'App\Controllers\Api\PageController:updatePage')->add($must_auth);
+$this->post('/api/upload-file',  'App\Controllers\Api\PageController:uploadFile')->add($must_auth);
 
 // Catch all for any API route
 $this->any('/api/{endpoint}', 'Core\BaseApiController:notFound');

@@ -71,10 +71,12 @@ class Application extends App {
      */
     public function getSetting($key, $default = null)
     {
-        if (! isset($this->settings[$key])) {
+        // @SLIM3
+        $settings = $this->getContainer()->get('settings');
+        if (! isset($settings[$key])) {
             return $default;
         }
-        return $this->settings[$key];
+        return $settings[$key];
     }
 
     public function isProd()
@@ -84,7 +86,9 @@ class Application extends App {
 
     public function isApi()
     {
-        $uri = $this->request->getUri();
+        // @SLIM3
+        $uri = $this->getContainer()->request->getUri();
+        // $uri = $this->request->getUri();
         $path = $uri->getPath();
         return (stripos($path, '/api') === 0);
     }
@@ -198,11 +202,18 @@ class Application extends App {
         //Override the default Not Found Handler
         $container['notFoundHandler'] = function ($c) {
             return function ($request, $response) use ($c) {
-                return $c['view']
-                    ->render($c['response'], 'errors/404.html', $this->getErrorTemplateData())
-                    ->withStatus(404);
+                // @SLIM3
+                return $this->notFound($c);
             };
         };
+    }
+
+    // @SLIM3
+    private function notFound($c)
+    {
+        return $c['view']
+            ->render($c['response'], 'errors/404.html', $this->getErrorTemplateData())
+            ->withStatus(404);
     }
 
     private function setupErrorHandler()
@@ -214,10 +225,11 @@ class Application extends App {
 
         $container = $this->getContainer();
         $container['errorHandler'] = function ($c) {
-            return function ($request, $response, \Exception $exception) use ($c) {
+            return function ($request, $response, \Exception $e) use ($c) {
                 if ($e instanceof HttpException) {
                     if ($e->getStatusCode() === 404) {
-                        return $this->notFound();
+                        // @SLIM3
+                        return $this->notFound($c);
                     }
                     return $c['view']
                                 ->render($c['response'], 'errors/http-error.html', $this->getErrorTemplateData([
