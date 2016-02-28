@@ -14,6 +14,10 @@ class PagesSeed extends AbstractSeed
      */
     public function run()
     {
+        // $insert = 'INSERT INTO `pages` (`id`, `title`,`meta_description`,`uri`,`post_date`,`updated_date`) VALUES
+        //            (1, "Heading", "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", "#", "2014-09-01 00:00:00", NULL),
+        //            (2, "Heading Two", "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec id elit non mi porta gravida at eget metus. Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.", NULL, "2014-09-01 00:00:00", "2014-10-01 00:00:00"),
+        //            (3, "Heading Three", "Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.", "#", "2014-09-01 00:00:00", NULL)';
         // INSERT INTO `pages` (`id`, `title`, `meta_description`, `uri`, `post_date`, `status`)
         // VALUES
         // 	(4, 'We got engaged!', 'Shayna & Ryan have a very enjoyable day in an inspirational sunflower field. We started by visiting Merwin\'s Wharf for brunch on the river. Shayna plans out her whole day thinking Ryan was going to watch the Browns game. Ryan had other plans... ', NULL, '2015-09-27 14:05:00', 1),
