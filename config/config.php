@@ -10,6 +10,7 @@ switch ($env) {
         break;
 }
 
+$isProd = ($env === 'prod');
 $container = new Slim\Container([
     'settings' => [
         'env' => $env,
@@ -36,7 +37,7 @@ $container = new Slim\Container([
         'db.pass'    => getenv('DB_PASS'),
         'db.charset' => 'utf8',
 
-        'ga.tracking_id' => 'UA-67735723-4',
+        'ga.tracking_id' => $isProd ? 'UA-67735723-4' : null,
     ],
 ]);
 
