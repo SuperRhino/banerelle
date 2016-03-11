@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 use Core\BaseController;
-use App\Models\Page;
+use App\Models\Guest;
 use Core\Http\Exception\NotFoundException;
 
 class AdminController extends BaseController
@@ -18,5 +18,12 @@ class AdminController extends BaseController
     public function pageInventory()
     {
         return $this->view('admin/page-inventory.html');
+    }
+
+    public function guestList()
+    {
+        return $this->view('admin/guest-list.html', [
+            'guests' => Guest::findAll(),
+        ]);
     }
 }

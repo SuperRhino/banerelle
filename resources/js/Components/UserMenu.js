@@ -40,14 +40,20 @@ export default class UserMenu extends React.Component {
           <ul className="dropdown-menu">
             <li>
               <a href="/admin/page-editor">
-                <span className="glyphicon glyphicon-plus-sign" aria-hidden="true" style={styles.icon}></span>
-                Add Page
+                <span className="glyphicon glyphicon-plus" aria-hidden="true" style={styles.icon}></span>
+                New Page
               </a>
             </li>
             <li>
               <a href="/admin/page-inventory">
                 <span className="glyphicon glyphicon-edit" aria-hidden="true" style={styles.icon}></span>
-                Edit Something
+                Edit Articles
+              </a>
+            </li>
+            <li>
+              <a href="/admin/guest-list">
+                <span className="glyphicon glyphicon-th-list" aria-hidden="true" style={styles.icon}></span>
+                Guest List
               </a>
             </li>
             <li role="separator" className="divider"></li>

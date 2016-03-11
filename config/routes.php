@@ -30,6 +30,7 @@ $this->get('/{pageName}', 'App\Controllers\HomeController:showPage');
  */
 $this->get('/admin/page-editor', 'App\Controllers\AdminController:pageEditor');
 $this->get('/admin/page-inventory', 'App\Controllers\AdminController:pageInventory');
+$this->get('/admin/guest-list', 'App\Controllers\AdminController:guestList');
 
 /**
  * API Routes:

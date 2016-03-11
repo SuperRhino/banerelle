@@ -5,6 +5,7 @@ import Utils from '../Utils/Utils';
 import RsvpForm from '../Views/RsvpForm';
 import PageEditor from '../Views/PageEditor';
 import PageInventory from '../Views/PageInventory';
+import GuestList from '../Views/GuestList';
 
 export default class Routes {
 
@@ -51,6 +52,13 @@ export default class Routes {
     ReactDOM.render(
       <PageInventory />,
       document.getElementById('PageInventory')
+    );
+  }
+
+  static guestList() {
+    ReactDOM.render(
+      <GuestList />,
+      document.getElementById('GuestList')
     );
   }
 
