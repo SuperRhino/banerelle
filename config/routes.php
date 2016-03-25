@@ -39,9 +39,13 @@ $this->post('/api/account/login', 'App\Controllers\Api\AccountController:login')
 $this->post('/api/account/logout', 'App\Controllers\Api\AccountController:logout')->add($must_auth);
 $this->get('/api/account', 'App\Controllers\Api\AccountController:getUser')->add($must_auth);
 
+$this->post('/api/guests',       'App\Controllers\Api\GuestController:addGuest')->add($must_auth);
+$this->post('/api/guests/{id}',  'App\Controllers\Api\GuestController:updateGuest')->add($must_auth);
+$this->delete('/api/guests/{id}', 'App\Controllers\Api\GuestController:removeGuest')->add($must_auth);
+
 $this->get('/api/pages',         'App\Controllers\Api\PageController:getPages')->add($must_auth);
 $this->post('/api/pages',        'App\Controllers\Api\PageController:addPage')->add($must_auth);
-$this->get('/api/pages/{id}',   'App\Controllers\Api\PageController:getPage')->add($must_auth);
+$this->get('/api/pages/{id}',    'App\Controllers\Api\PageController:getPage')->add($must_auth);
 $this->post('/api/pages/{id}',   'App\Controllers\Api\PageController:updatePage')->add($must_auth);
 $this->post('/api/upload-file',  'App\Controllers\Api\PageController:uploadFile')->add($must_auth);
 

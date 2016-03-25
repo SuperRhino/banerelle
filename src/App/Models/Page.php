@@ -84,23 +84,12 @@ class Page extends Model {
 
     protected function createPage()
     {
-        $article = str_ireplace('<img ', '<img class="img-responsive" ', $this->article);
+        // TODO (see below)
+        //$article = str_ireplace('<img ', '<img class="img-responsive" ', $this->article);
 
         $insert = static::$app->query->newInsert();
         $insert->into('pages')
-               ->cols([
-                   'title' => $this->title,
-                   'uri' => $this->uri,
-                   'article' => $article,
-                   'preview_image' => $this->preview_image,
-                   'category' => $this->category,
-                   'meta_title' => $this->meta_title,
-                   'meta_description' => $this->meta_description,
-                   'meta_keywords' => $this->meta_keywords,
-                   'author_id' => $this->author_id,
-                   'post_date' => $this->post_date,
-                   'status' => $this->status,
-               ]);
+               ->cols($this->getQueryCols());
 
         // prepare the statement + execute with bound values
         $sth = static::$app->db->prepare($insert->getStatement());
@@ -115,19 +104,7 @@ class Page extends Model {
     {
         $update = static::$app->query->newUpdate();
         $update->table('pages')
-               ->cols([
-                   'title' => $this->title,
-                   'uri' => $this->uri,
-                   'article' => $this->article,
-                   'preview_image' => $this->preview_image,
-                   'category' => $this->category,
-                   'meta_title' => $this->meta_title,
-                   'meta_description' => $this->meta_description,
-                   'meta_keywords' => $this->meta_keywords,
-                   'author_id' => $this->author_id,
-                   'post_date' => $this->post_date,
-                   'status' => $this->status,
-               ])
+               ->cols($this->getQueryCols())
                ->where('id = ?', $this->id);
 
         // prepare the statement + execute with bound values
@@ -135,6 +112,23 @@ class Page extends Model {
         $sth->execute($update->getBindValues());
 
         return $this->id;
+    }
+
+    protected function getQueryCols()
+    {
+        return [
+            'title' => $this->title,
+            'uri' => $this->uri,
+            'article' => $this->article,
+            'preview_image' => $this->preview_image,
+            'category' => $this->category,
+            'meta_title' => $this->meta_title,
+            'meta_description' => $this->meta_description,
+            'meta_keywords' => $this->meta_keywords,
+            'author_id' => $this->author_id,
+            'post_date' => $this->post_date,
+            'status' => $this->status,
+        ];
     }
 
     public function toArray()
