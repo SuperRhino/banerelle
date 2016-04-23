@@ -98,7 +98,7 @@ export default class GuestList extends React.Component {
   }
 
   _formatName(cell, row) {
-    return row.party_leader_name+' '+row.last_name;
+    return row.first_name+' '+row.last_name;
   }
 
   _formatPartyName(cell, row) {
