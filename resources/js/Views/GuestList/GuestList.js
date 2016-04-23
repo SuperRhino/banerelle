@@ -1,9 +1,9 @@
 import React from 'react';
 
 import $ from 'jquery';
-import CurrentUser from '../Stores/CurrentUser';
-import GuestForm from '../Components/GuestForm';
-import GuestRemove from '../Components/GuestRemove';
+import CurrentUser from '../../Stores/CurrentUser';
+import GuestForm from './GuestForm';
+import GuestRemove from './GuestRemove';
 
 export default class GuestList extends React.Component {
   static propTypes = {};

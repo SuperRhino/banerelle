@@ -1,6 +1,6 @@
 import React from 'react';
-import Actions from '../Utils/Actions';
-import ApiRequest from '../Api/ApiRequest';
+import Actions from '../../Utils/Actions';
+import ApiRequest from '../../Api/ApiRequest';
 import $ from 'jquery';
 
 export default class GuestRemove extends React.Component {

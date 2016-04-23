@@ -5,7 +5,7 @@ import Utils from '../Utils/Utils';
 import RsvpForm from '../Views/RsvpForm';
 import PageEditor from '../Views/PageEditor';
 import PageInventory from '../Views/PageInventory';
-import GuestList from '../Views/GuestList';
+import GuestList from '../Views/GuestList/GuestList';
 
 export default class Routes {
 
