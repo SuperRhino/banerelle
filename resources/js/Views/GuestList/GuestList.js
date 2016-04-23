@@ -26,6 +26,7 @@ export default class GuestList extends React.Component {
     this._onPressAddNew = this._onPressAddNew.bind(this);
     this._onSelectRow = this._onSelectRow.bind(this);
     this._formatName = this._formatName.bind(this);
+    this._formatPartyName = this._formatPartyName.bind(this);
     this._formatControls = this._formatControls.bind(this);
     this._formatAttrs = this._formatAttrs.bind(this);
   }
@@ -86,7 +87,7 @@ export default class GuestList extends React.Component {
         >
           <TableHeaderColumn dataField="id" isKey={true} width="60">ID</TableHeaderColumn>
           <TableHeaderColumn dataField="last_name" dataSort={true} dataFormat={this._formatName}>Name</TableHeaderColumn>
-          <TableHeaderColumn dataField="party_leader_name" dataSort={true}>Party</TableHeaderColumn>
+          <TableHeaderColumn dataField="party_leader_name" dataSort={true} dataFormat={this._formatPartyName}>Party</TableHeaderColumn>
           <TableHeaderColumn dataField="rsvp" dataFormat={this._formatAttrs} width="150">Attributes</TableHeaderColumn>
           <TableHeaderColumn dataField="controls" dataFormat={this._formatControls}>Status</TableHeaderColumn>
         </BootstrapTable>
@@ -97,7 +98,11 @@ export default class GuestList extends React.Component {
   }
 
   _formatName(cell, row) {
-    return row.first_name+' '+row.last_name;
+    return row.party_leader_name+' '+row.last_name;
+  }
+
+  _formatPartyName(cell, row) {
+    return row.party_leader_name+"'s Party";
   }
 
   _formatAttrs(cell, guest) {
