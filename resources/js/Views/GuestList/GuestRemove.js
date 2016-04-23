@@ -19,7 +19,7 @@ export default class GuestRemove extends React.Component {
     this.state = {};
 
     this.onRemove = this.onRemove.bind(this);
-    this.onClose = this.onClose.bind(this);
+    this.hide = this.hide.bind(this);
   }
 
   render() {
@@ -32,7 +32,7 @@ export default class GuestRemove extends React.Component {
               <h4 className="modal-title">Remove: {this.props.guest.first_name+' '+this.props.guest.last_name}?</h4>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-default" onClick={this.onClose}>Cancel</button>
+              <button type="button" className="btn btn-default" onClick={this.hide}>Cancel</button>
               <button type="button" className="btn btn-danger" onClick={this.onRemove}>Remove Guest</button>
             </div>
           </div>
@@ -41,14 +41,18 @@ export default class GuestRemove extends React.Component {
     );
   }
 
-  onClose() {
+  show() {
+    $('#guestRemove').modal('show');
+  }
+
+  hide() {
     $('#guestRemove').modal('hide');
   }
 
   onRemove() {
     ApiRequest.delete('/guests/'+this.props.guest.id)
       .send(res => {
-        this.onClose();
+        this.hide();
         this.props.onRemove(this.props.guest.id);
       });
   }

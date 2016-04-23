@@ -1,8 +1,8 @@
 import React from 'react';
-
 import $ from 'jquery';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import CurrentUser from '../../Stores/CurrentUser';
-import GuestForm from './GuestForm';
+import GuestDetail from './GuestDetail';
 import GuestRemove from './GuestRemove';
 
 export default class GuestList extends React.Component {
@@ -22,6 +22,9 @@ export default class GuestList extends React.Component {
     this._onUpdateList = this._onUpdateList.bind(this);
     this._onRemoveGuest = this._onRemoveGuest.bind(this);
     this._onUserChange = this._onUserChange.bind(this);
+    this._onSelectRow = this._onSelectRow.bind(this);
+    this._formatName = this._formatName.bind(this);
+    this._formatControls = this._formatControls.bind(this);
   }
 
   componentWillMount() {
@@ -42,28 +45,9 @@ export default class GuestList extends React.Component {
     this.stopUserSubscribe();
   }
 
-  renderRow(guest, index) {
-    return (
-      <tr key={'guest-'+index} style={styles.guestRow} onClick={this._openEditor.bind(this, guest)}>
-        <td>{guest.first_name+' '+guest.last_name}</td>
-        <td>{guest.party_leader_name+"'s Party"}</td>
-        <td>
-          <a href="#" className="btn btn-default" onClick={e => e.preventDefault()}>
-            <span className="glyphicon glyphicon-edit"></span>
-            {' Edit'}
-          </a>
-          {' '}
-          <a href="#" className="btn btn-danger" onClick={this._confirmRemove.bind(this, guest)}>
-            <span className="glyphicon glyphicon-trash"></span>
-          </a>
-        </td>
-      </tr>
-    );
-  }
-
   renderAddGuestButton() {
     return (
-      <button type="button" className="btn btn-lg btn-success pull-right" onClick={this._openEditor.bind(this, {})}>
+      <button type="button" className="btn btn-lg btn-success pull-right" onClick={() => console.log("Add new")}>
         <span className="glyphicon glyphicon-plus"></span>
         {' Add Guest'}
       </button>
@@ -78,22 +62,51 @@ export default class GuestList extends React.Component {
       return <h4>No guests yet :(</h4>;
     }
 
+    let selectRowProp = {
+      mode: "radio", // or checkbox
+      clickToSelect: true,
+      bgColor: "#d9edf7",
+      onSelect: this._onSelectRow,
+    };
+
     return (
       <div>
         {this.renderAddGuestButton()}
         <h1>Guest List: ({this.state.guests.length})</h1>
-        <table className="table table-striped table-hover">
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th>Party</th>
-              <th>&nbsp;</th>
-            </tr>
-            {this.state.guests.map(this.renderRow.bind(this))}
-          </tbody>
-        </table>
-        <GuestForm guest={this.state.activeGuest} onChange={this._onUpdateList} />
-        <GuestRemove guest={this.state.removeGuest} onRemove={this._onRemoveGuest} />
+        <BootstrapTable
+          data={this.state.guests}
+          striped={true}
+          hover={true}
+          search={true}
+          multiColumnSearch={true}
+          selectRow={selectRowProp}
+        >
+          <TableHeaderColumn dataField="id" isKey={true}>ID</TableHeaderColumn>
+          <TableHeaderColumn dataField="last_name" dataSort={true} dataFormat={this._formatName}>Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="party_leader_name" dataSort={true}>Party</TableHeaderColumn>
+          <TableHeaderColumn dataField="controls" dataFormat={this._formatControls}>Status</TableHeaderColumn>
+        </BootstrapTable>
+        <GuestDetail ref="guestDetail" guest={this.state.activeGuest} onChange={this._onUpdateList} />
+        <GuestRemove ref="guestRemove" guest={this.state.removeGuest} onRemove={this._onRemoveGuest} />
+      </div>
+    );
+  }
+
+  _formatName(cell, row) {
+    return row.first_name+' '+row.last_name;
+  }
+
+  _formatControls(cell, row) {
+    return (
+      <div>
+        <a href="#" className="btn btn-default" onClick={e => e.preventDefault()}>
+          <span className="glyphicon glyphicon-edit"></span>
+          {' Edit'}
+        </a>
+        {' '}
+        <a href="#" className="btn btn-danger" onClick={this._confirmRemove.bind(this, row)}>
+          <span className="glyphicon glyphicon-trash"></span>
+        </a>
       </div>
     );
   }
@@ -125,16 +138,16 @@ export default class GuestList extends React.Component {
     e.stopPropagation();
     e.preventDefault();
     this.setState({removeGuest}, () => {
-      $('#guestRemove').modal('show');
+      this.refs.guestRemove.show();
     });
   }
 
-  _openEditor(guest = {}, e) {
-    e.preventDefault();
-    let activeGuest = Object.assign({}, guest);
-    this.setState({activeGuest}, () => {
-      $('#guestForm').modal('show');
-    });
+  _onSelectRow(row, isSelected) {
+    if (isSelected) {
+      this.setState({activeGuest: row}, () => {
+        this.refs.guestDetail.show();
+      });
+    }
   }
 }
 

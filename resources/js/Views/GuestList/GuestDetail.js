@@ -3,7 +3,7 @@ import Actions from '../../Utils/Actions';
 import ApiRequest from '../../Api/ApiRequest';
 import $ from 'jquery';
 
-export default class GuestForm extends React.Component {
+export default class GuestDetail extends React.Component {
   static propTypes = {
     guest: React.PropTypes.object,
     onChange: React.PropTypes.func,
@@ -30,8 +30,12 @@ export default class GuestForm extends React.Component {
     this.setState({guest: nextProps.guest});
   }
 
+  show() {
+    $('#guestDetail').modal('show');
+  }
+
   hide() {
-    $('#guestForm').modal('hide');
+    $('#guestDetail').modal('hide');
   }
 
   renderPlusOneField() {
@@ -167,7 +171,7 @@ export default class GuestForm extends React.Component {
 
   render() {
     return (
-      <div className="modal fade" tabIndex="-1" role="dialog" id="guestForm">
+      <div className="modal fade" tabIndex="-1" role="dialog" id="guestDetail">
         <div className="modal-dialog">
           <div className="modal-content">
             <form className="form-horizontal" role="form" onSubmit={this.onSubmit}>
