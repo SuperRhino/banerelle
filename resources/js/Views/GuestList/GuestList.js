@@ -88,7 +88,7 @@ export default class GuestList extends React.Component {
           <TableHeaderColumn dataField="id" isKey={true} width="60">ID</TableHeaderColumn>
           <TableHeaderColumn dataField="last_name" dataSort={true} dataFormat={this._formatName}>Name</TableHeaderColumn>
           <TableHeaderColumn dataField="party_leader_name" dataSort={true} dataFormat={this._formatPartyName}>Party</TableHeaderColumn>
-          <TableHeaderColumn dataField="rsvp" dataFormat={this._formatAttrs} width="150">Attributes</TableHeaderColumn>
+          <TableHeaderColumn dataField="rsvp" dataFormat={this._formatAttrs}>Attributes</TableHeaderColumn>
           <TableHeaderColumn dataField="controls" dataFormat={this._formatControls}>Status</TableHeaderColumn>
         </BootstrapTable>
         <GuestDetail ref="guestDetail" guest={this.state.activeGuest} onChange={this._onUpdateGuest} />
@@ -118,6 +118,9 @@ export default class GuestList extends React.Component {
         {' '}
         {! guest.email ? null :
           <span className="glyphicon glyphicon-2x glyphicon-envelope" title="Email saved"></span>}
+        {' '}
+        {! guest.phone ? null :
+          <span className="glyphicon glyphicon-2x glyphicon-phone-alt" title="Phone saved"></span>}
       </div>
     );
   }
