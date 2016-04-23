@@ -164,6 +164,21 @@ export default class GuestDetail extends React.Component {
             </label>
           </div>
         </div>
+        <div className="form-group">
+          <label className="col-sm-3 control-label">Meal</label>
+          <div className="col-sm-9">
+            <select
+              ref="meal_option"
+              className="form-control"
+              value={this.state.guest.meal_option}
+              onChange={e => this._setGuestState({meal_option: e.target.value})}
+            >
+              <option></option>
+              <option>French Toast</option>
+              <option>Waffles</option>
+            </select>
+          </div>
+        </div>
         {this.renderPlusOneField()}
       </div>
     );

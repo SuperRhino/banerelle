@@ -17,14 +17,17 @@ export default class GuestList extends React.Component {
       authorized: true,
       user: this.props.user,
       guests: [],
+      activeGuest: {},
     };
 
-    this._onUpdateList = this._onUpdateList.bind(this);
+    this._onUpdateGuest = this._onUpdateGuest.bind(this);
     this._onRemoveGuest = this._onRemoveGuest.bind(this);
     this._onUserChange = this._onUserChange.bind(this);
+    this._onPressAddNew = this._onPressAddNew.bind(this);
     this._onSelectRow = this._onSelectRow.bind(this);
     this._formatName = this._formatName.bind(this);
     this._formatControls = this._formatControls.bind(this);
+    this._formatAttrs = this._formatAttrs.bind(this);
   }
 
   componentWillMount() {
@@ -47,7 +50,7 @@ export default class GuestList extends React.Component {
 
   renderAddGuestButton() {
     return (
-      <button type="button" className="btn btn-lg btn-success pull-right" onClick={() => console.log("Add new")}>
+      <button type="button" className="btn btn-lg btn-success pull-right" onClick={this._onPressAddNew}>
         <span className="glyphicon glyphicon-plus"></span>
         {' Add Guest'}
       </button>
@@ -81,12 +84,13 @@ export default class GuestList extends React.Component {
           multiColumnSearch={true}
           selectRow={selectRowProp}
         >
-          <TableHeaderColumn dataField="id" isKey={true}>ID</TableHeaderColumn>
+          <TableHeaderColumn dataField="id" isKey={true} width="60">ID</TableHeaderColumn>
           <TableHeaderColumn dataField="last_name" dataSort={true} dataFormat={this._formatName}>Name</TableHeaderColumn>
           <TableHeaderColumn dataField="party_leader_name" dataSort={true}>Party</TableHeaderColumn>
+          <TableHeaderColumn dataField="rsvp" dataFormat={this._formatAttrs} width="150">Attributes</TableHeaderColumn>
           <TableHeaderColumn dataField="controls" dataFormat={this._formatControls}>Status</TableHeaderColumn>
         </BootstrapTable>
-        <GuestDetail ref="guestDetail" guest={this.state.activeGuest} onChange={this._onUpdateList} />
+        <GuestDetail ref="guestDetail" guest={this.state.activeGuest} onChange={this._onUpdateGuest} />
         <GuestRemove ref="guestRemove" guest={this.state.removeGuest} onRemove={this._onRemoveGuest} />
       </div>
     );
@@ -94,6 +98,35 @@ export default class GuestList extends React.Component {
 
   _formatName(cell, row) {
     return row.first_name+' '+row.last_name;
+  }
+
+  _formatAttrs(cell, guest) {
+    return (
+      <div>
+        {this.renderRsvpIcon(guest)}
+        {' '}
+        {! guest.meal_option ? null :
+          <span className="glyphicon glyphicon-2x glyphicon-cutlery" title="Meal selected"></span>}
+        {' '}
+        {! guest.address ? null :
+          <span className="glyphicon glyphicon-2x glyphicon-map-marker" title="Address saved"></span>}
+        {' '}
+        {! guest.email ? null :
+          <span className="glyphicon glyphicon-2x glyphicon-envelope" title="Email saved"></span>}
+      </div>
+    );
+  }
+
+  renderRsvpIcon(guest) {
+    if (guest.rsvp === null) return null;
+
+    if (guest.rsvp === 'Yes') {
+      return <span className="glyphicon glyphicon-2x glyphicon-ok-circle text-success" title="RSVP Yes"></span>;
+    }
+
+    if (guest.rsvp === 'No') {
+      return <span className="glyphicon glyphicon-2x glyphicon-remove-circle text-danger" title="RSVP No"></span>;
+    }
   }
 
   _formatControls(cell, row) {
@@ -111,17 +144,29 @@ export default class GuestList extends React.Component {
     );
   }
 
-  _onUpdateList(updatedGuests) {
-    let guests = this.state.guests;
+  _onUpdateGuest(updatedGuests) {
+    let guests = this.state.guests,
+        activeGuest = this.state.activeGuest.id ? this.state.activeGuest : updatedGuests[0];
+
     for (var i=0; i < updatedGuests.length; i++) {
-      let guest = guests.filter(g => (g.id === updatedGuests[i].id));
-      if (guest.length) {
-        guest = updatedGuests[i];
-      } else {
+      let index = guests.findIndex(el => el.id === updatedGuests[i].id);
+      if (index === -1) {
+        // Add new / prepend to data:
         guests.unshift(updatedGuests[i]);
+      } else {
+        // Update found:
+        guests[index] = Object.assign({}, guests[index], updatedGuests[i]);
+      }
+
+      if (activeGuest.id === updatedGuests[i].id) {
+        activeGuest = updatedGuests[i];
       }
     }
-    this.setState({guests});
+
+    this.setState({
+      guests,
+      activeGuest,
+    });
   }
 
   _onRemoveGuest(guestId) {
@@ -140,6 +185,10 @@ export default class GuestList extends React.Component {
     this.setState({removeGuest}, () => {
       this.refs.guestRemove.show();
     });
+  }
+
+  _onPressAddNew() {
+    this.setState({activeGuest: {id: null}}, () => this.refs.guestDetail.show());
   }
 
   _onSelectRow(row, isSelected) {
