@@ -6,26 +6,8 @@
     {% include "_includes/jumbotron.html" %}
 
     <div class="container">
-        {% for row in data.pages|batch(3) %}
-        <div class="row">
-            {% for page in row %}
-            <div class="col-xs-4">
-              <h2>
-              {% if page.uri %}
-                <a href="{{ page.uri }}">{{ page.title }}</a>
-              {% else %}
-                {{ page.title }}
-              {% endif %}
-              </h2>
 
-              <section>
-                <p><em>{{ page.updated_date is empty ? page.post_date|date("M j, Y") : page.updated_date|date("M j, Y") }}</em></p>
-                <p>{{ page.meta_description }}</p>
-              </section>
-            </div>
-            {% endfor %}
-        </div>
-        {% endfor %}
+        {% include "_includes/events.html" %}
 
         {% include "_includes/footer.html" %}
     </div>
