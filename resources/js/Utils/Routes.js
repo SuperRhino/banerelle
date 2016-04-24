@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import path from 'path';
 import Utils from '../Utils/Utils';
+import DateCountdown from '../Components/DateCountdown';
 import RsvpForm from '../Views/RsvpForm';
 import PageEditor from '../Views/PageEditor';
 import PageInventory from '../Views/PageInventory';
@@ -15,6 +16,7 @@ export default class Routes {
     var basename = path.basename(pathname) || Routes.homeRoute;
     var camelName = basename.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
     if (typeof Routes[camelName] === 'function') {
+      console.log("Loading route: "+camelName);
       Routes[camelName]();
     }
   }
@@ -24,11 +26,13 @@ export default class Routes {
   //----------------------------
 
   static home() {
-    console.log('Home route');
+    ReactDOM.render(
+      <DateCountdown />,
+      document.getElementById('DateCountdown')
+    );
   }
 
   static rsvp() {
-    console.log('rsvp');
     ReactDOM.render(
       <RsvpForm />,
       document.getElementById('RsvpForm')
