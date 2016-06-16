@@ -17,8 +17,8 @@ $container = new Slim\Container([
         'base_path' => realpath(__DIR__.'/../'),
 
         'app.name'        => 'Banerelle — The start of something awesome',
-        'app.description' => 'www hub for all things Pasto-Bane! #pastobane #banerelle',
-        'app.keywords'    => 'ryan pastorelle,shayna bane',
+        'app.description' => 'WWW hub for all things Pasto-Bane! #pastobane #banerelle',
+        'app.keywords'    => 'ryan pastorelle,shayna bane,wedding',
 
         'app.urls.assets' => '/build',
         'app.paths.js'    => '/build/js',
