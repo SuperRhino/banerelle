@@ -4,23 +4,32 @@
 <body>
     {% include "_includes/navbar.html" %}
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-        <div class="container">
-            <h1>{{ data.page.title }}</h1>
-        </div>
-    </div>
+    <!-- Main jumbotron -->
+    <div class="jumbotron"></div>
 
     <div class="container">
-        <article class="row">
-          <div class="col-xs-8 col-xs-offset-2">
-            <p><em>{{ page.updated_date is empty ? page.post_date|date("M j, Y") : page.updated_date|date("M j, Y") }}</em></p>
+
+      <div class="row">
+
+        <div class="col-xs-12 col-md-8">
+
+          <h1>{{ data.page.title }}</h1>
+
+          <article>
+            <p><span class="glyphicon glyphicon-calendar"></span> {{ data.page.post_date|date("M j, Y") }}</p>
+            <hr>
             {{ data.page.article|raw }}
-          </div>
+          </article>
+        </div>
 
-        </article>
+        <!-- Sidebar -->
+        <div class="col-xs-12 col-md-4">
+          {% include "_includes/sidenav.html" %}
+        </div>
 
-        {% include "_includes/footer.html" %}
+      </div>
+
+      {% include "_includes/footer.html" %}
     </div>
 
     {% include "_includes/scripts.html" %}
