@@ -161,6 +161,7 @@ class Page extends Model {
         $query->cols(['*'])
               ->from('pages')
               ->where('status=1')
+              ->where('(category IS NULL OR category != "Hidden")')
               ->orderBy(['post_date desc'])
               ->limit($limit);
 

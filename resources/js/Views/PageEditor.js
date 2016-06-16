@@ -75,20 +75,29 @@ export default class PageEditor extends React.Component {
     );
   }
 
+  renderPublishButton() {
+    if (this.state.page.status === 1) return null;
+
+    return (
+      <button type="button" className="btn btn-lg btn-success" style={styles.button} onClick={this._onPublish}>
+        <span className="glyphicon glyphicon-ok-sign"></span>
+        {' Publish Page'}
+      </button>
+    );
+  }
+
   renderSubmitButton() {
     if (this.state.processing) {
       return this.renderProgressBar();
     }
 
+    let style = (this.state.page.status === 1) ? styles.fullButton : styles.button;
     return (
       <div>
-        <button type="submit" className="btn btn-lg btn-info" style={styles.button}>
+        {this.renderPublishButton()}
+        <button type="submit" className="btn btn-lg btn-info" style={style}>
           <span className="glyphicon glyphicon-plus-sign"></span>
           {' Save Page'}
-        </button>
-        <button type="button" className="btn btn-lg btn-success" style={styles.button} onClick={this._onPublish}>
-          <span className="glyphicon glyphicon-ok-sign"></span>
-          {' Publish Page'}
         </button>
       </div>
     );
@@ -253,7 +262,7 @@ export default class PageEditor extends React.Component {
       title: this.refs.pageTitle.value,
       article: this.state.page.article, // this.refs.pageArticle.value,
       uri: this.state.page.uri || this.refs.pageUri.value,
-      //category: this.refs.pageCategory.value,
+      category: this.refs.pageCategory.value,
       preview_image: this.refs.previewImage.value,
       meta_title: this.refs.metaTitle.value,
       meta_description: this.refs.metaDescription.value,
@@ -377,6 +386,10 @@ export default class PageEditor extends React.Component {
 var styles = {
   button: {
     width: '48%',
+    margin: '0 1%',
+  },
+  fullButton: {
+    width: '98%',
     margin: '0 1%',
   },
   editor: {
