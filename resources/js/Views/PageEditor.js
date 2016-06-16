@@ -94,6 +94,24 @@ export default class PageEditor extends React.Component {
     );
   }
 
+  renderCategoryInput() {
+    return null;
+
+    let categories = ["Reviews", "Recipes", "How To's", "Friday Food Fight", "Where To Find..."];
+    return (
+      <div className="form-group">
+        <select ref="pageCategory" className="form-control input-lg"
+          value={this.state.page.category}
+          onChange={e => this._setStatePage({category: e.target.value})}>
+          <option value="">— Choose Category —</option>
+          {categories.map((category, index) => {
+            return (<option key={'category-'+category} value={category}>{category}</option>);
+          })}
+        </select>
+      </div>
+    );
+  }
+
   render() {
     if (! this.state.authorized) return <h4>Must be logged in :(</h4>;
 
@@ -111,8 +129,6 @@ export default class PageEditor extends React.Component {
         buttons: ['bold', 'italic', 'anchor', 'h2', 'h3', 'quote', 'unorderedlist', imageButton, 'removeFormat'],
       },
     };
-
-    let categories = ["Reviews", "Recipes", "How To's", "Friday Food Fight", "Where To Find..."];
 
     // add .has-success or .has-error
     // .glyphicon-ok or .glyphicon-remove
@@ -159,16 +175,7 @@ export default class PageEditor extends React.Component {
                     onChange={this._onChangeUri}
                     onBlur={this._onBlurUri} />
             </div>
-            <div className="form-group">
-              <select ref="pageCategory" className="form-control input-lg"
-                value={this.state.page.category}
-                onChange={e => this._setStatePage({category: e.target.value})}>
-                <option value="">— Choose Category —</option>
-                {categories.map((category, index) => {
-                  return (<option key={'category-'+category} value={category}>{category}</option>);
-                })}
-              </select>
-            </div>
+            {this.renderCategoryInput()}
             <div className="form-group">
               <input ref="previewImage" className="form-control input-lg" type="text" placeholder="Preview Image URL"
                      value={this.state.page.preview_image}
@@ -248,7 +255,7 @@ export default class PageEditor extends React.Component {
       title: this.refs.pageTitle.value,
       article: this.state.page.article, // this.refs.pageArticle.value,
       uri: this.state.page.uri || this.refs.pageUri.value,
-      category: this.refs.pageCategory.value,
+      //category: this.refs.pageCategory.value,
       preview_image: this.refs.previewImage.value,
       meta_title: this.refs.metaTitle.value,
       meta_description: this.refs.metaDescription.value,
