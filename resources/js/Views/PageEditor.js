@@ -95,9 +95,7 @@ export default class PageEditor extends React.Component {
   }
 
   renderCategoryInput() {
-    return null;
-
-    let categories = ["Reviews", "Recipes", "How To's", "Friday Food Fight", "Where To Find..."];
+    let categories = ["Hidden"];
     return (
       <div className="form-group">
         <select ref="pageCategory" className="form-control input-lg"
