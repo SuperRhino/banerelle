@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js" lang="">
+{% include "_includes/head.html" %}
+<body>
+    {% include "_includes/navbar.html" %}
+
+    <!-- Main jumbotron -->
+    <div class="jumbotron"></div>
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-xs-12 col-md-8">
+
+          <h1>Guest Book</h1>
+
+          <article>
+            <p><em>Welcome to our digital guest book! Say hey:</em></p>
+            <hr />
+            <div id="GuestBookForm"></div>
+
+            <hr />
+            <div id="guest-messages">
+              {% for post in data.messages %}
+              <blockquote>
+                {{post.message}}
+                <small>{{post.name}}</small>
+              </blockquote>
+              {% endfor %}
+            </div>
+          </article>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-xs-12 col-md-4">
+          {% include "_includes/sidenav.html" %}
+        </div>
+
+      </div>
+
+      {% include "_includes/footer.html" %}
+    </div>
+
+    {% include "_includes/scripts.html" %}
+</body>
+</html>

@@ -7,6 +7,7 @@ import RsvpForm from '../Views/RsvpForm';
 import PageEditor from '../Views/PageEditor';
 import PageInventory from '../Views/PageInventory';
 import GuestList from '../Views/GuestList/GuestList';
+import GuestBookForm from '../Views/GuestBookForm';
 
 export default class Routes {
 
@@ -36,6 +37,13 @@ export default class Routes {
     ReactDOM.render(
       <RsvpForm />,
       document.getElementById('RsvpForm')
+    );
+  }
+
+  static guestBook() {
+    ReactDOM.render(
+      <GuestBookForm />,
+      document.getElementById('GuestBookForm')
     );
   }
 

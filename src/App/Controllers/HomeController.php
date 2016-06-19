@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\GuestMessage;
 use App\Models\Page;
 use Core\BaseController;
 use Core\Http\Exception\NotFoundException;
@@ -19,6 +20,15 @@ class HomeController extends BaseController
     public function rsvp()
     {
         return $this->view('rsvp.html');
+    }
+
+    public function guestBook()
+    {
+        $data = [
+            'messages' => GuestMessage::findAll(),
+        ];
+
+        return $this->view('guest-book.html', $data);
     }
 
     public function showPage($request)

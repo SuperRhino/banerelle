@@ -19,7 +19,7 @@ export default class RsvpForm extends React.Component {
     return (
       <div className="row">
           <h1>RSVP <small>Banerelle Wedding</small></h1>
-          <p className="lead">We'd love for you to join us. Start by finding your name:</p>
+          <p className="lead">{"We'd love for you to join us. Start by finding your name:"}</p>
           <form className="" role="form">
               <div className="form-group has-success has-feedback">
                   <input id="inputLastName" className="form-control input-lg" type="text" placeholder="Last name" />

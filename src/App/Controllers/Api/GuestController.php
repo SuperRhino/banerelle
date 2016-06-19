@@ -3,12 +3,36 @@ namespace App\Controllers\Api;
 
 use App\Models\User;
 use App\Models\Guest;
+use App\Models\GuestMessage;
 use Core\BaseApiController;
 use Core\Http\Exception\BadRequestException;
 use Core\Http\Exception\NotFoundException;
 
 class GuestController extends BaseApiController
 {
+    public function addGuestMessage()
+    {
+        $name = $this->json('name');
+        $message = $this->json('message');
+
+        if (! $name) {
+            throw new BadRequestException('Your name is required.');
+        }
+
+        if (! $message) {
+            throw new BadRequestException('Message is required.');
+        }
+
+        $message = new GuestMessage([
+            'name' => $name,
+            'message' => $message,
+        ]);
+
+        $message->create();
+
+        return $this->success($message->toArray());
+    }
+
     public function addGuest()
     {
         $user = $this->app->getCurrentUser();

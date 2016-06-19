@@ -23,6 +23,7 @@ $must_auth = function($request, $response, $next)
  */
 $this->get('/', 'App\Controllers\HomeController:index');
 $this->get('/rsvp', 'App\Controllers\HomeController:rsvp');
+$this->get('/guest-book', 'App\Controllers\HomeController:guestBook');
 $this->get('/{pageName}', 'App\Controllers\HomeController:showPage');
 
 /**
@@ -40,6 +41,7 @@ $this->post('/api/account/logout', 'App\Controllers\Api\AccountController:logout
 $this->get('/api/account', 'App\Controllers\Api\AccountController:getUser')->add($must_auth);
 
 $this->post('/api/guests',       'App\Controllers\Api\GuestController:addGuest')->add($must_auth);
+$this->post('/api/guests/messages',  'App\Controllers\Api\GuestController:addGuestMessage');
 $this->post('/api/guests/{id}',  'App\Controllers\Api\GuestController:updateGuest')->add($must_auth);
 $this->delete('/api/guests/{id}', 'App\Controllers\Api\GuestController:removeGuest')->add($must_auth);
 
