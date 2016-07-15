@@ -32,7 +32,7 @@ export default class RsvpForm extends React.Component {
             <div className="form-group">
                 <textarea ref="inputMessage" id="inputMessage" className="form-control input-lg" rows="5" placeholder="Write your message to Shayna &amp; Ryan..."></textarea>
             </div>
-            <button type="submit" className="btn btn-success btn-block btn-lg">Send Message</button>
+            <button type="submit" className="btn btn-success btn-block btn-lg">Post Message</button>
         </form>
       </div>
     );

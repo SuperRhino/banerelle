@@ -16,7 +16,7 @@
           <h1>Guest Book</h1>
 
           <article>
-            <p><em>Welcome to our digital guest book! Say hey:</em></p>
+            <h3><em>Say hey, on our digital guest wall:</em></h3>
             <hr />
             <div id="GuestBookForm"></div>
 
@@ -25,7 +25,7 @@
               {% for post in data.messages %}
               <blockquote>
                 {{post.message}}
-                <small>{{post.name}}</small>
+                <small>{{post.name}} on {{ post.post_date|date("F jS Y") }}</small>
               </blockquote>
               {% endfor %}
             </div>
