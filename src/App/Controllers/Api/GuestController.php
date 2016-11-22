@@ -16,11 +16,11 @@ class GuestController extends BaseApiController
         $message = $this->json('message');
 
         if (! $name) {
-            throw new BadRequestException('Your name is required.');
+            throw new BadRequestException('Let us know who you are! (Name is required)');
         }
 
         if (! $message) {
-            throw new BadRequestException('Message is required.');
+            throw new BadRequestException('Write us a message!');
         }
 
         $message = new GuestMessage([
