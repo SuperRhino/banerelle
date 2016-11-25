@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import path from 'path';
 import Utils from '../Utils/Utils';
 import DateCountdown from '../Components/DateCountdown';
+import PhotoGallery from '../Components/PhotoGallery';
 import RsvpForm from '../Views/RsvpForm';
 import PageEditor from '../Views/PageEditor';
 import PageInventory from '../Views/PageInventory';
@@ -33,17 +34,24 @@ export default class Routes {
     );
   }
 
-  static rsvp() {
-    ReactDOM.render(
-      <RsvpForm />,
-      document.getElementById('RsvpForm')
-    );
-  }
-
   static guestBook() {
     ReactDOM.render(
       <GuestBookForm />,
       document.getElementById('GuestBookForm')
+    );
+  }
+
+  static photos() {
+    ReactDOM.render(
+      <PhotoGallery />,
+      document.getElementById('PhotoGallery')
+    );
+  }
+
+  static rsvp() {
+    ReactDOM.render(
+    <RsvpForm />,
+    document.getElementById('RsvpForm')
     );
   }
 

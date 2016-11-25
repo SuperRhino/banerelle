@@ -17,11 +17,6 @@ class HomeController extends BaseController
         return $this->view('home.html', $data);
     }
 
-    public function rsvp()
-    {
-        return $this->view('rsvp.html');
-    }
-
     public function guestBook()
     {
         $data = [
@@ -29,6 +24,20 @@ class HomeController extends BaseController
         ];
 
         return $this->view('guest-book.html', $data);
+    }
+
+    public function photos()
+    {
+        $data = [
+            'photos' => [], // TODO
+        ];
+
+        return $this->view('photos.html', $data);
+    }
+
+    public function rsvp()
+    {
+        return $this->view('rsvp.html');
     }
 
     public function showPage($request)

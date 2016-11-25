@@ -22,8 +22,9 @@ $must_auth = function($request, $response, $next)
  * Public Pages Routes:
  */
 $this->get('/', 'App\Controllers\HomeController:index');
-$this->get('/rsvp', 'App\Controllers\HomeController:rsvp');
 $this->get('/guest-book', 'App\Controllers\HomeController:guestBook');
+$this->get('/photos', 'App\Controllers\HomeController:photos');
+$this->get('/rsvp', 'App\Controllers\HomeController:rsvp');
 $this->get('/{pageName}', 'App\Controllers\HomeController:showPage');
 
 /**
