@@ -13,6 +13,9 @@ bower install
 printf "\n--- Running composer install...\n"
 composer install
 
+printf "\n--- Creating .htaccess..."
+cp public/.htaccess.example public/.htaccess
+
 printf "\n--- Creating .env..."
 cp .env.example .env
 
