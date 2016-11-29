@@ -21,16 +21,8 @@ export default class RsvpForm extends React.Component {
     return (
       <div className="row">
           <h1>RSVP <small>Banerelle Wedding</small></h1>
-          {this.renderMessage()}
           {this.renderForm()}
       </div>
-    );
-  }
-
-  renderMessage() {
-    return null; // TODO: Remove
-    return (
-      <p className="lead">{"We'd love for you to join us. Start by finding your name:"}</p>
     );
   }
 
@@ -44,6 +36,7 @@ export default class RsvpForm extends React.Component {
     }
     return (
       <form className="" role="form">
+          <p className="lead">{"We'd love for you to join us. Start by finding your name:"}</p>
           <div className="form-group has-success has-feedback">
               <input id="inputLastName" className="form-control input-lg" type="text" placeholder="Last name" />
               <span className="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
