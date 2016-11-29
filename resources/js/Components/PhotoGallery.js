@@ -6,7 +6,7 @@ let styles = {
     },
 };
 
-export default class DateCountdown extends Component {
+export default class PhotoGallery extends Component {
     static propTypes = {
       photos: PropTypes.array,
     };
