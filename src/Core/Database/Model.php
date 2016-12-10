@@ -9,6 +9,10 @@ class Model
      * @var Application
      */
     protected static $app;
+    /**
+     * @var string
+     */
+    protected static $table;
 
     /**
      * @param Application $app
