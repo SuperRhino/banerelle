@@ -5,6 +5,8 @@ use Core\Database\Model;
 
 class GuestMessage extends Model {
 
+    protected static $table = 'guest_messages';
+
     var $id;
     var $name;
     var $message;
@@ -34,7 +36,7 @@ class GuestMessage extends Model {
     {
         $query = static::$app->query->newSelect();
         $query->cols(['*'])
-              ->from('guest_messages')
+              ->from(static::$table)
               ->where('status=1')
               ->orderBy(['post_date desc']);
 
@@ -50,7 +52,7 @@ class GuestMessage extends Model {
     public function create()
     {
         $insert = static::$app->query->newInsert();
-        $insert->into('guest_messages')
+        $insert->into(static::$table)
                ->cols($this->getQueryCols());
 
         // prepare the statement + execute with bound values

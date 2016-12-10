@@ -5,6 +5,8 @@ use Core\Database\Model;
 
 class Page extends Model {
 
+    protected static $table = 'pages';
+
     var $id;
     var $title;
     var $uri;
@@ -88,7 +90,7 @@ class Page extends Model {
         //$article = str_ireplace('<img ', '<img class="img-responsive" ', $this->article);
 
         $insert = static::$app->query->newInsert();
-        $insert->into('pages')
+        $insert->into(static::$table)
                ->cols($this->getQueryCols());
 
         // prepare the statement + execute with bound values
@@ -103,7 +105,7 @@ class Page extends Model {
     protected function updatePage()
     {
         $update = static::$app->query->newUpdate();
-        $update->table('pages')
+        $update->table(static::$table)
                ->cols($this->getQueryCols())
                ->where('id = ?', $this->id);
 
@@ -159,7 +161,7 @@ class Page extends Model {
     {
         $query = static::$app->query->newSelect();
         $query->cols(['*'])
-              ->from('pages')
+              ->from(static::$table)
               ->where('status=1')
               ->where('(category IS NULL OR category != "Hidden")')
               ->orderBy(['post_date desc'])
@@ -178,7 +180,7 @@ class Page extends Model {
     {
         $query = static::$app->query->newSelect();
         $query->cols(['*'])
-              ->from('pages')
+              ->from(static::$table)
               ->where('status=1')
               ->where('uri="'.$pageName.'"')
               ->limit(1);
@@ -195,7 +197,7 @@ class Page extends Model {
     {
         $query = static::$app->query->newSelect();
         $query->cols(['*'])
-              ->from('pages')
+              ->from(static::$table)
               ->where('id='.$pageId);
 
         $result = static::$app->db->fetchOne($query);
@@ -210,7 +212,7 @@ class Page extends Model {
     {
         $query = static::$app->query->newSelect();
         $query->cols(['*'])
-              ->from('pages')
+              ->from(static::$table)
               ->orderBy(['if(updated_date, updated_date, post_date) desc']);
 
         $pages = [];

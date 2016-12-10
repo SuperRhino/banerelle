@@ -5,6 +5,8 @@ use Core\Database\Model;
 
 class Guest extends Model {
 
+    protected static $table = 'guests';
+
     var $id;
     var $first_name;
     var $last_name;
@@ -47,7 +49,7 @@ class Guest extends Model {
     {
         $query = static::$app->query->newSelect();
         $query->cols(['*'])
-              ->from('guests')
+              ->from(static::$table)
               ->orderBy(['party_leader_name asc', 'last_name asc', 'first_name asc']);
 
         $guests = [];
@@ -63,7 +65,7 @@ class Guest extends Model {
     {
         $query = static::$app->query->newSelect();
         $query->cols(['*'])
-              ->from('guests')
+              ->from(static::$table)
               ->where('id='.$guestId);
 
         $result = static::$app->db->fetchOne($query);
@@ -116,7 +118,7 @@ class Guest extends Model {
     public function delete()
     {
         $query = static::$app->query->newDelete();
-        $query->from('guests')
+        $query->from(static::$table)
               ->where('id = ?', $this->id);
 
       // prepare the statement + execute with bound values
@@ -127,7 +129,7 @@ class Guest extends Model {
     protected function createGuest()
     {
         $insert = static::$app->query->newInsert();
-        $insert->into('guests')
+        $insert->into(static::$table)
                ->cols($this->getQueryCols());
 
         // prepare the statement + execute with bound values
@@ -142,7 +144,7 @@ class Guest extends Model {
     protected function updateGuest()
     {
         $update = static::$app->query->newUpdate();
-        $update->table('guests')
+        $update->table(static::$table)
                ->cols($this->getQueryCols())
                ->where('id = ?', $this->id);
 

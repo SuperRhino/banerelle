@@ -5,6 +5,8 @@ use Core\Database\Model;
 
 class User extends Model {
 
+    protected static $table = 'users';
+
     var $id;
     var $username;
     var $password;
@@ -63,7 +65,7 @@ class User extends Model {
     {
         $query = static::$app->query->newSelect();
         $query->cols(['id', 'username', 'password'])
-              ->from('users')
+              ->from(static::$table)
               ->where('username="'.$username.'"')
               ->limit(1);
 
