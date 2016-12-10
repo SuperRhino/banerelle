@@ -11,6 +11,7 @@ class Rsvp extends Model {
     var $primary_name;
     var $secondary_name;
     var $rsvp;
+    var $rsvp_num;
     var $rsvp_date;
     var $verify_date;
     var $verify_by;
@@ -21,6 +22,7 @@ class Rsvp extends Model {
         $this->primary_name = array_get($values, 'primary_name');
         $this->secondary_name = array_get($values, 'secondary_name');
         $this->rsvp = array_get($values, 'rsvp');
+        $this->rsvp_num = (int) array_get($values, 'rsvp_num');
         $this->rsvp_date = array_get($values, 'rsvp_date') ?: date('Y-m-d H:i:s');
     }
 
@@ -31,6 +33,7 @@ class Rsvp extends Model {
             'primary_name' => $this->primary_name,
             'secondary_name' => $this->secondary_name,
             'rsvp' => $this->rsvp,
+            'rsvp_num' => $this->rsvp_num,
             'rsvp_date' => $this->rsvp_date,
             'verify_date' => $this->verify_date,
             'verify_by' => (int) $this->verify_by,
@@ -78,6 +81,9 @@ class Rsvp extends Model {
         }
         if (isset($values['rsvp'])) {
             $this->rsvp = array_get($values, 'rsvp');
+        }
+        if (isset($values['rsvp_num'])) {
+            $this->rsvp_num = array_get($values, 'rsvp_num');
         }
         if (isset($values['rsvp_date'])) {
             $this->rsvp_date = array_get($values, 'rsvp_date');
@@ -147,6 +153,7 @@ class Rsvp extends Model {
             'primary_name' => $this->primary_name,
             'secondary_name' => $this->secondary_name,
             'rsvp' => $this->rsvp,
+            'rsvp_num' => $this->rsvp_num,
             'rsvp_date' => $this->rsvp_date,
             'verify_date' => $this->verify_date,
             'verify_by' => $this->verify_by,
