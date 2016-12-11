@@ -3,7 +3,7 @@ import ApiRequest from '../Api/ApiRequest';
 import Utils from '../Utils/Utils';
 
 const INITIAL_STATE = {
-  enabled: true,
+  enabled: false,
   validate: false,
   rsvp: '',
   rsvp_num: 1,
@@ -223,7 +223,6 @@ export default class RsvpForm extends React.Component {
       ApiRequest.post('/guests/rsvp')
         .data(this._getFormData())
         .send(res => {
-            console.log("RES:", res);
             Utils.showSuccess('<i class="glyphicon glyphicon-ok"></i>');
             this.setState({submitted: true});
         });
