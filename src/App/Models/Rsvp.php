@@ -13,6 +13,7 @@ class Rsvp extends Model {
     var $rsvp;
     var $rsvp_num;
     var $rsvp_date;
+    var $rsvp_email;
     var $verify_date;
     var $verify_by;
 
@@ -24,6 +25,7 @@ class Rsvp extends Model {
         $this->rsvp = array_get($values, 'rsvp');
         $this->rsvp_num = (int) array_get($values, 'rsvp_num');
         $this->rsvp_date = array_get($values, 'rsvp_date') ?: date('Y-m-d H:i:s');
+        $this->rsvp_email = array_get($values, 'rsvp_email');
     }
 
     public function toArray()
@@ -35,6 +37,7 @@ class Rsvp extends Model {
             'rsvp' => $this->rsvp,
             'rsvp_num' => $this->rsvp_num,
             'rsvp_date' => $this->rsvp_date,
+            'rsvp_email' => $this->rsvp_email,
             'verify_date' => $this->verify_date,
             'verify_by' => (int) $this->verify_by,
         ];
@@ -88,6 +91,9 @@ class Rsvp extends Model {
         }
         if (isset($values['rsvp_date'])) {
             $this->rsvp_date = array_get($values, 'rsvp_date');
+        }
+        if (isset($values['rsvp_email'])) {
+            $this->rsvp_email = array_get($values, 'rsvp_email');
         }
         if (isset($values['verify_date'])) {
             $this->verify_date = array_get($values, 'verify_date');
@@ -154,6 +160,7 @@ class Rsvp extends Model {
             'rsvp' => $this->rsvp,
             'rsvp_num' => $this->rsvp_num,
             'rsvp_date' => $this->rsvp_date,
+            'rsvp_email' => $this->rsvp_email,
             'verify_date' => $this->verify_date,
             'verify_by' => $this->verify_by,
         ];

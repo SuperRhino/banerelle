@@ -60,9 +60,28 @@ class GuestController extends BaseApiController
             'primary_name' => $primary_name,
             'secondary_name' => $secondary_name,
             'rsvp' => $rsvp,
-            'rsvp_num' => $rsvp_num,
+            'rsvp_num' => ($rsvp === 'y') ? $rsvp_num : 0,
         ]);
 
+        $rsvp->save();
+
+        return $this->success($rsvp->toArray());
+    }
+
+    public function rsvpEmail($request)
+    {
+        $rsvpId = (int) $request->getAttribute('id');
+        $rsvp = Rsvp::findById($rsvpId);
+        if (! $rsvp) {
+            throw new NotFoundException('RSVP not found');
+        }
+
+        $email = $this->json('rsvp_email');
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            throw new NotFoundException('Invalid email, sorry.');
+        }
+
+        $rsvp->rsvp_email = $email;
         $rsvp->save();
 
         return $this->success($rsvp->toArray());

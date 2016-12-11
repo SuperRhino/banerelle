@@ -5,11 +5,13 @@ import Utils from '../Utils/Utils';
 const INITIAL_STATE = {
   enabled: false,
   validate: false,
+  email_sent: false,
+  rsvp_id: null,
   rsvp: '',
   rsvp_num: 1,
+  rsvp_email: '',
   primary_name: '',
   secondary_name: '',
-  submitted: false,
 };
 
 export default class RsvpForm extends React.Component {
@@ -22,6 +24,7 @@ export default class RsvpForm extends React.Component {
     this.state = INITIAL_STATE;
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.onSubmitEmail = this.onSubmitEmail.bind(this);
   }
 
   render() {
@@ -29,8 +32,10 @@ export default class RsvpForm extends React.Component {
     // .glyphicon-ok or .glyphicon-remove
     return (
       <div className="row">
-          <h1>RSVP <small>Banerelle Wedding</small></h1>
-          {! this.state.submitted ? this.renderForm() : this.renderThankYou()}
+          <div className="col-xs-12">
+              <h1>RSVP <small>Banerelle Wedding</small></h1>
+              {! this.state.rsvp_id ? this.renderForm() : this.renderThankYou()}
+          </div>
       </div>
     );
   }
@@ -89,7 +94,8 @@ export default class RsvpForm extends React.Component {
   }
 
   renderSecondNameInput() {
-      if (this.state.rsvp_num != 2) return;
+      let show = (this.state.rsvp_num == 2 && this.state.rsvp === 'y');
+      if (! show) return;
 
       let fieldClasses = this._fieldIsValid('secondary_name') ? 'has-feedback' : 'has-feedback has-error';
       return (
@@ -181,7 +187,9 @@ export default class RsvpForm extends React.Component {
                       {renderStory()}
                       <blockquote className="bq-alt">
                         <p>Have Keyboard Cat play you off:</p>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/J---aiyznGQ?rel=0" frameborder="0" allowfullscreen></iframe>
+                        <div className="videoWrapper">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/J---aiyznGQ?rel=0" frameBorder="0" allowFullScreen></iframe>
+                        </div>
                       </blockquote>
                   </div>
               );
@@ -189,12 +197,35 @@ export default class RsvpForm extends React.Component {
 
           return (
             <div>
+                {this.state.email_sent ? null : (
+                    <div className="alert alert-success">
+                        <p className="lead text-muted">Get an email reminder the week before the wedding:</p>
+                        <form className="form-inline" onSubmit={this.onSubmitEmail}>
+                          <div className="form-group">
+                            <label className="text-muted">Email</label>
+                            <input
+                                type="email"
+                                className="form-control"
+                                style={{width: 225}}
+                                placeholder="jane.doe@example.com"
+                                value={this.state.rsvp_email}
+                                onChange={e => this.setState({rsvp_email: e.target.value})}
+                            />
+                          </div>
+                          <button type="submit" className="btn btn-default btn-danger">
+                            <i className="glyphicon glyphicon-envelope"></i>
+                            {' Send Me Reminder'}
+                          </button>
+                        </form>
+                    </div>
+                )}
                 <blockquote className="bq-alt">
-                    <p>Coool Beans! We cannot wait to see you there!</p>
-                    <p><img src="http://i.imgur.com/YiTCHJK.gif" alt="Carlton Dance" /></p>
+                    <p>Coool Beans! We cannot wait to see you there, {this.state.primary_name}!</p>
+                    <p><img src="http://i.imgur.com/YiTCHJK.gif" alt="Carlton Dance" className="img-responsive" /></p>
                     <p>
                         <a href="/guest-book" title="Guest Book" className="btn btn-lg btn-block btn-warning">
-                            Sign our Guest Book &mdash; tell us your favorite dance song
+                            <i className="glyphicon glyphicon-book"></i>
+                            {' Sign our Guest Book — tell us your favorite dance song'}
                         </a>
                     </p>
                 </blockquote>
@@ -203,6 +234,7 @@ export default class RsvpForm extends React.Component {
             </div>
           );
       };
+
       let icon = rsvp ? 'glyphicon-ok-circle' : 'glyphicon-exclamation-sign';
       return (
           <div className="col-xs-12">
@@ -224,7 +256,26 @@ export default class RsvpForm extends React.Component {
         .data(this._getFormData())
         .send(res => {
             Utils.showSuccess('<i class="glyphicon glyphicon-ok"></i>');
-            this.setState({submitted: true});
+            this.setState({rsvp_id: res.data.id});
+        });
+  }
+
+  onSubmitEmail(e) {
+      e.preventDefault();
+      if (! this.state.rsvp_id) {
+          return;
+      }
+
+      if (! this.state.rsvp_email) {
+          Utils.showError("$#!† — You're missing the following: " + error_fields.join(', '));
+          return;
+      }
+
+      ApiRequest.post('/guests/rsvp/'+this.state.rsvp_id)
+        .data({rsvp_email: this.state.rsvp_email})
+        .send(res => {
+            Utils.showSuccess('<i class="glyphicon glyphicon-ok"></i>');
+            this.setState({email_sent: true});
         });
   }
 
@@ -244,7 +295,7 @@ export default class RsvpForm extends React.Component {
               error_fields.push('primary_name');
               valid = false;
           }
-          if (this.state.rsvp_num == 2 && ! this.state.secondary_name) {
+          if (this.state.rsvp === 'y' && this.state.rsvp_num == 2 && ! this.state.secondary_name) {
               error_fields.push('secondary_name');
               valid = false;
           }

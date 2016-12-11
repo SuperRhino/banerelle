@@ -25,6 +25,9 @@
                   {% if (rsvp.secondary_name) %}
                     &amp; {{ rsvp.secondary_name }}
                   {% endif %}
+                  {% if (rsvp.rsvp_email) %}
+                    <br /><span class="text-muted">{{ rsvp.rsvp_email }}</span>
+                  {% endif %}
               </td>
               <td>{{ rsvp.rsvp_date|date_modify("-5 hours")|date("F jS \\a\\t g:ia") }}</td>
               <td>{{ rsvp.rsvp|upper }}</td>
