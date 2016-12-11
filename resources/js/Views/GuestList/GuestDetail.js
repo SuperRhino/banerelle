@@ -71,7 +71,7 @@ export default class GuestDetail extends React.Component {
               type="text"
               placeholder="Kitty"
               className="form-control"
-              value={this.state.guest.first_name}
+              value={this.state.guest.first_name || ''}
               onChange={e => this._setGuestState({first_name: e.target.value})}
             />
           </div>
@@ -84,7 +84,7 @@ export default class GuestDetail extends React.Component {
               type="text"
               placeholder="Goblin"
               className="form-control"
-              value={this.state.guest.last_name}
+              value={this.state.guest.last_name || ''}
               onChange={e => this._setGuestState({last_name: e.target.value})}
             />
           </div>
@@ -97,7 +97,7 @@ export default class GuestDetail extends React.Component {
               type="text"
               placeholder="Kitty Goblin"
               className="form-control"
-              value={this.state.guest.party_leader_name}
+              value={this.state.guest.party_leader_name || ''}
               onChange={e => this._setPartyLeader(e.target.value)}
             />
           </div>
@@ -110,7 +110,7 @@ export default class GuestDetail extends React.Component {
               type="text"
               placeholder="1440 Lincoln Ave, Lakewood, OH 44107"
               className="form-control"
-              value={this.state.guest.address}
+              value={this.state.guest.address || ''}
               onChange={e => this._setGuestState({address: e.target.value})}
             />
           </div>
@@ -123,7 +123,7 @@ export default class GuestDetail extends React.Component {
               type="text"
               placeholder="415-555-5555"
               className="form-control"
-              value={this.state.guest.phone}
+              value={this.state.guest.phone || ''}
               onChange={e => this._setGuestState({phone: e.target.value})}
             />
           </div>
@@ -136,7 +136,7 @@ export default class GuestDetail extends React.Component {
               type="text"
               placeholder="kittygoblin@gmail.com"
               className="form-control"
-              value={this.state.guest.email}
+              value={this.state.guest.email || ''}
               onChange={e => this._setGuestState({email: e.target.value})}
             />
           </div>
@@ -170,7 +170,7 @@ export default class GuestDetail extends React.Component {
             <select
               ref="meal_option"
               className="form-control"
-              value={this.state.guest.meal_option}
+              value={this.state.guest.meal_option || ''}
               onChange={e => this._setGuestState({meal_option: e.target.value})}
             >
               <option></option>
