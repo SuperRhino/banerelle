@@ -4,6 +4,7 @@ namespace App\Controllers\Api;
 use App\Models\User;
 use App\Models\Guest;
 use App\Models\GuestMessage;
+use App\Models\Rsvp;
 use Core\BaseApiController;
 use Core\Http\Exception\BadRequestException;
 use Core\Http\Exception\NotFoundException;
@@ -31,6 +32,40 @@ class GuestController extends BaseApiController
         $message->create();
 
         return $this->success($message->toArray());
+    }
+
+    public function rsvp()
+    {
+        $rsvp = $this->json('rsvp');
+        $rsvp_num = (int) $this->json('rsvp_num');
+        $primary_name = $this->json('primary_name');
+        $secondary_name = $this->json('secondary_name');
+
+        if (! $rsvp) {
+            throw new BadRequestException('Missing RSVP!');
+        }
+        if (! $primary_name) {
+            throw new BadRequestException('Missing your name!');
+        }
+        if ($rsvp === 'y') {
+            if (! $rsvp_num) {
+                throw new BadRequestException('Missing number of attendees!');
+            }
+            if ($rsvp_num === 2 && ! $secondary_name) {
+                throw new BadRequestException('Missing your date\'s name!');
+            }
+        }
+
+        $rsvp = new Rsvp([
+            'primary_name' => $primary_name,
+            'secondary_name' => $secondary_name,
+            'rsvp' => $rsvp,
+            'rsvp_num' => $rsvp_num,
+        ]);
+
+        $rsvp->save();
+
+        return $this->success($rsvp->toArray());
     }
 
     public function addGuest()

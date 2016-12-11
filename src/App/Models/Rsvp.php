@@ -99,26 +99,15 @@ class Rsvp extends Model {
     public function save()
     {
         if (! $this->id) {
-            $this->createRsvp();
+            $this->create();
         } else {
-            $this->updateRsvp();
+            $this->update();
         }
 
         return $this->id;
     }
 
-    public function delete()
-    {
-        $query = static::$app->query->newDelete();
-        $query->from(static::$table)
-              ->where('id = ?', $this->id);
-
-      // prepare the statement + execute with bound values
-      $sth = static::$app->db->prepare($query->getStatement());
-      $sth->execute($query->getBindValues());
-    }
-
-    protected function createRsvp()
+    protected function create()
     {
         $insert = static::$app->query->newInsert();
         $insert->into(static::$table)
@@ -133,7 +122,7 @@ class Rsvp extends Model {
         return $this->id;
     }
 
-    protected function updateRsvp()
+    protected function update()
     {
         $update = static::$app->query->newUpdate();
         $update->table(static::$table)

@@ -43,6 +43,7 @@ $this->get('/api/account', 'App\Controllers\Api\AccountController:getUser')->add
 
 $this->post('/api/guests',       'App\Controllers\Api\GuestController:addGuest')->add($must_auth);
 $this->post('/api/guests/messages',  'App\Controllers\Api\GuestController:addGuestMessage');
+$this->post('/api/guests/rsvp',  'App\Controllers\Api\GuestController:rsvp');
 $this->post('/api/guests/{id}',  'App\Controllers\Api\GuestController:updateGuest')->add($must_auth);
 $this->delete('/api/guests/{id}', 'App\Controllers\Api\GuestController:removeGuest')->add($must_auth);
 
