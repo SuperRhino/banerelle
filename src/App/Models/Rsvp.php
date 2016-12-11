@@ -45,7 +45,8 @@ class Rsvp extends Model {
         $query = static::$app->query->newSelect();
         $query->cols(['*'])
               ->from(static::$table)
-              ->orderBy(['verify_date desc', 'primary_name asc', 'secondary_name asc']);
+              ->where('verify_date is null')
+              ->orderBy(['rsvp_date desc', 'primary_name asc', 'secondary_name asc']);
 
         $rsvps = [];
         $res = static::$app->db->fetchAll($query);
@@ -94,6 +95,15 @@ class Rsvp extends Model {
         if (isset($values['verify_by'])) {
             $this->verify_by = (int) array_get($values, 'verify_by');
         }
+    }
+
+    public function verify($user)
+    {
+        $this->updateData([
+            'verify_date' => date('Y-m-d H:i:s'),
+            'verify_by' => $user->id,
+        ]);
+        $this->save();
     }
 
     public function save()

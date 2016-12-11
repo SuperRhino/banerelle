@@ -3,7 +3,7 @@ import ApiRequest from '../Api/ApiRequest';
 import Utils from '../Utils/Utils';
 
 const INITIAL_STATE = {
-  enabled: false,
+  enabled: true,
   validate: false,
   rsvp: '',
   rsvp_num: 1,

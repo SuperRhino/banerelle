@@ -4,6 +4,7 @@ import path from 'path';
 import Utils from '../Utils/Utils';
 import DateCountdown from '../Components/DateCountdown';
 import PhotoGallery from '../Components/PhotoGallery';
+import VerifyRsvpButton from '../Components/VerifyRsvpButton';
 import RsvpForm from '../Views/RsvpForm';
 import PageEditor from '../Views/PageEditor';
 import PageInventory from '../Views/PageInventory';
@@ -80,6 +81,16 @@ export default class Routes {
       <GuestList />,
       document.getElementById('GuestList')
     );
+  }
+
+  static manageRsvp() {
+      let rsvpButtons = document.querySelectorAll('.VerifyRsvpButton');
+      rsvpButtons.forEach(btn => {
+          ReactDOM.render(
+            <VerifyRsvpButton id={btn.getAttribute('data-id')} />,
+            btn
+          );
+      })
   }
 
 }

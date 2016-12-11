@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use Core\BaseController;
 use App\Models\Guest;
+use App\Models\Rsvp;
 use Core\Http\Exception\NotFoundException;
 
 class AdminController extends BaseController
@@ -24,6 +25,13 @@ class AdminController extends BaseController
     {
         return $this->view('admin/guest-list.html', [
             'guests' => Guest::findAll(),
+        ]);
+    }
+
+    public function manageRsvp()
+    {
+        return $this->view('admin/manage-rsvp.html', [
+            'rsvps' => Rsvp::findAllPending(),
         ]);
     }
 }

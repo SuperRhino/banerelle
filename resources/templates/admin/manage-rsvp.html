@@ -1,0 +1,49 @@
+<!doctype html>
+<html class="no-js" lang="">
+{% include "_includes/head.html" %}
+<body>
+    {% include "_includes/navbar.html" %}
+    {% include "_includes/admin-header.html" %}
+
+    <div class="container">
+        <h1>RSVP Submissions ({{ data.rsvps|length }})</h1>
+        <table class="table table-striped table-hover">
+          <tbody>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Time</th>
+              <th>RSVP</th>
+              <th></th>
+            </tr>
+
+            {% for rsvp in data.rsvps %}
+            <tr>
+              <td>{{ rsvp.id }}</td>
+              <td>
+                  {{ rsvp.primary_name }}
+                  {% if (rsvp.secondary_name) %}
+                    &amp; {{ rsvp.secondary_name }}
+                  {% endif %}
+              </td>
+              <td>{{ rsvp.rsvp_date|date_modify("-5 hours")|date("F jS \\a\\t g:ia") }}</td>
+              <td>{{ rsvp.rsvp|upper }}</td>
+              <td class="VerifyRsvpButton" data-id="{{ rsvp.id }}"></td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3">
+                    No unrecorded RSVPs
+                </td>
+            </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+
+      {% include "_includes/footer.html" %}
+    </div>
+
+    {% include "_includes/scripts.html" %}
+</body>
+</html>

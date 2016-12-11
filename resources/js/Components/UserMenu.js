@@ -56,6 +56,12 @@ export default class UserMenu extends React.Component {
                 Guest List
               </a>
             </li>
+            <li>
+              <a href="/admin/manage-rsvp">
+                <span className="glyphicon glyphicon-ok-sign" aria-hidden="true" style={styles.icon}></span>
+                Manage RSVPs
+              </a>
+            </li>
             <li role="separator" className="divider"></li>
             <li className="dropdown-header">My Account</li>
             <li><a href="#" onClick={this._onLogoutPress}>

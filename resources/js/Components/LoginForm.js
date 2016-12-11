@@ -1,6 +1,5 @@
 import React from 'react';
 import Actions from '../Utils/Actions';
-import ApiRequest from '../Api/ApiRequest';
 
 export default class LoginForm extends React.Component {
   static propTypes = {};

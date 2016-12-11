@@ -68,6 +68,24 @@ class GuestController extends BaseApiController
         return $this->success($rsvp->toArray());
     }
 
+    public function verifyRsvp($request)
+    {
+        $user = $this->app->getCurrentUser();
+        if (! $user) {
+            throw new NotFoundException('User not found');
+        }
+
+        $rsvpId = (int) $this->json('id');
+        $rsvp = Rsvp::findById($rsvpId);
+        if (! $rsvp) {
+            throw new NotFoundException('RSVP ('.$rsvpId.') not found');
+        }
+
+        $rsvp->verify($user);
+
+        return $this->success($rsvp->toArray());
+    }
+
     public function addGuest()
     {
         $user = $this->app->getCurrentUser();
