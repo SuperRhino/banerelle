@@ -120,7 +120,7 @@ export default class PageEditor extends React.Component {
   }
 
   render() {
-    if (! this.state.authorized) return <h4>Must be logged in :(</h4>;
+    if (! this.state.authorized) return <h4>{'Must be logged in :('}</h4>;
 
     let imageButton = {
       name: 'image',
