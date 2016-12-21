@@ -100,7 +100,7 @@ export default class RsvpForm extends React.Component {
       let fieldClasses = this._fieldIsValid('secondary_name') ? 'has-feedback' : 'has-feedback has-error';
       return (
           <div className={"form-group "+fieldClasses}>
-              <blockquote className="bq-alt">Who's Your Date?
+              <blockquote className="bq-alt">{"Who's Your Date?"}
                   <input
                       className="form-control input-lg"
                       type="text"
