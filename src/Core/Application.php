@@ -129,6 +129,7 @@ class Application extends App {
             'app_name' => $this->getSetting('app.name'),
             'ga_tracking_id' => $this->getSetting('ga.tracking_id'),
             'assets' => $this->getSetting('app.assets'),
+            'host' => $this->getSetting('host'),
             'js_build_path' => $this->getSetting('app.paths.js'),
             'css_build_path' => $this->getSetting('app.paths.css'),
         ];
