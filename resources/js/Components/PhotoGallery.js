@@ -53,6 +53,15 @@ const PHOTO_SET = [
     }
   },
   {
+    src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-095.jpg',
+    width: 1200,
+    height: 800,
+    aspectRatio: 1.5,
+    lightboxImage:{
+        src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-095.jpg'
+    }
+  },
+  {
     src: 'https://s3.amazonaws.com/f.cl.ly/items/1L1W3G2o2Z2q1P3n1s0u/12119930_10103042303306790_3082862375800035547_o.jpg',
     width: 1080,
     height: 1080,
@@ -104,6 +113,60 @@ const PHOTO_SET = [
     aspectRatio: 1.17,
     lightboxImage:{
         src: 'http://banerelle.com/uploads/417400_10151913208620363_723752598_n.jpg'
+    }
+  },
+  {
+    src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-023.jpg',
+    width: 800,
+    height: 1200,
+    aspectRatio: 0.67,
+    lightboxImage:{
+        src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-023.jpg'
+    }
+  },
+  {
+    src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-046.jpg',
+    width: 1200,
+    height: 800,
+    aspectRatio: 1.5,
+    lightboxImage:{
+        src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-046.jpg'
+    }
+  },
+  {
+    src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-171.jpg',
+    width: 800,
+    height: 1200,
+    aspectRatio: 0.67,
+    lightboxImage:{
+        src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-171.jpg'
+    }
+  },
+  {
+    src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-070.jpg',
+    width: 1200,
+    height: 800,
+    aspectRatio: 1.5,
+    lightboxImage:{
+        src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-070.jpg'
+    }
+  },
+  {
+    src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-126.jpg',
+    width: 800,
+    height: 1200,
+    aspectRatio: 0.67,
+    lightboxImage:{
+        src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-126.jpg'
+    }
+  },
+  {
+    src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-086.jpg',
+    width: 1200,
+    height: 800,
+    aspectRatio: 1.5,
+    lightboxImage:{
+        src: 'http://banerelle.com/uploads/Shayna%20+%20Ryan-086.jpg'
     }
   },
   {
