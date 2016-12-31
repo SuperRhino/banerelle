@@ -4,9 +4,11 @@
 
 $env = strtolower(getenv('ENV'));
 $assets = json_decode(file_get_contents('../asset-manifest.json'), true);
+$host = 'http://banerelle.com/';
 switch ($env) {
     case 'dev':
         $assets = array_combine(array_keys($assets), array_keys($assets));
+        $host = 'http://dev.banerelle.com/';
         break;
 }
 
@@ -15,6 +17,7 @@ $container = new Slim\Container([
     'settings' => [
         'env' => $env,
         'base_path' => realpath(__DIR__.'/../'),
+        'host' => $host,
 
         'app.name'        => 'Banerelle — The start of something awesome',
         'app.description' => 'WWW hub for all things Pasto-Bane! #pastobane #banerelle',
