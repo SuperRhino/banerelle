@@ -28,10 +28,10 @@ class AddAddressFields extends AbstractMigration
     public function change()
     {
         $this->table('guests')
-             ->addColumn('address_street', 'string', ['null' => false, 'after' => 'address'])
-             ->addColumn('address_city', 'string', ['null' => false, 'after' => 'address_street'])
-             ->addColumn('address_state', 'string', ['null' => false, 'after' => 'address_city'])
-             ->addColumn('address_zip', 'string', ['null' => false, 'after' => 'address_state'])
+             ->addColumn('address_street', 'string', ['null' => true, 'after' => 'address'])
+             ->addColumn('address_city', 'string', ['null' => true, 'after' => 'address_street'])
+             ->addColumn('address_state', 'string', ['null' => true, 'after' => 'address_city'])
+             ->addColumn('address_zip', 'string', ['null' => true, 'after' => 'address_state'])
              ->update();
     }
 }
