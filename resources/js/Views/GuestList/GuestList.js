@@ -113,7 +113,7 @@ export default class GuestList extends React.Component {
         {! guest.meal_option ? null :
           <span className="glyphicon glyphicon-2x glyphicon-cutlery" title="Meal selected"></span>}
         {' '}
-        {! guest.address ? null :
+        {! (guest.address_street && guest.address_city && guest.address_state && guest.address_zip) ? null :
           <span className="glyphicon glyphicon-2x glyphicon-map-marker" title="Address saved"></span>}
         {' '}
         {! guest.email ? null :

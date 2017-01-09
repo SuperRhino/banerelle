@@ -12,6 +12,10 @@ class Guest extends Model {
     var $last_name;
     var $party_leader_name;
     var $address;
+    var $address_street;
+    var $address_city;
+    var $address_state;
+    var $address_zip;
     var $phone;
     var $email;
     var $rsvp;
@@ -24,6 +28,10 @@ class Guest extends Model {
         $this->last_name = array_get($values, 'last_name');
         $this->party_leader_name = array_get($values, 'party_leader_name');
         $this->address = array_get($values, 'address');
+        $this->address_street = array_get($values, 'address_street');
+        $this->address_city = array_get($values, 'address_city');
+        $this->address_state = array_get($values, 'address_state');
+        $this->address_zip = array_get($values, 'address_zip');
         $this->phone = array_get($values, 'phone');
         $this->email = array_get($values, 'email');
         $this->rsvp = array_get($values, 'rsvp');
@@ -38,6 +46,10 @@ class Guest extends Model {
             'last_name' => $this->last_name,
             'party_leader_name' => $this->party_leader_name,
             'address' => $this->address,
+            'address_street' => $this->address_street,
+            'address_city' => $this->address_city,
+            'address_state' => $this->address_state,
+            'address_zip' => $this->address_zip,
             'phone' => $this->phone,
             'email' => $this->email,
             'rsvp' => $this->rsvp,
@@ -89,6 +101,18 @@ class Guest extends Model {
         }
         if (isset($values['address'])) {
             $this->address = array_get($values, 'address');
+        }
+        if (isset($values['address_street'])) {
+            $this->address_street = array_get($values, 'address_street');
+        }
+        if (isset($values['address_city'])) {
+            $this->address_city = array_get($values, 'address_city');
+        }
+        if (isset($values['address_state'])) {
+            $this->address_state = array_get($values, 'address_state');
+        }
+        if (isset($values['address_zip'])) {
+            $this->address_zip = array_get($values, 'address_zip');
         }
         if (isset($values['phone'])) {
             $this->phone = array_get($values, 'phone');
@@ -162,6 +186,10 @@ class Guest extends Model {
             'last_name' => $this->last_name,
             'party_leader_name' => $this->party_leader_name,
             'address' => $this->address,
+            'address_street' => $this->address_street,
+            'address_city' => $this->address_city,
+            'address_state' => $this->address_state,
+            'address_zip' => $this->address_zip,
             'phone' => $this->phone,
             'email' => $this->email,
             'rsvp' => $this->rsvp,

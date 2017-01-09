@@ -45,7 +45,7 @@ export default class GuestDetail extends React.Component {
 
     return (
       <div className="form-group">
-        <div className="checkbox col-sm-9 col-sm-offset-3">
+        <div className="checkbox col-xs-9 col-xs-offset-3">
           <label>
             <input
               type="checkbox"
@@ -64,8 +64,8 @@ export default class GuestDetail extends React.Component {
     return (
       <div className="modal-body">
         <div className="form-group">
-          <label className="col-sm-3 control-label">First Name</label>
-          <div className="col-sm-9">
+          <label className="col-xs-3 control-label">First Name</label>
+          <div className="col-xs-9">
             <input
               ref="first_name"
               type="text"
@@ -77,8 +77,8 @@ export default class GuestDetail extends React.Component {
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-3 control-label">Last Name</label>
-          <div className="col-sm-9">
+          <label className="col-xs-3 control-label">Last Name</label>
+          <div className="col-xs-9">
             <input
               ref="last_name"
               type="text"
@@ -90,8 +90,8 @@ export default class GuestDetail extends React.Component {
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-3 control-label">Party Leader</label>
-          <div className="col-sm-9">
+          <label className="col-xs-3 control-label">Party Leader</label>
+          <div className="col-xs-9">
             <input
               ref="party_leader_name"
               type="text"
@@ -103,21 +103,60 @@ export default class GuestDetail extends React.Component {
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-3 control-label">Address</label>
-          <div className="col-sm-9">
-            <input
-              ref="address"
-              type="text"
-              placeholder="1440 Lincoln Ave, Lakewood, OH 44107"
-              className="form-control"
-              value={this.state.guest.address || ''}
-              onChange={e => this._setGuestState({address: e.target.value})}
-            />
+          <label className="col-xs-3 control-label">Address</label>
+          <div className="col-xs-9">
+            <div className="row">
+                <div className="col-xs-12">
+                    <input
+                      ref="address_street"
+                      type="text"
+                      placeholder="1440 Lincoln Ave"
+                      className="form-control"
+                      value={this.state.guest.address_street || ''}
+                      onChange={e => this._setGuestState({address_street: e.target.value})}
+                    />
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-xs-12 col-sm-6">
+                    <input
+                      ref="address_city"
+                      type="text"
+                      placeholder="Lakewood"
+                      className="form-control"
+                      style={styles.inlineFormControl}
+                      value={this.state.guest.address_city || ''}
+                      onChange={e => this._setGuestState({address_city: e.target.value})}
+                    />
+                </div>
+                <div className="col-xs-6 col-sm-3">
+                    <input
+                      ref="address_state"
+                      type="text"
+                      placeholder="OH"
+                      className="form-control"
+                      style={styles.inlineFormControl}
+                      value={this.state.guest.address_state || ''}
+                      onChange={e => this._setGuestState({address_state: e.target.value})}
+                    />
+                </div>
+                <div className="col-xs-6 col-sm-3">
+                    <input
+                      ref="address_zip"
+                      type="text"
+                      placeholder="44107"
+                      className="form-control"
+                      style={styles.inlineFormControl}
+                      value={this.state.guest.address_zip || ''}
+                      onChange={e => this._setGuestState({address_zip: e.target.value})}
+                    />
+                </div>
+            </div>
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-3 control-label">Phone</label>
-          <div className="col-sm-9">
+          <label className="col-xs-3 control-label">Phone</label>
+          <div className="col-xs-9">
             <input
               ref="phone"
               type="text"
@@ -129,8 +168,8 @@ export default class GuestDetail extends React.Component {
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-3 control-label">Email</label>
-          <div className="col-sm-9">
+          <label className="col-xs-3 control-label">Email</label>
+          <div className="col-xs-9">
             <input
               ref="email"
               type="text"
@@ -142,8 +181,8 @@ export default class GuestDetail extends React.Component {
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-3 control-label">RSVP</label>
-          <div className="col-sm-9">
+          <label className="col-xs-3 control-label">RSVP</label>
+          <div className="col-xs-9">
             <label className="radio-inline">
               <input
                 type="radio"
@@ -162,21 +201,6 @@ export default class GuestDetail extends React.Component {
                 onChange={e => this._setGuestState({rsvp: e.target.value})}
               /> No
             </label>
-          </div>
-        </div>
-        <div className="form-group">
-          <label className="col-sm-3 control-label">Meal</label>
-          <div className="col-sm-9">
-            <select
-              ref="meal_option"
-              className="form-control"
-              value={this.state.guest.meal_option || ''}
-              onChange={e => this._setGuestState({meal_option: e.target.value})}
-            >
-              <option></option>
-              <option>French Toast</option>
-              <option>Waffles</option>
-            </select>
           </div>
         </div>
         {this.renderPlusOneField()}
@@ -244,4 +268,7 @@ export default class GuestDetail extends React.Component {
 }
 
 var styles = {
+    inlineFormControl: {
+        marginTop: 15,
+    },
 };
