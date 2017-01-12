@@ -22,14 +22,41 @@
     background-size: cover;
     padding-bottom: 0;
 }
-.jumbotron-sm {
+.jumbotron-alt {
   background-image: url(https://d3vv6lp55qjaqc.cloudfront.net/items/0B1r243N3E3f1x0O2F0s/Shayna%20%2B%20Ryan-086.jpg?X-CloudApp-Visitor-Id=d87774544e10b8c180f379f1cdb90988&v=666be2f6);
-  background-position: 0 -50px;
+  background-position: -325px -150px;
+  background-size: 1200px 800px;
+  min-height: 250px;
   padding-bottom: 50px;
-  a {
-    color: #fff;
-  }
+
+  a { color: #fff; }
 }
+
+// Extra small devices (portrait phones, less than 576px)
+// No media query since this is the default in Bootstrap
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+    .jumbotron-alt { background-position-x: -225px; }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+    .jumbotron-alt { background-position-x: -125px; }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+    .jumbotron-alt {
+        background-position-x: 0px;
+        background-size: cover;
+    }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { }
+
+
 .jumbotron .container {
     background-color: rgba(255,255,255,.35);
     border-radius: 10px;
