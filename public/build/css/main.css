@@ -18,13 +18,31 @@ body.with-navbar {
   background-size: cover;
   padding-bottom: 0;
 }
-.jumbotron-sm {
+.jumbotron-alt {
   background-image: url(https://d3vv6lp55qjaqc.cloudfront.net/items/0B1r243N3E3f1x0O2F0s/Shayna%20%2B%20Ryan-086.jpg?X-CloudApp-Visitor-Id=d87774544e10b8c180f379f1cdb90988&v=666be2f6);
-  background-position: 0 -50px;
+  background-position: -325px -150px;
+  background-size: 1200px 800px;
+  min-height: 250px;
   padding-bottom: 50px;
 }
-.jumbotron-sm a {
+.jumbotron-alt a {
   color: #fff;
+}
+@media (min-width: 576px) {
+  .jumbotron-alt {
+    background-position-x: -225px;
+  }
+}
+@media (min-width: 768px) {
+  .jumbotron-alt {
+    background-position-x: -125px;
+  }
+}
+@media (min-width: 992px) {
+  .jumbotron-alt {
+    background-position-x: 0px;
+    background-size: cover;
+  }
 }
 .jumbotron .container {
   background-color: rgba(255, 255, 255, 0.35);
