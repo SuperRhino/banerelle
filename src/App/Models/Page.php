@@ -164,7 +164,7 @@ class Page extends Model {
               ->from(static::$table)
               ->where('status=1')
               ->where('(category IS NULL OR category != "Hidden")')
-              ->orderBy(['post_date desc'])
+              ->orderBy(['post_date asc'])
               ->limit($limit);
 
         $pages = [];

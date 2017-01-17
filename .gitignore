@@ -4,7 +4,8 @@ phinx.yml
 .env
 .htaccess
 
-vendor/
+/vendor/
+/theme/
 node_modules/
 bower_components/
 test/

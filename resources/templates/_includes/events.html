@@ -1,20 +1,27 @@
-{% for row in data.pages|batch(3) %}
-<div class="row">
-    {% for page in row %}
-    <div class="col-xs-12 col-sm-6 col-md-4">
-      <h2>
-      {% if page.uri %}
-        <a href="{{ page.uri }}">{{ page.meta_title ? page.meta_title : page.title }}</a>
-      {% else %}
-        {{ page.title }}
-      {% endif %}
-      </h2>
-
-      <section>
-        <p><em>{{ page.updated_date is empty ? page.post_date|date("M j, Y") : page.updated_date|date("M j, Y") }}</em></p>
-        <p>{{ page.meta_description }}</p>
-      </section>
+<!-- Story Section -->
+<section id="story" style="padding-top:50px">
+    <div class="container">
+        <div id="DateCountdown"></div>
+        {% for row in data.pages|batch(3) %}
+        <div class="row text-center">
+            {% for page in row %}
+            <div class="col-md-4">
+                <h4 class="service-heading">
+                    {% if page.uri %}
+                      <a href="{{ page.uri }}">{{ page.meta_title ? page.meta_title : page.title }}</a>
+                    {% else %}
+                      {{ page.title }}
+                    {% endif %}
+                </h4>
+                <p><em>{{ page.updated_date is empty ? page.post_date|date("M j, Y") : page.updated_date|date("M j, Y") }}</em></p>
+                <p class="text-muted">{{ page.meta_description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <a href="/our-story" class="btn btn-success btn-lg btn-block">
+            <span class="glyphicon glyphicon-heart"></span>
+            Read Our Story
+        </a>
     </div>
-    {% endfor %}
-</div>
-{% endfor %}
+</section>
