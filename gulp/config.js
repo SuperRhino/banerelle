@@ -7,7 +7,6 @@ module.exports = {
   commonCss: [
     "./node_modules/humane-js/themes/flatty.css",
     "./node_modules/bootstrap/dist/css/bootstrap.css",
-    "./node_modules/bootstrap/dist/css/bootstrap-theme.css",
     "./node_modules/react-bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css",
     "./node_modules/react-medium-editor/node_modules/medium-editor/dist/css/medium-editor.css",
     "./node_modules/react-medium-editor/node_modules/medium-editor/dist/css/themes/default.css",

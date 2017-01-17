@@ -33,6 +33,9 @@ export default class Routes {
       <DateCountdown />,
       document.getElementById('DateCountdown')
     );
+    Routes.photos();
+    Routes.guestBook();
+    Routes.rsvp();
   }
 
   static guestBook() {

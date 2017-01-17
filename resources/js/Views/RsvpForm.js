@@ -34,6 +34,7 @@ export default class RsvpForm extends React.Component {
       <div className="row">
           <div className="col-xs-12">
               <h1>RSVP <small>Banerelle Wedding</small></h1>
+              <h3 className="section-subheading text-muted" style={{marginBottom: 25}}>The best way to RSVP for the Banerelle wedding.</h3>
               {! this.state.rsvp_id ? this.renderForm() : this.renderThankYou()}
           </div>
       </div>

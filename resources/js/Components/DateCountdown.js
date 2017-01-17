@@ -54,13 +54,13 @@ export default class DateCountdown extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col-xs-12 center-block">
-          <p style={styles.targetDate}>
-            {'Getting Married '+this.state.formattedDate+' in Medina, Ohio'}
-          </p>
-          <p style={styles.countdown}>
-            {this.state.days}{' days '}{this.state.hours}{':'}{this.state.mins}{':'}{this.state.seconds}
-          </p>
+        <div className="col-lg-12 text-center">
+            <h2 className="section-heading">
+                {this.state.days}{' days '}{this.state.hours}{':'}{this.state.mins}{':'}{this.state.seconds}
+            </h2>
+            <h3 className="section-subheading text-muted">
+                {'Getting Married '+this.state.formattedDate+' in Medina, Ohio'}
+            </h3>
         </div>
       </div>
     );
