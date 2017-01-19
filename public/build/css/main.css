@@ -969,3 +969,23 @@ blockquote a.btn {
   width: 100%;
   height: 100%;
 }
+#PhotoSlides a {
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 300ms ease-in-out;
+}
+#PhotoSlides a i {
+  color: #fff;
+  font-size: 40px;
+}
+#PhotoSlides a:hover {
+  opacity: 0.8;
+  text-decoration: none;
+}
+#photos .section-subheading {
+  margin-bottom: 40px;
+}
