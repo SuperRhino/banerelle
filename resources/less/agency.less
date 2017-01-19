@@ -1,5 +1,5 @@
-@import "variables.less";
-@import "mixins.less";
+@import "agency-theme/variables.less";
+@import "agency-theme/mixins.less";
 
 // Global Components
 
@@ -35,13 +35,14 @@ a.active {
 
 a {
     color: @theme-primary;
+    transition: color 300ms ease-in;
 }
 
 a:hover,
 a:focus,
 a:active,
 a.active {
-    color: darken(@theme-primary, 10%);
+    color: darken(@theme-primary, 20%);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -513,6 +514,9 @@ section {
     img {
         margin: 0 auto;
         border: 7px solid white;
+        &.img-responsive {
+            max-width: 50%;
+        }
     }
     h4 {
         margin-top: 25px;
@@ -522,6 +526,10 @@ section {
     p {
         margin-top: 0;
     }
+}
+
+@media(min-width:767px) {
+    .team-member img.img-responsive { max-width: 100%; }
 }
 
 // Clients Aside
