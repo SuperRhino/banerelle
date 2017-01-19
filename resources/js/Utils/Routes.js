@@ -4,6 +4,7 @@ import path from 'path';
 import Utils from '../Utils/Utils';
 import DateCountdown from '../Components/DateCountdown';
 import PhotoGallery from '../Components/PhotoGallery';
+import PhotoSlides from '../Components/PhotoSlides';
 import VerifyRsvpButton from '../Components/VerifyRsvpButton';
 import RsvpForm from '../Views/RsvpForm';
 import PageEditor from '../Views/PageEditor';
@@ -33,7 +34,10 @@ export default class Routes {
       <DateCountdown />,
       document.getElementById('DateCountdown')
     );
-    Routes.photos();
+    ReactDOM.render(
+      <PhotoSlides />,
+      document.getElementById('PhotoSlides')
+    );
     Routes.guestBook();
     Routes.rsvp();
   }
