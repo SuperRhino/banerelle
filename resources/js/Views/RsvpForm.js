@@ -1,5 +1,6 @@
 import React from 'react';
 import ApiRequest from '../Api/ApiRequest';
+import Events from '../Utils/Events';
 import Utils from '../Utils/Utils';
 
 const INITIAL_STATE = {
@@ -151,7 +152,7 @@ export default class RsvpForm extends React.Component {
       let renderPhotos = () => (
           <blockquote className="bq-alt">
             <p>
-                <a href="/photos" title="Photos" className="btn btn-lg btn-block btn-success">
+                <a href="/photos" title="Photos" className="btn btn-lg btn-block btn-success" data-ga-rsvp>
                     <i className="glyphicon glyphicon-camera"></i>
                     <span> Look at photos of us</span>
                 </a>
@@ -161,7 +162,7 @@ export default class RsvpForm extends React.Component {
       let renderStory = () => (
           <blockquote className="bq-alt">
             <p>
-                <a href="/our-story" title="Photos" className="btn btn-lg btn-block btn-info">
+                <a href="/our-story" title="Photos" className="btn btn-lg btn-block btn-info" data-ga-rsvp>
                     <i className="glyphicon glyphicon-hand-right"></i>
                     <span> Read Our Story</span>
                 </a>
@@ -178,7 +179,7 @@ export default class RsvpForm extends React.Component {
                             you can still sign our Guest Book &mdash; it will make you feel better:
                         </p>
                         <p>
-                            <a href="/guest-book" title="Guest Book" className="btn btn-lg btn-block btn-warning">
+                            <a href="/guest-book" title="Guest Book" className="btn btn-lg btn-block btn-warning" data-ga-rsvp>
                                 <i className="glyphicon glyphicon-book"></i>
                                 <span> Sign our Guest Book &mdash; Say good things about us</span>
                             </a>
@@ -224,7 +225,7 @@ export default class RsvpForm extends React.Component {
                     <p>Coool Beans! We cannot wait to see you there, {this.state.primary_name}!</p>
                     <p><img src="http://i.imgur.com/YiTCHJK.gif" alt="Carlton Dance" className="img-responsive" /></p>
                     <p>
-                        <a href="/guest-book" title="Guest Book" className="btn btn-lg btn-block btn-warning">
+                        <a href="/guest-book" title="Guest Book" className="btn btn-lg btn-block btn-warning" data-ga-rsvp>
                             <i className="glyphicon glyphicon-book"></i>
                             {' Sign our Guest Book — tell us your favorite dance song'}
                         </a>
@@ -259,6 +260,8 @@ export default class RsvpForm extends React.Component {
             Utils.showSuccess('<i class="glyphicon glyphicon-ok"></i>');
             this.setState({rsvp_id: res.data.id});
         });
+
+      Events.send('forms', 'submit', 'rsvp');
   }
 
   onSubmitEmail(e) {
@@ -278,6 +281,8 @@ export default class RsvpForm extends React.Component {
             Utils.showSuccess('<i class="glyphicon glyphicon-ok"></i>');
             this.setState({email_sent: true});
         });
+
+      Events.send('forms', 'submit', 'rsvp email');
   }
 
   _fieldIsValid(field) {

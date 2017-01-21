@@ -2,6 +2,7 @@ import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Actions from '../Utils/Actions';
+import Events from '../Utils/Events';
 import UserNav from '../Components/UserNav';
 
 export default class Initialize {
@@ -16,15 +17,7 @@ export default class Initialize {
   }
 
   static onReady() {
-    // Click on big button:
-    let baButton = document.getElementById('btnComingSoon');
-    if (baButton) {
-      baButton.onclick = function(){
-        if (ga) ga('send', 'event', 'buttons', 'click', 'stay tuned');
-        console.log('send', 'event', 'buttons', 'click', 'stay tuned');
-        return false;
-      };
-    }
+    Events.init();
 
     // Show that user nav:
     let userNavEl = document.getElementById('UserNav');
@@ -41,6 +34,7 @@ export default class Initialize {
         $('html, body').stop().animate({
             scrollTop: ($($anchor.attr('href')).offset().top - 50)
         }, 1250, 'easeInOutExpo');
+        Events.send('buttons', 'click', $anchor.text().toLowerCase());
         event.preventDefault();
     });
 

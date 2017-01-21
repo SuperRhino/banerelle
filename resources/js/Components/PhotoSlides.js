@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import Events from '../Utils/Events';
 import PhotoSet from '../Stores/PhotoSet';
 
 const styles = {
@@ -82,7 +83,7 @@ export default class PhotoSlides extends Component {
         if (nextIndex < 0) {
             nextIndex = (this.state.total - 1);
         }
-        this.setState({currentIndex: nextIndex});
+        this.setState({currentIndex: nextIndex}, () => Events.send('buttons', 'click', 'previous photo'));
     }
 
     onNext(e) {
@@ -91,6 +92,6 @@ export default class PhotoSlides extends Component {
         if (nextIndex >= this.state.total) {
             nextIndex = 0;
         }
-        this.setState({currentIndex: nextIndex});
+        this.setState({currentIndex: nextIndex}, () => Events.send('buttons', 'click', 'next photo'));
     }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import ApiRequest from '../Api/ApiRequest';
+import Events from '../Utils/Events';
 import Utils from '../Utils/Utils';
 import $ from 'jquery';
 
@@ -48,6 +49,8 @@ export default class RsvpForm extends React.Component {
         Utils.showSuccess("Thanks, "+message.name+"! You know we love you!");
         this.injectMessage(message);
       });
+
+     Events.send('forms', 'submit', 'guest book');
   }
 
   injectMessage(post) {
