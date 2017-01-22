@@ -1,5 +1,6 @@
 import ApiRequest from './ApiRequest';
 import {Config} from '../Utils/Constants';
+import Utils from '../Utils/Utils';
 
 /**
  * Application-wide access_token storage/retrieval
@@ -54,6 +55,8 @@ export default class AccessToken {
     return new Promise((resolve, reject) => {
       if (! dontUpdateStorage) {
         localStorage.setItem(Config.Storage.ACCESS_TOKEN, access_token);
+        // cookie used to authenticate on server-side
+        Utils.createCookie(Config.Storage.ACCESS_TOKEN, access_token, 365);
       }
 
       resolve(access_token);
@@ -66,6 +69,7 @@ export default class AccessToken {
    */
   static clear() {
     AccessToken._accessToken = null;
+    Utils.eraseCookie(Config.Storage.ACCESS_TOKEN);
     return localStorage.removeItem(Config.Storage.ACCESS_TOKEN);
   }
 }

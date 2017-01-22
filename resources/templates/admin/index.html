@@ -3,12 +3,12 @@
 {% include "_includes/head.html" %}
 <body>
     {% include "_includes/admin-navbar.html" %}
-    {% include "_includes/admin-header.html" %}
 
-    <div class="container">
-      <div id="GuestList"></div>
-
-      {% include "_includes/footer.html" %}
+    <div class="admin-body container">
+        {% if user %}
+        <h1>Hey, sexy</h1>
+        {% endif %}
+        {% include "_includes/footer.html" %}
     </div>
 
     {% include "_includes/scripts.html" %}

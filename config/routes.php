@@ -18,6 +18,17 @@ $must_auth = function($request, $response, $next)
     return $next($request, $response);
 };
 
+$should_auth = function($request, $response, $next)
+{
+    $cookies = $request->getCookieParams();
+    $token = array_get($cookies, 'ACCESS_TOKEN');
+
+    // Will set app->currentUser if logged in:
+    $this['app']->validateToken($token);
+
+    return $next($request, $response);
+};
+
 /**
  * Public Pages Routes:
  */
@@ -25,15 +36,17 @@ $this->get('/', 'App\Controllers\HomeController:index');
 $this->get('/guest-book', 'App\Controllers\HomeController:guestBook');
 $this->get('/photos', 'App\Controllers\HomeController:photos');
 $this->get('/rsvp', 'App\Controllers\HomeController:rsvp');
+$this->get('/admin', 'App\Controllers\AdminController:index')->add($should_auth);
+// catch-all must be last:
 $this->get('/{pageName}', 'App\Controllers\HomeController:showPage');
 
 /**
  * Admin Page Routes:
  */
-$this->get('/admin/page-editor', 'App\Controllers\AdminController:pageEditor');
-$this->get('/admin/page-inventory', 'App\Controllers\AdminController:pageInventory');
-$this->get('/admin/guest-list', 'App\Controllers\AdminController:guestList');
-$this->get('/admin/manage-rsvp', 'App\Controllers\AdminController:manageRsvp');
+$this->get('/admin/page-editor', 'App\Controllers\AdminController:pageEditor')->add($should_auth);
+$this->get('/admin/page-inventory', 'App\Controllers\AdminController:pageInventory')->add($should_auth);
+$this->get('/admin/guest-list', 'App\Controllers\AdminController:guestList')->add($should_auth);
+$this->get('/admin/manage-rsvp', 'App\Controllers\AdminController:manageRsvp')->add($should_auth);
 
 /**
  * API Routes:

@@ -71,10 +71,12 @@ class BaseController {
      */
     protected function getTemplateData($data)
     {
+        $user = $this->getCurrentUser();
         return [
             'env'  => $this->app->envData,
             'meta' => $this->metadata,
             'data' => $data,
+            'user' => $user ? $user->toArray() : false,
         ];
     }
 

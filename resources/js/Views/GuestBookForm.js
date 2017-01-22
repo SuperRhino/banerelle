@@ -46,7 +46,7 @@ export default class RsvpForm extends React.Component {
       .send(res => {
         let message = res.data;
         this.refs.guestBookForm.reset();
-        Utils.showSuccess("Thanks, "+message.name+"! You know we love you!");
+        Utils.showSuccess("👍 Thanks, <b>"+message.name+"</b>! You know we love you!");
         this.injectMessage(message);
       });
 

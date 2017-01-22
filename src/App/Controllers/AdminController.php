@@ -11,6 +11,11 @@ class AdminController extends BaseController
     /**
      * ADMIN ROUTES
      */
+    public function index()
+    {
+        return $this->view('admin/index.html');
+    }
+
     public function pageEditor()
     {
         return $this->view('admin/page-editor.html');

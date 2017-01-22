@@ -45,7 +45,7 @@ export default class UserNav extends React.Component {
     }
 
     return (
-      <div style={styles.container}>
+      <div>
         {this.state.user.id ? this.renderUserMenu() : this.renderLoginForm()}
       </div>
     );
@@ -58,9 +58,6 @@ export default class UserNav extends React.Component {
 }
 
 var styles = {
-  container: {
-    height: '56px',
-  },
   username: {
     margin: 3,
     lineHeight: '44px',

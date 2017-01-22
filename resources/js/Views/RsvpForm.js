@@ -4,7 +4,7 @@ import Events from '../Utils/Events';
 import Utils from '../Utils/Utils';
 
 const INITIAL_STATE = {
-  enabled: false,
+  enabled: true,
   validate: false,
   email_sent: false,
   rsvp_id: null,

@@ -403,7 +403,7 @@ var styles = {
     paddingBottom: "30px",
   },
   previewImage: {
-    color: "rgb(50,50,50)",
+    color: "rgb(255,255,255)",
     borderWidth: 0,
     fontWeight: "bold",
     fontSize: 30,

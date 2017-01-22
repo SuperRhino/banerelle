@@ -2,10 +2,11 @@
 <html class="no-js" lang="">
 {% include "_includes/head.html" %}
 <body>
-    {% include "_includes/navbar.html" %}
+    {% include "_includes/admin-navbar.html" %}
     {% include "_includes/admin-header.html" %}
 
     <div class="container">
+        {% if user %}
         <h1>RSVP Submissions ({{ data.rsvps|length }})</h1>
         <table class="table table-striped table-hover">
           <tbody>
@@ -43,6 +44,7 @@
 
           </tbody>
         </table>
+        {% endif %}
 
       {% include "_includes/footer.html" %}
     </div>
