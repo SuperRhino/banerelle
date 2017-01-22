@@ -4,7 +4,7 @@ import Events from '../Utils/Events';
 import Utils from '../Utils/Utils';
 
 const INITIAL_STATE = {
-  enabled: true,
+  enabled: false,
   validate: false,
   email_sent: false,
   rsvp_id: null,
@@ -223,7 +223,7 @@ export default class RsvpForm extends React.Component {
                 )}
                 <blockquote className="bq-alt">
                     <p>Coool Beans! We cannot wait to see you there, {this.state.primary_name}!</p>
-                    <p><img src="http://i.imgur.com/YiTCHJK.gif" alt="Carlton Dance" className="img-responsive" /></p>
+                    <p><img src="https://media.giphy.com/media/7k0aZNv7cw43m/giphy.gif" alt="Carlton Dance" className="img-responsive" /></p>
                     <p>
                         <a href="/guest-book" title="Guest Book" className="btn btn-lg btn-block btn-warning" data-ga-rsvp>
                             <i className="glyphicon glyphicon-book"></i>
