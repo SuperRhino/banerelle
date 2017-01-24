@@ -27,12 +27,12 @@ export default [
     }
   },
   {
-    src: 'https://s3.amazonaws.com/f.cl.ly/items/1L1W3G2o2Z2q1P3n1s0u/12119930_10103042303306790_3082862375800035547_o.jpg',
+    src: 'http://banerelle.com/uploads/12119930_10103042303306790_3082862375800035547_o.jpg',
     width: 1080,
     height: 1080,
     aspectRatio: 1,
     lightboxImage:{
-        src: 'https://s3.amazonaws.com/f.cl.ly/items/1L1W3G2o2Z2q1P3n1s0u/12119930_10103042303306790_3082862375800035547_o.jpg'
+        src: 'http://banerelle.com/uploads/12119930_10103042303306790_3082862375800035547_o.jpg'
     }
   },
   {
