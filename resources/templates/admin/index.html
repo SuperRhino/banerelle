@@ -3,14 +3,26 @@
 {% include "_includes/head.html" %}
 <body>
     {% include "_includes/admin-navbar.html" %}
+    {% if user %}
+    {% include "_includes/admin-header.html" %}
+    {% endif %}
 
     <div class="admin-body container">
         {% if user %}
-        <h1>Hey, sexy</h1>
+        <ul>
+            <li>
+                <a href="/admin/page-editor">Page Editor</a>
+            <li>
+                <a href="/admin/page-inventory">Page Inventory</a>
+            <li>
+                <a href="/admin/guest-list">Guest List</a>
+            <li>
+                <a href="/admin/manage-rsvp">Manage RSVPs</a>
+        </ul>
         {% endif %}
-        {% include "_includes/footer.html" %}
     </div>
 
+    {% include "_includes/footer.html" %}
     {% include "_includes/scripts.html" %}
 </body>
 </html>

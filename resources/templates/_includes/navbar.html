@@ -16,6 +16,13 @@
                 <li class="hidden">
                     <a href="#page-top"></a>
                 </li>
+                {% if user %}
+                <li>
+                    <a href="/admin">
+                        <i class="glyphicon glyphicon-cog"></i>
+                    </a>
+                </li>
+                {% endif %}
                 <li>
                     <a class="page-scroll" href="#story">Story</a>
                 </li>
