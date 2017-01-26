@@ -46,6 +46,7 @@ $this->get('/{pageName}', 'App\Controllers\HomeController:showPage');
 $this->get('/admin/page-editor', 'App\Controllers\AdminController:pageEditor')->add($should_auth);
 $this->get('/admin/page-inventory', 'App\Controllers\AdminController:pageInventory')->add($should_auth);
 $this->get('/admin/guest-list', 'App\Controllers\AdminController:guestList')->add($should_auth);
+$this->get('/admin/guest-list/download', 'App\Controllers\AdminController:guestListDownload')->add($should_auth);
 $this->get('/admin/manage-rsvp', 'App\Controllers\AdminController:manageRsvp')->add($should_auth);
 
 /**

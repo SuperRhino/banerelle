@@ -58,6 +58,36 @@ class BaseController {
     }
 
     /**
+     * Sends the given data as downloadable CSV file
+     * @param $data
+     * @throws \Slim\Exception\Stop
+     */
+    protected function download($data)
+    {
+        $now = gmdate("D, d M Y H:i:s");
+        $filename = 'banerelle_guest_list_' . date('Y-m-d') . '.csv';
+
+        // Write to body
+        $body = $this->container->response->getBody();
+        $body->write($data);
+
+        $newResponse = $this->container->response
+                            // disable caching
+                            ->withHeader('Expires', 'Tue, 03 Jul 2001 06:00:00 GMT')
+                            ->withHeader('Cache-Control', 'max-age=0, no-cache, must-revalidate, proxy-revalidate')
+                            ->withHeader('Last-Modified', "{$now} GMT")
+                            // force download
+                            ->withHeader('Content-Type', 'application/force-download')
+                            ->withAddedHeader('Content-Type', 'application/octet-stream')
+                            ->withAddedHeader('Content-Type', 'application/download')
+                            // disposition / encoding on response body
+                            ->withHeader('Content-Disposition', "attachment;filename={$filename}")
+                            ->withHeader('Content-Transfer-Encoding', 'binary');
+
+        return $newResponse->withBody($body);
+    }
+
+    /**
      * @param $metadata
      */
     protected function setMetadata($metadata)

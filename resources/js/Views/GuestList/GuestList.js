@@ -58,6 +58,20 @@ export default class GuestList extends React.Component {
     );
   }
 
+  renderExportButton() {
+    return (
+      <a
+        href="/admin/guest-list/download"
+        target="_blank"
+        className="btn btn-lg btn-info pull-right"
+        style={{marginRight: 10}}
+        role="button">
+        <span className="glyphicon glyphicon-download-alt"></span>
+        {' Download CSV'}
+      </a>
+    );
+  }
+
   render() {
     if (this.state.loading) return <h4>Loading...</h4>;
     if (! this.state.authorized) return <h4>Must be logged in :(</h4>;
@@ -76,6 +90,7 @@ export default class GuestList extends React.Component {
     return (
       <div>
         {this.renderAddGuestButton()}
+        {this.renderExportButton()}
         <h1>Guest List: ({this.state.guests.length})</h1>
         <BootstrapTable
           data={this.state.guests}

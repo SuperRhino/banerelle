@@ -33,10 +33,40 @@ class AdminController extends BaseController
         ]);
     }
 
+    public function guestListDownload()
+    {
+        $user = $this->getCurrentUser();
+        if (! $user) {
+            throw new NotFoundException('Page not found');
+        }
+
+        $guests = Guest::findAll();
+        $data = $this->toCSV($guests);
+
+        return $this->download($data);
+    }
+
     public function manageRsvp()
     {
         return $this->view('admin/manage-rsvp.html', [
             'rsvps' => Rsvp::findAllPending(),
         ]);
+    }
+
+    protected function toCSV($array)
+    {
+        if (count($array) == 0) {
+          return null;
+        }
+
+        ob_start();
+        $df = fopen("php://output", 'w');
+        fputcsv($df, array_keys(reset($array)));
+        foreach ($array as $row) {
+           fputcsv($df, $row);
+        }
+        fclose($df);
+
+        return ob_get_clean();
     }
 }
