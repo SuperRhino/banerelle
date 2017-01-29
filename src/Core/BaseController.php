@@ -64,14 +64,20 @@ class BaseController {
      */
     protected function download($data)
     {
-        $now = gmdate("D, d M Y H:i:s");
-        $filename = 'banerelle_guest_list_' . date('Y-m-d') . '.csv';
-
         // Write to body
         $body = $this->container->response->getBody();
         $body->write($data);
 
-        $newResponse = $this->container->response
+        return $this->_withDownloadHeaders()
+                    ->withBody($body);
+    }
+
+    private function _withDownloadHeaders()
+    {
+        $now = gmdate("D, d M Y H:i:s");
+        $filename = 'banerelle_guest_list_' . date('Y-m-d') . '.csv';
+
+        return $this->container->response
                             // disable caching
                             ->withHeader('Expires', 'Tue, 03 Jul 2001 06:00:00 GMT')
                             ->withHeader('Cache-Control', 'max-age=0, no-cache, must-revalidate, proxy-revalidate')
@@ -83,8 +89,6 @@ class BaseController {
                             // disposition / encoding on response body
                             ->withHeader('Content-Disposition', "attachment;filename={$filename}")
                             ->withHeader('Content-Transfer-Encoding', 'binary');
-
-        return $newResponse->withBody($body);
     }
 
     /**
