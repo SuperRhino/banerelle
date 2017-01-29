@@ -73,6 +73,27 @@ class Guest extends Model {
         return $guests;
     }
 
+    /**
+     * Find all guests for export.
+     * @return {array} [guests, address_street, address_city, address_state, address_zip, (int) invites]
+     *
+    **/
+    public static function findForExport()
+    {
+        $query = static::$app->query->newSelect();
+        $query->cols(['*'])
+              ->from(static::$table)
+              ->orderBy(['party_leader_name asc', 'last_name asc', 'first_name asc']);
+
+        $guests = [];
+        $res = static::$app->db->fetchAll($query);
+        foreach ($res as $guest) {
+            $guests []= (new Guest($guest))->toArray();
+        }
+
+        return $guests;
+    }
+
     public static function findById($guestId)
     {
         $query = static::$app->query->newSelect();
