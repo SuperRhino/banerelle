@@ -81,14 +81,48 @@ class Guest extends Model {
     public static function findForExport()
     {
         $query = static::$app->query->newSelect();
-        $query->cols(['*'])
-              ->from(static::$table)
-              ->orderBy(['party_leader_name asc', 'last_name asc', 'first_name asc']);
+        $query->cols([
+                'g.id',
+                'if (count(distinct p2.last_name) = 1,
+                    if (count(distinct p.id) = 0,
+                        trim(concat(g.first_name, " ", g.last_name)),
+                        trim(concat(g.first_name, " & ", trim(group_concat(distinct p.first_name separator " & ")), " ", g.last_name))
+                    ),
+                    if (LOCATE("+1", group_concat(distinct p.last_name)),
+                        trim(concat(g.first_name, " ", g.last_name)),
+                        trim(CONCAT(g.first_name, " ", g.last_name, " & ", p.first_name, " ", p.last_name))
+                    )
+                ) as guests',
+                'g.address_street',
+                'g.address_city',
+                'g.address_state',
+                'g.address_zip',
+                'count(distinct p2.id) as invites',
+              ])
+              ->from(static::$table.' as g')
+              // join guests for all accompanying the primary
+              ->join('left',
+                    'guests as p',
+                    'p.party_leader_name = g.party_leader_name AND g.party_leader_name <> concat(p.first_name, " ", p.last_name)')
+              // join all for this party leader
+              ->join('left',
+                    'guests as p2',
+                    'p2.party_leader_name = g.party_leader_name')
+              // where "guest [g]" is the primary
+              ->where('g.party_leader_name = concat(g.first_name, " ", g.last_name)')
+              // group by primary guest
+              ->groupBy(['g.id'])
+              // order by has-address, then by primary last name
+              ->orderBy([
+                  'g.address_street IS NULL',
+                  'g.last_name'
+              ]);
 
         $guests = [];
         $res = static::$app->db->fetchAll($query);
         foreach ($res as $guest) {
-            $guests []= (new Guest($guest))->toArray();
+            // $guests []= (new Guest($guest))->toArray();
+            $guests []= $guest;
         }
 
         return $guests;
