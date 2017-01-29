@@ -97,6 +97,7 @@ class Guest extends Model {
                 'g.address_city',
                 'g.address_state',
                 'g.address_zip',
+                'g.phone',
                 'count(distinct p2.id) as invites',
               ])
               ->from(static::$table.' as g')
