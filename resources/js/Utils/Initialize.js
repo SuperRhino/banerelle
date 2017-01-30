@@ -39,9 +39,17 @@ export default class Initialize {
     });
 
     // Highlight the top nav as scrolling occurs
-    $('body').scrollspy({
+    let $body = $('body');
+    $body.scrollspy({
         target: '.navbar-fixed-top',
         offset: 51
+    });
+    // Listen for new scrollspy section active:
+    $body.on('activate.bs.scrollspy', function () {
+      let item = document.querySelector('.navbar-nav > .active > a');
+      if (item) {
+          Events.send('scrolling', 'sectionview', (item.innerText).toLowerCase());
+      }
     });
 
     // Closes the Responsive Menu on Menu Item Click
