@@ -23,8 +23,8 @@ export default class DateCountdown extends React.Component {
     date: React.PropTypes.string,
   };
   static defaultProps = {
-    date: "07-15-2017",
-    dateFormat: "MM-DD-YYYY",
+    date: "07-15-2017 4:30 pm",
+    dateFormat: "MM-DD-YYYY h:mm:ss a",
   };
 
   constructor(props) {
@@ -51,32 +51,63 @@ export default class DateCountdown extends React.Component {
     }
   }
 
+  renderPastDate() {
+      return (
+          <div className="col-lg-12 text-center">
+              <h2 className="section-heading">
+                  Are Married!
+              </h2>
+          </div>
+      );
+  }
+
+  renderCountdown() {
+        return (
+            <div className="col-lg-12 text-center">
+                <h2 className="section-heading">
+                    {this.state.days || null}
+                    {this.state.days == 1 ? ' day ' : null}
+                    {this.state.days > 1 ? ' days ' : null}
+                    {this.state.days || this.state.hours ? this.state.hours : null}
+                    {this.state.days && this.state.hours ? ':' : null}
+                    {! this.state.days && this.state.hours ?
+                        (this.state.hours > 1 ? ' hours ' : ' hour ') :
+                        null
+                    }
+                    {this.state.days || this.state.hours || this.state.mins ? lpad(this.state.mins)+':' : null}
+                    {lpad(this.state.seconds)}
+                    {! this.state.days && ! this.state.hours ?
+                        (this.state.mins ? ' minutes' : ' seconds') :
+                        null
+                    }
+                </h2>
+                <h3 className="section-subheading text-muted">
+                    {'Getting Married '+this.state.formattedDate+' in Medina, Ohio'}
+                </h3>
+            </div>
+        );
+  }
+
   render() {
     return (
       <div className="row">
-        <div className="col-lg-12 text-center">
-            <h2 className="section-heading">
-                {this.state.days}{' days '}{this.state.hours}{':'}{this.state.mins}{':'}{this.state.seconds}
-            </h2>
-            <h3 className="section-subheading text-muted">
-                {'Getting Married '+this.state.formattedDate+' in Medina, Ohio'}
-            </h3>
-        </div>
+        {this.state.isPast ? this.renderPastDate() : this.renderCountdown()}
       </div>
     );
   }
 
   _onTick() {
     let now = moment(),
-        eod = moment().endOf("day"),
-        target = moment(this.props.date, this.props.dateFormat);
+        target = moment(this.props.date, this.props.dateFormat),
+        isPast = target.isBefore(now);
 
     this.setState({
+      isPast,
       formattedDate: target.format("dddd, MMMM Do YYYY"),
       days: target.diff( now, "days" ),
-      hours: eod.diff(now, "hours"),
-      mins: lpad(eod.diff(now, "minutes") % 60),
-      seconds: lpad((eod.diff(now, "seconds") % 3600) % 60),
+      hours: target.diff(now, "hours") % 24,
+      mins: target.diff(now, "minutes") % 60,
+      seconds: target.diff(now, "seconds") % 3600 % 60,
     });
   }
 }
