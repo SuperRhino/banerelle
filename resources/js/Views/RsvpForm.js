@@ -4,7 +4,7 @@ import Events from '../Utils/Events';
 import Utils from '../Utils/Utils';
 
 const INITIAL_STATE = {
-  enabled: false,
+  enabled: true,
   validate: false,
   email_sent: false,
   rsvp_id: null,
@@ -13,6 +13,12 @@ const INITIAL_STATE = {
   rsvp_email: '',
   primary_name: '',
   secondary_name: '',
+};
+
+const styles = {
+    btnContainer: {
+        display: 'flex',
+    },
 };
 
 export default class RsvpForm extends React.Component {
@@ -35,7 +41,6 @@ export default class RsvpForm extends React.Component {
       <div className="row">
           <div className="col-xs-12">
               <h1>RSVP <small>Banerelle Wedding</small></h1>
-              <h3 className="section-subheading text-muted" style={{marginBottom: 25}}>The best way to RSVP for the Banerelle wedding.</h3>
               {! this.state.rsvp_id ? this.renderForm() : this.renderThankYou()}
           </div>
       </div>
@@ -43,17 +48,30 @@ export default class RsvpForm extends React.Component {
   }
 
   renderRsvp() {
+      if (!! this.state.rsvp) return;
+
       let fieldClasses = this._fieldIsValid('rsvp') ? 'has-feedback' : 'has-feedback has-error';
       return (
           <div className={"form-group "+fieldClasses}>
-            <blockquote className="bq-alt">Will you be able to attend?
-                <select className="form-control input-lg"
-                    value={this.state.rsvp}
-                    onChange={e => this.setState({rsvp: e.target.value})}>
-                    <option value="">Choose RSVP...</option>
-                    <option value="y">Yes, Certainly</option>
-                    <option value="n">No, my party will not be able to party. We wish you luck & send you love...</option>
-                </select>
+            <blockquote className="bq-alt" style={styles.btnContainer}>
+                <button type="button"
+                    className="form-control input-lg btn btn-primary"
+                    style={{marginRight: 15}}
+                    onClick={e => {
+                        e.preventDefault();
+                        this.setState({rsvp: 'y'});
+                    }}>
+                    {'Yes. I shall attend!'}
+                </button>
+                <button type="button"
+                    className="form-control input-lg btn btn-warning"
+                    style={{marginLeft: 15}}
+                    onClick={e => {
+                        e.preventDefault();
+                        this.setState({rsvp: 'n'});
+                    }}>
+                    {'No, my party will sadly not be able to party.'}
+                </button>
             </blockquote>
           </div>
       );
@@ -115,6 +133,19 @@ export default class RsvpForm extends React.Component {
       );
   }
 
+  renderClear() {
+      if (! this.state.rsvp) return;
+
+      return (
+          <button
+            type="button"
+            className="btn btn-lg btn-default"
+            onClick={e => this.setState({rsvp:''})}
+            style={{margin: '0 2%'}}>
+          Start Over</button>
+      );
+  }
+
   renderSubmit() {
       if (! this.state.rsvp) return;
 
@@ -135,7 +166,7 @@ export default class RsvpForm extends React.Component {
     return (
       <form ref="rsvpForm" role="form" onSubmit={this.onSubmit}>
           <h3>
-            {"We'd love for you to join us! "}
+            {"Can you join us? "}
             <small>Please RSVP by June 15</small>
           </h3>
           {this.renderRsvp()}
@@ -143,6 +174,7 @@ export default class RsvpForm extends React.Component {
           {this.renderNameInput()}
           {this.renderSecondNameInput()}
           {this.renderSubmit()}
+          {this.renderClear()}
       </form>
     );
   }

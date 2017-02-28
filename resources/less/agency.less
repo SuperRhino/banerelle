@@ -68,6 +68,19 @@ h1, h2, h3, h4, h5, h6 {
     .button-variant(white; @theme-primary; @theme-primary);
     .heading-font;
     font-weight: 700;
+
+    &:active {
+        .button-variant(white; darken(@theme-primary, 10%); @theme-primary);
+    }
+}
+.btn-warning {
+    .button-variant(white; @theme-warning; @theme-warning);
+    .heading-font;
+    font-weight: 700;
+
+    &:active {
+        .button-variant(white; darken(@theme-warning, 10%); @theme-warning);
+    }
 }
 
 .btn-xl {
