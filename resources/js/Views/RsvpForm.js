@@ -59,6 +59,7 @@ export default class RsvpForm extends React.Component {
                     style={{marginRight: 15}}
                     onClick={e => {
                         e.preventDefault();
+                        Events.send('rsvp', 'choose', 'y');
                         this.setState({rsvp: 'y'});
                     }}>
                     {'Yes. I shall attend!'}
@@ -68,6 +69,7 @@ export default class RsvpForm extends React.Component {
                     style={{marginLeft: 15}}
                     onClick={e => {
                         e.preventDefault();
+                        Events.send('rsvp', 'choose', 'n');
                         this.setState({rsvp: 'n'});
                     }}>
                     {'No, my party will sadly not be able to party.'}
@@ -293,7 +295,7 @@ export default class RsvpForm extends React.Component {
             this.setState({rsvp_id: res.data.id});
         });
 
-      Events.send('forms', 'submit', 'rsvp');
+      Events.send('rsvp', 'submit', this.state.rsvp);
   }
 
   onSubmitEmail(e) {
@@ -314,7 +316,7 @@ export default class RsvpForm extends React.Component {
             this.setState({email_sent: true});
         });
 
-      Events.send('forms', 'submit', 'rsvp email');
+      Events.send('rsvp', 'submit-email', this.state.rsvp_id);
   }
 
   _fieldIsValid(field) {
