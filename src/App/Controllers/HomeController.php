@@ -13,6 +13,7 @@ class HomeController extends BaseController
         $data = [
             'pages' => Page::findMostRecent(6),
             'messages' => GuestMessage::findAll(),
+            'story_page' => Page::findByPageName('our-story'),
         ];
 
         return $this->view('home.html', $data);
