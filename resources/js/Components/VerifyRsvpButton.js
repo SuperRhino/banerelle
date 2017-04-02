@@ -5,6 +5,7 @@ import Utils from '../Utils/Utils';
 export default class VerifyRsvpButton extends React.Component {
   static propTypes = {
       id: PropTypes.string.isRequired,
+      verified: PropTypes.string,
   };
   static defaultProps = {};
 
@@ -12,7 +13,7 @@ export default class VerifyRsvpButton extends React.Component {
     super(props);
 
     this.state = {
-        verified: false,
+        verified: this.props.verified || false,
     };
 
     this.onVerify = this.onVerify.bind(this);

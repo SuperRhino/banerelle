@@ -94,7 +94,7 @@ export default class Routes {
       let rsvpButtons = document.querySelectorAll('.VerifyRsvpButton');
       rsvpButtons.forEach(btn => {
           ReactDOM.render(
-            <VerifyRsvpButton id={btn.getAttribute('data-id')} />,
+            <VerifyRsvpButton id={btn.getAttribute('data-id')} verified={btn.getAttribute('data-verified')} />,
             btn
           );
       })

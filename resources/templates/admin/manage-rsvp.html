@@ -29,10 +29,13 @@
                   {% if (rsvp.rsvp_email) %}
                     <br /><span class="text-muted">{{ rsvp.rsvp_email }}</span>
                   {% endif %}
+                  {% if (rsvp.quiz_drink or rsvp.quiz_meal or rsvp.quiz_song) %}
+                    <br /><span class="text-muted">{{ rsvp.quiz_drink }}, {{ rsvp.quiz_meal }}, {{ rsvp.quiz_song }}</span>
+                  {% endif %}
               </td>
               <td>{{ rsvp.rsvp_date|date_modify("-5 hours")|date("F jS \\a\\t g:ia") }}</td>
               <td>{{ rsvp.rsvp|upper }}</td>
-              <td class="VerifyRsvpButton" data-id="{{ rsvp.id }}"></td>
+              <td class="VerifyRsvpButton" data-id="{{ rsvp.id }}" data-verified="{{ rsvp.verify_date }}"></td>
             </tr>
             {% else %}
             <tr>

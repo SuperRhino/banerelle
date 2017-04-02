@@ -32,6 +32,8 @@ class Rsvp extends Model {
         $this->quiz_drink = array_get($values, 'quiz_drink');
         $this->quiz_meal = array_get($values, 'quiz_meal');
         $this->quiz_song = array_get($values, 'quiz_song');
+        $this->verify_date = array_get($values, 'verify_date');
+        $this->verify_by = array_get($values, 'verify_by');
     }
 
     public function toArray()
@@ -57,8 +59,8 @@ class Rsvp extends Model {
         $query = static::$app->query->newSelect();
         $query->cols(['*'])
               ->from(static::$table)
-              ->where('verify_date is null')
-              ->orderBy(['rsvp_date desc', 'primary_name asc', 'secondary_name asc']);
+              //->where('verify_date is null')
+              ->orderBy(['verify_date is null DESC', 'rsvp_date desc', 'primary_name asc', 'secondary_name asc']);
 
         $rsvps = [];
         $res = static::$app->db->fetchAll($query);
