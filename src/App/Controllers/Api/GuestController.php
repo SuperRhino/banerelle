@@ -68,20 +68,31 @@ class GuestController extends BaseApiController
         return $this->success($rsvp->toArray());
     }
 
-    public function rsvpEmail($request)
+    public function rsvpUpdate($request)
     {
+        // Find RSVP record:
         $rsvpId = (int) $request->getAttribute('id');
         $rsvp = Rsvp::findById($rsvpId);
         if (! $rsvp) {
             throw new NotFoundException('RSVP not found');
         }
 
+        // Validate email (only if sent)
         $email = $this->json('rsvp_email');
-        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+        $hasEmail = ! empty($email);
+        if ($hasEmail && filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
             throw new NotFoundException('Invalid email, sorry.');
         }
 
-        $rsvp->rsvp_email = $email;
+        // Assign + save:
+        if ($hasEmail) {
+            $rsvp->rsvp_email = $email ?: $rsvp->rsvp_email;
+        } else {
+            $rsvp->quiz_drink = $this->json('drink') ?: $rsvp->quiz_drink;
+            $rsvp->quiz_meal = $this->json('meal') ?: $rsvp->quiz_meal;
+            $rsvp->quiz_song = $this->json('song') ?: $rsvp->quiz_song;
+        }
+
         $rsvp->save();
 
         return $this->success($rsvp->toArray());
