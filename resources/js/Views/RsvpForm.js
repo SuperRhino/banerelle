@@ -1,6 +1,7 @@
 import React from 'react';
 import ApiRequest from '../Api/ApiRequest';
 import Events from '../Utils/Events';
+import GuestQuiz from './GuestQuiz';
 import Utils from '../Utils/Utils';
 
 const INITIAL_STATE = {
@@ -19,6 +20,14 @@ const styles = {
     btnContainer: {
         display: 'flex',
     },
+    alertEmail: {
+        color: '#fcf8e3',
+        backgroundColor: '#9a7801',
+        borderColor: '#faebcc',
+    },
+    yesGif: {
+        maxWidth: 200,
+    },
 };
 
 export default class RsvpForm extends React.Component {
@@ -28,7 +37,9 @@ export default class RsvpForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = INITIAL_STATE;
+    this.state = {
+        ...INITIAL_STATE,
+    };
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onSubmitEmail = this.onSubmitEmail.bind(this);
@@ -183,6 +194,49 @@ export default class RsvpForm extends React.Component {
 
   renderThankYou() {
       let rsvp = (this.state.rsvp === 'y');
+      let renderEmailThanks = () => (
+          <div className="alert" style={styles.alertEmail}>
+              <h3>
+                <i className={"glyphicon glyphicon-ok-sign success"}></i>{' '}
+                {'Thanks!'}
+              </h3>
+              <p className="lead">You'll get an email reminder the week before the wedding.</p>
+          </div>
+      );
+      let renderEmailForm = () => (
+          <div className="alert" style={styles.alertEmail}>
+              <p className="lead">Get an email reminder the week before the wedding:</p>
+              <form className="form-inline" onSubmit={this.onSubmitEmail}>
+                <div className="form-group has-feedback">
+                  <label className="sr-only">Email</label>
+                  <div className="input-group" style={{display:'flex'}}>
+                      <input
+                          type="email"
+                          className="form-control"
+                          style={{display:'flex'}}
+                          placeholder="jane.doe@example.com"
+                          value={this.state.rsvp_email}
+                          onChange={e => this.setState({rsvp_email: e.target.value})}
+                      />
+                      <button type="submit" className="btn btn-warning">
+                        <i className="glyphicon glyphicon-envelope" aria-hidden="true"></i>
+                        {' Remind Me'}
+                      </button>
+                  </div>
+                </div>
+              </form>
+          </div>
+      );
+      let renderGuestBook = () => (
+          <blockquote className="bq-alt">
+            <p>
+                <a href="/guest-book" title="Guest Book" className="btn btn-lg btn-block btn-warning" data-ga-rsvp>
+                    <i className="glyphicon glyphicon-book"></i>
+                    <span> Sign our Guest Book</span>
+                </a>
+            </p>
+          </blockquote>
+      );
       let renderPhotos = () => (
           <blockquote className="bq-alt">
             <p>
@@ -233,38 +287,20 @@ export default class RsvpForm extends React.Component {
 
           return (
             <div>
-                {this.state.email_sent ? null : (
-                    <div className="alert alert-success">
-                        <p className="lead text-muted">Get an email reminder the week before the wedding:</p>
-                        <form className="form-inline" onSubmit={this.onSubmitEmail}>
-                          <div className="form-group">
-                            <label className="text-muted">Email</label>
-                            <input
-                                type="email"
-                                className="form-control"
-                                style={{width: 225}}
-                                placeholder="jane.doe@example.com"
-                                value={this.state.rsvp_email}
-                                onChange={e => this.setState({rsvp_email: e.target.value})}
-                            />
-                          </div>
-                          <button type="submit" className="btn btn-default btn-danger">
-                            <i className="glyphicon glyphicon-envelope"></i>
-                            {' Send Me Reminder'}
-                          </button>
-                        </form>
-                    </div>
-                )}
                 <blockquote className="bq-alt">
                     <p>Coool Beans! We cannot wait to see you there, {this.state.primary_name}!</p>
-                    <p><img src="https://media.giphy.com/media/7k0aZNv7cw43m/giphy.gif" alt="Carlton Dance" className="img-responsive" /></p>
-                    <p>
-                        <a href="/guest-book" title="Guest Book" className="btn btn-lg btn-block btn-warning" data-ga-rsvp>
-                            <i className="glyphicon glyphicon-book"></i>
-                            {' Sign our Guest Book — tell us your favorite dance song'}
-                        </a>
-                    </p>
+                    <p><img src="https://media.giphy.com/media/7k0aZNv7cw43m/giphy.gif" alt="Carlton Dance" className="img-responsive" style={styles.yesGif} /></p>
                 </blockquote>
+                <div className="row">
+                    <div className="col-xs-12 col-md-6">
+                        <GuestQuiz rsvp_id={this.state.rsvp_id} />
+                    </div>
+                    <div className="col-xs-12 col-md-6">
+                        {this.state.email_sent ? renderEmailThanks() : renderEmailForm()}
+                    </div>
+                </div>
+
+                {renderGuestBook()}
                 {renderPhotos()}
                 {renderStory()}
             </div>
@@ -305,7 +341,7 @@ export default class RsvpForm extends React.Component {
       }
 
       if (! this.state.rsvp_email) {
-          Utils.showError("$#!† — You're missing the following: " + error_fields.join(', '));
+          Utils.showError("But first &mdash; Let's have that email...");
           return;
       }
 
