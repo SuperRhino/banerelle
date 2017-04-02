@@ -55,9 +55,6 @@ h6 {
   color: white;
   background-color: #cd9f01;
   border-color: #cd9f01;
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
-  font-weight: 700;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -140,9 +137,6 @@ fieldset[disabled] .btn-primary:active.active {
   color: white;
   background-color: #333333;
   border-color: #333333;
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
-  font-weight: 700;
 }
 .btn-warning:hover,
 .btn-warning:focus,
