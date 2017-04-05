@@ -10,8 +10,8 @@ class FlashBriefingController extends BaseApiController
 {
     public function get()
     {
-        $now = new \DateTime();
-        $wedding_date = new \DateTime('2017-07-15 16:30:00');
+        $now = new \DateTime('now', new \DateTimeZone('America/New_York'));
+        $wedding_date = new \DateTime('2017-07-15 16:30:00', new \DateTimeZone('America/New_York'));
         $interval = $wedding_date->diff($now);
         $diff = $interval->format("%a days, %h hours, and %i minutes");
 
