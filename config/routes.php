@@ -70,5 +70,8 @@ $this->get('/api/pages/{id}',    'App\Controllers\Api\PageController:getPage')->
 $this->post('/api/pages/{id}',   'App\Controllers\Api\PageController:updatePage')->add($must_auth);
 $this->post('/api/upload-file',  'App\Controllers\Api\PageController:uploadFile')->add($must_auth);
 
+// Alexa Flash Briefing:
+$this->get('/api/flash-briefing',   'App\Controllers\Api\FlashBriefingController:get');
+
 // Catch all for any API route
 $this->any('/api/{endpoint}', 'Core\BaseApiController:notFound');
