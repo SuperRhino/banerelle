@@ -55,7 +55,7 @@ export default class DateCountdown extends React.Component {
       return (
           <div className="col-lg-12 text-center">
               <h2 className="section-heading">
-                  Are Married!
+                  We Are Married!
               </h2>
           </div>
       );
@@ -68,7 +68,7 @@ export default class DateCountdown extends React.Component {
                     {this.state.days || null}
                     {this.state.days == 1 ? ' day ' : null}
                     {this.state.days > 1 ? ' days ' : null}
-                    {this.state.days || this.state.hours ? this.state.hours : null}
+                    {this.state.hours ? this.state.hours : null}
                     {this.state.days && this.state.hours ? ':' : null}
                     {! this.state.days && this.state.hours ?
                         (this.state.hours > 1 ? ' hours ' : ' hour ') :
