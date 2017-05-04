@@ -81,8 +81,8 @@ export default class DateCountdown extends React.Component {
                         null
                     }
                 </h2>
-                <h3 className="section-subheading text-muted">
-                    {'Getting Married '+this.state.formattedDate+' in Medina, Ohio'}
+                <h3 className="section-subheading intro-lead-in text-primary" style={styles.targetDate}>
+                    {this.state.formattedDate+' in Medina, Ohio'}
                 </h3>
             </div>
         );
@@ -114,12 +114,7 @@ export default class DateCountdown extends React.Component {
 
 let styles = {
   targetDate: {
-    textAlign: "center",
-    textTransform: "uppercase",
-  },
-  countdown: {
-    fontSize: "3em",
-    textAlign: "center",
-    textTransform: "uppercase",
+      fontSize: 24,
+      textTransform: "none",
   },
 };

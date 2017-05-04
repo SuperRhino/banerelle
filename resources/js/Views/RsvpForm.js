@@ -61,9 +61,9 @@ export default class RsvpForm extends React.Component {
   renderRsvp() {
       if (!! this.state.rsvp) return;
 
-      let fieldClasses = this._fieldIsValid('rsvp') ? 'has-feedback' : 'has-feedback has-error';
+      //let fieldClasses = this._fieldIsValid('rsvp') ? 'has-feedback' : 'has-feedback has-error';
       return (
-          <div className={"form-group "+fieldClasses}>
+          <div className={"form-group"}>
             <blockquote className="bq-alt" style={styles.btnContainer}>
                 <button type="button"
                     className="form-control input-lg btn btn-primary"
@@ -73,7 +73,7 @@ export default class RsvpForm extends React.Component {
                         Events.send('rsvp', 'choose', 'y');
                         this.setState({rsvp: 'y'});
                     }}>
-                    {'Yes. I shall attend!'}
+                    {'Yes!'}
                 </button>
                 <button type="button"
                     className="form-control input-lg btn btn-warning"
@@ -83,7 +83,7 @@ export default class RsvpForm extends React.Component {
                         Events.send('rsvp', 'choose', 'n');
                         this.setState({rsvp: 'n'});
                     }}>
-                    {'No, my party will sadly not be able to party.'}
+                    {'Nope.'}
                 </button>
             </blockquote>
           </div>
@@ -180,7 +180,7 @@ export default class RsvpForm extends React.Component {
       <form ref="rsvpForm" role="form" onSubmit={this.onSubmit}>
           <h3>
             {"Can you join us? "}
-            <small>Please RSVP by June 15</small>
+            <small>Please RSVP by June 10<sup>th</sup></small>
           </h3>
           {this.renderRsvp()}
           {this.renderRsvpNumInput()}

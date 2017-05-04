@@ -1,7 +1,11 @@
 <!-- Story Section -->
-<section id="story">
+<section id="story" class="bg-light-gray">
     <div class="container">
-        <div id="DateCountdown"></div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Our Story</h2>
+            </div>
+        </div>
         {% for row in data.pages|batch(3) %}
         <div class="row text-center">
             {% for page in row %}
