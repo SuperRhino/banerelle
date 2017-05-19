@@ -11,6 +11,7 @@ class Guest extends Model {
     var $first_name;
     var $last_name;
     var $party_leader_name;
+    var $invite_sent;
     var $address;
     var $address_street;
     var $address_city;
@@ -27,6 +28,7 @@ class Guest extends Model {
         $this->first_name = array_get($values, 'first_name');
         $this->last_name = array_get($values, 'last_name');
         $this->party_leader_name = array_get($values, 'party_leader_name');
+        $this->invite_sent = (bool) array_get($values, 'invite_sent');
         $this->address = array_get($values, 'address');
         $this->address_street = array_get($values, 'address_street');
         $this->address_city = array_get($values, 'address_city');
@@ -45,6 +47,7 @@ class Guest extends Model {
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'party_leader_name' => $this->party_leader_name,
+            'invite_sent' => (bool) $this->invite_sent,
             'address' => $this->address,
             'address_street' => $this->address_street,
             'address_city' => $this->address_city,
@@ -155,6 +158,9 @@ class Guest extends Model {
         if (isset($values['party_leader_name'])) {
             $this->party_leader_name = array_get($values, 'party_leader_name');
         }
+        if (isset($values['invite_sent'])) {
+            $this->invite_sent = array_get($values, 'invite_sent');
+        }
         if (isset($values['address'])) {
             $this->address = array_get($values, 'address');
         }
@@ -241,6 +247,7 @@ class Guest extends Model {
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'party_leader_name' => $this->party_leader_name,
+            'invite_sent' => $this->invite_sent,
             'address' => $this->address,
             'address_street' => $this->address_street,
             'address_city' => $this->address_city,
