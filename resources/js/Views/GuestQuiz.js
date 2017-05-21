@@ -17,7 +17,7 @@ const styles = {
     },
 };
 
-export default class RsvpForm extends React.Component {
+export default class GuestQuiz extends React.Component {
   static propTypes = {
       rsvp_id: React.PropTypes.number,
   };
@@ -40,7 +40,7 @@ export default class RsvpForm extends React.Component {
     if (this.state.saved) return this.renderThankYou();
 
     return (
-        <form ref="rsvpForm" role="form" onSubmit={this.onSubmit}>
+        <form ref="guestQuiz" role="form" onSubmit={this.onSubmit}>
             <h3>{"Now Take the Banerelle Guest Quiz!"}</h3>
             <blockquote className="bq-alt">
                 {this.renderDrink()}
@@ -153,7 +153,7 @@ export default class RsvpForm extends React.Component {
             this.setState({saved: true});
         });
 
-      Events.send('rsvp', 'submit', this.state.rsvp);
+      Events.send('guest-quiz', 'submit', this.state.rsvp);
   }
 
   _fieldIsValid(field) {

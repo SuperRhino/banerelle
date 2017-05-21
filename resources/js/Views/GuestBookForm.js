@@ -4,7 +4,7 @@ import Events from '../Utils/Events';
 import Utils from '../Utils/Utils';
 import $ from 'jquery';
 
-export default class RsvpForm extends React.Component {
+export default class GuestBookForm extends React.Component {
   static propTypes = {};
   static defaultProps = {};
 
