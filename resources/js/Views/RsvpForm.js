@@ -30,6 +30,21 @@ const styles = {
     },
 };
 
+const debounce = function(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+
 export default class RsvpForm extends React.Component {
   static propTypes = {};
   static defaultProps = {};
@@ -43,6 +58,8 @@ export default class RsvpForm extends React.Component {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onSubmitEmail = this.onSubmitEmail.bind(this);
+
+    this._nameStats = debounce(this._nameStats, 1000);
   }
 
   render() {
@@ -119,7 +136,9 @@ export default class RsvpForm extends React.Component {
                       type="text"
                       placeholder="Mia Wallace"
                       value={this.state.primary_name}
-                      onChange={e => this.setState({primary_name: e.target.value})}
+                      onChange={e => {
+                          this.setState({primary_name: e.target.value}, () => this._nameStats(this.state.primary_name));
+                      }}
                   />
               </blockquote>
           </div>
@@ -139,7 +158,9 @@ export default class RsvpForm extends React.Component {
                       type="text"
                       placeholder="Vincent Vega"
                       value={this.state.secondary_name}
-                      onChange={e => this.setState({secondary_name: e.target.value})}
+                      onChange={e => {
+                          this.setState({secondary_name: e.target.value}, () => this._nameStats(this.state.secondary_name));
+                      }}
                   />
               </blockquote>
           </div>
@@ -383,6 +404,10 @@ export default class RsvpForm extends React.Component {
 
       this.setState({validate: true});
       return valid;
+  }
+
+  _nameStats(value) {
+      value && Events.send('rsvp', 'enter-name', value);
   }
 
   _getFormData() {
