@@ -369,6 +369,7 @@ export default class RsvpForm extends React.Component {
 
       ApiRequest.post('/guests/rsvp/'+this.state.rsvp_id)
         .data({rsvp_email: this.state.rsvp_email})
+        .setAnonymous(true)
         .send(res => {
             Utils.showSuccess('<i class="glyphicon glyphicon-ok"></i>');
             this.setState({email_sent: true});

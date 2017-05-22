@@ -43,6 +43,7 @@ export default class GuestBookForm extends React.Component {
     e.preventDefault();
     ApiRequest.post('/guests/messages')
       .data(this._getFormData())
+      .setAnonymous(true)
       .send(res => {
         let message = res.data;
         this.refs.guestBookForm.reset();

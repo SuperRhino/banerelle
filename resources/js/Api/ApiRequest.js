@@ -99,7 +99,6 @@ export default class ApiRequest {
   }
 
   send(callback, errCallback) {
-      alert('sending...');
     if (this.isAnonymous) {
       return this._sendIt(callback, errCallback);
     }
@@ -166,12 +165,10 @@ export default class ApiRequest {
       this.request.set(this.requestHeaders);
     }
 
-    // alert('request...');
     this.request
       .send(this.requestBody)
       //.withCredentials()
       .end((err, res) => {
-          alert('nailed it!');
         ApiRequest.updateNetworkIndicator();
         if (res.ok) {
           // I know when that hot line bling:

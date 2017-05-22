@@ -148,6 +148,7 @@ export default class GuestQuiz extends React.Component {
             meal,
             song,
         })
+        .setAnonymous(true)
         .send(res => {
             Utils.showSuccess('<i class="glyphicon glyphicon-ok"></i>');
             this.setState({saved: true});
