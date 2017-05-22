@@ -347,6 +347,7 @@ export default class RsvpForm extends React.Component {
 
       ApiRequest.post('/guests/rsvp')
         .data(this._getFormData())
+        .setAnonymous(true)
         .send(res => {
             this.setState({rsvp_id: res.data.id});
             Utils.showSuccess('<i class="glyphicon glyphicon-ok"></i>');
@@ -399,7 +400,6 @@ export default class RsvpForm extends React.Component {
       }
 
       if (! valid) {
-          alert("$#!† — You're missing the following: " + error_fields.join(', '));
           Utils.showError("$#!† — You're missing the following: " + error_fields.join(', '));
       }
 

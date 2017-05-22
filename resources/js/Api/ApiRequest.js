@@ -99,6 +99,7 @@ export default class ApiRequest {
   }
 
   send(callback, errCallback) {
+      alert('sending...');
     if (this.isAnonymous) {
       return this._sendIt(callback, errCallback);
     }
@@ -165,7 +166,7 @@ export default class ApiRequest {
       this.request.set(this.requestHeaders);
     }
 
-    alert('sending...');
+    // alert('request...');
     this.request
       .send(this.requestBody)
       //.withCredentials()
