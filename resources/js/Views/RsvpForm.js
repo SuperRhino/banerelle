@@ -353,7 +353,7 @@ export default class RsvpForm extends React.Component {
             Utils.showSuccess('<i class="glyphicon glyphicon-ok"></i>');
         });
 
-      Events.send('rsvp', 'submit', this.state.rsvp);
+      Events.send('rsvp', 'submit-'+this.state.rsvp, this.state.primary_name+'/'+this.state.secondary_name);
   }
 
   onSubmitEmail(e) {
