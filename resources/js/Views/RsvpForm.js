@@ -342,7 +342,9 @@ export default class RsvpForm extends React.Component {
   }
 
   onSubmit(e) {
+      alert('onSubmit');
       e.preventDefault();
+      Events.send('rsvp-attempt', 'submit', this.state.rsvp+'-'+this.state.primary_name);
       if (! this.validate()) return;
 
       ApiRequest.post('/guests/rsvp')
@@ -399,6 +401,7 @@ export default class RsvpForm extends React.Component {
       }
 
       if (! valid) {
+          alert("$#!† — You're missing the following: " + error_fields.join(', '));
           Utils.showError("$#!† — You're missing the following: " + error_fields.join(', '));
       }
 
