@@ -107,7 +107,7 @@ export default class GuestList extends React.Component {
           multiColumnSearch={true}
           selectRow={selectRowProp}
         >
-          <TableHeaderColumn dataField="id" isKey={true} width="60">ID</TableHeaderColumn>
+          <TableHeaderColumn dataField="id" isKey={true} dataSort={true} width="60">ID</TableHeaderColumn>
           <TableHeaderColumn dataField="last_name" dataSort={true} dataFormat={this._formatName}>Name</TableHeaderColumn>
           <TableHeaderColumn dataField="party_leader_name" dataSort={true} dataFormat={this._formatPartyName}>Party</TableHeaderColumn>
           <TableHeaderColumn dataField="rsvp" dataFormat={this._formatAttrs}>Attributes</TableHeaderColumn>
