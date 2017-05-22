@@ -165,10 +165,12 @@ export default class ApiRequest {
       this.request.set(this.requestHeaders);
     }
 
+    alert('sending...');
     this.request
       .send(this.requestBody)
       //.withCredentials()
       .end((err, res) => {
+          alert('nailed it!');
         ApiRequest.updateNetworkIndicator();
         if (res.ok) {
           // I know when that hot line bling:

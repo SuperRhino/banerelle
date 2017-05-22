@@ -348,10 +348,8 @@ export default class RsvpForm extends React.Component {
       ApiRequest.post('/guests/rsvp')
         .data(this._getFormData())
         .send(res => {
-            alert("Thanks!");
-            this.setState({rsvp_id: res.data.id}, () => {
-                Utils.showSuccess('<i class="glyphicon glyphicon-ok"></i>');
-            });
+            this.setState({rsvp_id: res.data.id});
+            Utils.showSuccess('<i class="glyphicon glyphicon-ok"></i>');
         });
 
       Events.send('rsvp', 'submit', this.state.rsvp);
