@@ -342,7 +342,7 @@ export default class RsvpForm extends React.Component {
   }
 
   onSubmit(e) {
-      alert('onSubmit');
+      alert('Continue?');
       e.preventDefault();
       Events.send('rsvp-attempt', 'submit', this.state.rsvp+'-'+this.state.primary_name);
       if (! this.validate()) return;
