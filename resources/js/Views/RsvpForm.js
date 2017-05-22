@@ -342,11 +342,13 @@ export default class RsvpForm extends React.Component {
   }
 
   onSubmit(e) {
-      alert('Continue?');
-      e.preventDefault();
-      Events.send('rsvp-attempt', 'submit', this.state.rsvp+'-'+this.state.primary_name);
-      if (! this.validate()) return;
+      e && e.preventDefault();
+      if (! this.validate()) {
+          alert('invalid.');
+          return;
+      }
 
+      alert('submitting...');
       ApiRequest.post('/guests/rsvp')
         .data(this._getFormData())
         .send(res => {
