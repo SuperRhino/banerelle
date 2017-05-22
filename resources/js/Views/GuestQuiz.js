@@ -75,7 +75,7 @@ export default class GuestQuiz extends React.Component {
               <input
                   className="form-control input-lg"
                   type="text"
-                  placeholder="Moscow Mule, All Day IPA, Captain &amp; Coke..."
+                  placeholder="Moscow Mule, IPA, or..."
                   value={this.state.drink}
                   onChange={e => this.setState({drink: e.target.value})}
               />
@@ -92,7 +92,7 @@ export default class GuestQuiz extends React.Component {
               <input
                   className="form-control input-lg"
                   type="text"
-                  placeholder="Atomic Dog"
+                  placeholder="Atomic Dog, or..."
                   value={this.state.song}
                   onChange={e => this.setState({song: e.target.value})}
               />

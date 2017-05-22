@@ -73,11 +73,11 @@ export default class GuestList extends React.Component {
   }
 
   render() {
-    if (this.state.loading) return <h4>Loading...</h4>;
-    if (! this.state.authorized) return <h4>Must be logged in :(</h4>;
+    if (this.state.loading) return <h4>{'Loading...'}</h4>;
+    if (! this.state.authorized) return <h4>{'Must be logged in :('}</h4>;
 
     if (this.state.guests.length === 0) {
-      return <h4>No guests yet :(</h4>;
+      return <h4>{'No guests yet :('}</h4>;
     }
 
     let selectRowProp = {
@@ -87,11 +87,18 @@ export default class GuestList extends React.Component {
       onSelect: this._onSelectRow,
     };
 
+    let guests = this.state.guests,
+        yesCount = guests.filter(g => g.rsvp==='Yes'),
+        noCount = guests.filter(g => g.rsvp==='No');
+
     return (
       <div>
         {this.renderAddGuestButton()}
         {this.renderExportButton()}
-        <h1>Guest List: ({this.state.guests.length})</h1>
+        <h1>
+            Guest List: ({this.state.guests.length})<br />
+            <small>RSVP Yes: {yesCount.length} (No: {noCount.length})</small>
+        </h1>
         <BootstrapTable
           data={this.state.guests}
           striped={true}
