@@ -32,7 +32,7 @@ export default class Initialize {
     $('a.page-scroll').bind('click', function(event) {
         var $anchor = $(this);
         $('html, body').stop().animate({
-            scrollTop: ($($anchor.attr('href')).offset().top - 50)
+            scrollTop: ($($anchor.attr('href')).offset().top - 80)
         }, 1250, 'easeInOutExpo');
         Events.send('buttons', 'click', $anchor.text().toLowerCase());
         event.preventDefault();
