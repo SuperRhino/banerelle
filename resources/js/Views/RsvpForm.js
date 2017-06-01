@@ -6,6 +6,7 @@ import Utils from '../Utils/Utils';
 
 const INITIAL_STATE = {
   enabled: true,
+  processing: false,
   validate: false,
   email_sent: false,
   rsvp_id: null,
@@ -184,7 +185,9 @@ export default class RsvpForm extends React.Component {
       if (! this.state.rsvp) return;
 
       return (
-          <button type="submit" className="btn btn-lg btn-success">Confirm RSVP</button>
+          <button type="submit" className="btn btn-lg btn-success">
+            {this.state.processing ? 'Sending...' : 'Confirm RSVP'}
+          </button>
       );
   }
 
@@ -345,11 +348,12 @@ export default class RsvpForm extends React.Component {
       e && e.preventDefault();
       if (! this.validate()) return;
 
+      this.setState({processing: true});
       ApiRequest.post('/guests/rsvp')
         .data(this._getFormData())
         .setAnonymous(true)
         .send(res => {
-            this.setState({rsvp_id: res.data.id});
+            this.setState({rsvp_id: res.data.id, processing: false});
             Utils.showSuccess('<i class="glyphicon glyphicon-ok"></i>');
         });
 
