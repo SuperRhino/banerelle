@@ -197,23 +197,9 @@ export default class GuestDetail extends React.Component {
                 type="radio"
                 name="rsvp"
                 value="No"
-                selected={this.state.guest.rsvp==='No'}
+                checked={this.state.guest.rsvp==='No'}
                 onChange={e => this._setGuestState({rsvp: e.target.value})}
               /> No
-            </label>
-          </div>
-        </div>
-        <div className="form-group">
-          <label className="col-xs-3 control-label">Invite Sent</label>
-          <div className="col-xs-9">
-            <label className="radio-inline">
-              <input
-                type="checkbox"
-                name="rsvp"
-                value="1"
-                checked={!! this.state.guest.invite_sent}
-                onChange={e => this._setGuestState({invite_sent: !! e.target.checked})}
-              /> Yes
             </label>
           </div>
         </div>

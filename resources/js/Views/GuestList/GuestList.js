@@ -132,9 +132,6 @@ export default class GuestList extends React.Component {
       <div>
         {this.renderRsvpIcon(guest)}
         {' '}
-        {! guest.invite_sent ? null :
-          <span className="glyphicon glyphicon-2x glyphicon-download-alt" title="Invite Sent"></span>}
-        {' '}
         {! guest.meal_option ? null :
           <span className="glyphicon glyphicon-2x glyphicon-cutlery" title="Meal selected"></span>}
         {' '}
