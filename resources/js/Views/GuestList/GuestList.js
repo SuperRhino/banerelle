@@ -38,6 +38,7 @@ export default class GuestList extends React.Component {
     this.setState({
       loading: false,
       authorized: !! user.id,
+      rsvpFilter: null,
       user: user,
       guests: window.GLOBAL_DATA.guests || [],
       activeGuest: {},
@@ -47,6 +48,15 @@ export default class GuestList extends React.Component {
 
   componentWillUnmount() {
     this.stopUserSubscribe();
+  }
+
+  _setFilter(e, yes) {
+      e.preventDefault();
+      let rsvpFilter = null;
+      if (yes===true) rsvpFilter = 'y';
+      if (yes===false) rsvpFilter = 'n';
+      if (yes==='') rsvpFilter = '';
+      this.setState({rsvpFilter});
   }
 
   renderAddGuestButton() {
@@ -70,6 +80,23 @@ export default class GuestList extends React.Component {
         {' Download CSV'}
       </a>
     );
+  }
+
+  getFilteredGuests() {
+      if (this.state.rsvpFilter === 'y') {
+          // Filter only yeses
+          return this.state.guests.filter(g => g.rsvp==='Yes');
+      }
+      if (this.state.rsvpFilter === 'n') {
+          // Filter only noses
+          return this.state.guests.filter(g => g.rsvp==='No');
+      }
+      if (this.state.rsvpFilter === '') {
+          // Filter only no replies
+          return this.state.guests.filter(g => g.rsvp!=='No'&&g.rsvp!=='Yes');
+      }
+      // All guests:
+      return this.state.guests;
   }
 
   render() {
@@ -97,10 +124,21 @@ export default class GuestList extends React.Component {
         {this.renderExportButton()}
         <h1>
             Guest List: ({this.state.guests.length})<br />
-            <small>RSVP Yes: {yesCount.length} (No: {noCount.length})</small>
+            <small>
+                RSVP Count:
+                [<a href="#" onClick={e => this._setFilter(e, true)}>Yes {yesCount.length}</a>]
+                {' '}
+                <small>[<a href="#" onClick={e => this._setFilter(e, false)}>No: {noCount.length}</a>]</small>
+                {' '}
+                <small>[<a href="#" onClick={e => this._setFilter(e, '')}>NoReply: {this.state.guests.length - (yesCount.length + noCount.length)}</a>]</small>
+                {' '}
+                {this.state.rsvpFilter===null ? null : (
+                    <small style={{textTransform:'none'}}>(<a href="#" onClick={e => this._setFilter(e)}>clear filter</a>)</small>
+                )}
+            </small>
         </h1>
         <BootstrapTable
-          data={this.state.guests}
+          data={this.getFilteredGuests()}
           striped={true}
           hover={true}
           search={true}
