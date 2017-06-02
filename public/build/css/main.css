@@ -971,6 +971,21 @@ blockquote:nth-child(2n+1) {
 blockquote a.btn {
   white-space: normal;
 }
+.internal-body a {
+  color: #cd9f01;
+  transition: color 0.3s;
+  text-decoration: underline;
+}
+.internal-body a:hover {
+  color: #9a7801;
+}
+.internal-page a.btn {
+  color: #fff;
+  text-decoration: none;
+}
+.internal-page a.btn:hover {
+  color: #fff;
+}
 .alert .form-inline {
   margin-bottom: 15px;
 }
