@@ -224,7 +224,7 @@ export default class RsvpForm extends React.Component {
                 <i className={"glyphicon glyphicon-ok-sign success"}></i>{' '}
                 {'Thanks!'}
               </h3>
-              <p className="lead">You'll get an email reminder the week before the wedding.</p>
+              <p className="lead">{"You'll get an email reminder the week before the wedding."}</p>
           </div>
       );
       let renderEmailForm = () => (
