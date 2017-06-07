@@ -313,7 +313,7 @@ export default class RsvpForm extends React.Component {
             <div>
                 <blockquote className="bq-alt">
                     <p>Coool Beans! We cannot wait to see you there, {this.state.primary_name}!</p>
-                    <p><img src="https://media.giphy.com/media/7k0aZNv7cw43m/giphy.gif" alt="Carlton Dance" className="img-responsive" style={styles.yesGif} /></p>
+                    <p><img src="https://media0.giphy.com/media/r0XKA03tGOrGU/giphy.gif" alt="Carlton Dance" className="img-responsive" style={styles.yesGif} /></p>
                 </blockquote>
                 <div className="row">
                     <div className="col-xs-12 col-md-6">
