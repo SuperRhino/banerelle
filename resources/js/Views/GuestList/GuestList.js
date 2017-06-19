@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import CurrentUser from '../../Stores/CurrentUser';
+import ChooseExport from './ChooseExport';
 import GuestDetail from './GuestDetail';
 import GuestRemove from './GuestRemove';
 
@@ -24,6 +25,7 @@ export default class GuestList extends React.Component {
     this._onRemoveGuest = this._onRemoveGuest.bind(this);
     this._onUserChange = this._onUserChange.bind(this);
     this._onPressAddNew = this._onPressAddNew.bind(this);
+    this._onPressExport = this._onPressExport.bind(this);
     this._onSelectRow = this._onSelectRow.bind(this);
     this._formatName = this._formatName.bind(this);
     this._formatPartyName = this._formatPartyName.bind(this);
@@ -70,15 +72,13 @@ export default class GuestList extends React.Component {
 
   renderExportButton() {
     return (
-      <a
-        href="/admin/guest-list/download"
-        target="_blank"
+      <button
+        onClick={this._onPressExport}
         className="btn btn-lg btn-info pull-right"
-        style={{marginRight: 10}}
-        role="button">
+        style={{marginRight: 10}}>
         <span className="glyphicon glyphicon-download-alt"></span>
         {' Download CSV'}
-      </a>
+      </button>
     );
   }
 
@@ -151,6 +151,7 @@ export default class GuestList extends React.Component {
           <TableHeaderColumn dataField="rsvp" dataFormat={this._formatAttrs}>Attributes</TableHeaderColumn>
           <TableHeaderColumn dataField="controls" dataFormat={this._formatControls}>Status</TableHeaderColumn>
         </BootstrapTable>
+        <ChooseExport ref="chooseExport" />
         <GuestDetail ref="guestDetail" guest={this.state.activeGuest} onChange={this._onUpdateGuest} />
         <GuestRemove ref="guestRemove" guest={this.state.removeGuest} onRemove={this._onRemoveGuest} />
       </div>
@@ -253,6 +254,10 @@ export default class GuestList extends React.Component {
     this.setState({removeGuest}, () => {
       this.refs.guestRemove.show();
     });
+  }
+
+  _onPressExport() {
+    this.refs.chooseExport.show();
   }
 
   _onPressAddNew() {

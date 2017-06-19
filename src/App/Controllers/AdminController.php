@@ -40,7 +40,9 @@ class AdminController extends BaseController
             throw new NotFoundException('Page not found');
         }
 
-        $guests = Guest::findForExport();
+        $yes = isset($_GET['yes']) && $_GET['yes'] == '1';
+
+        $guests = $yes ? Guest::findYesForExport() : Guest::findForExport();
         $data = $this->toCSV($guests);
 
         return $this->download($data);

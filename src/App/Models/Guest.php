@@ -81,6 +81,37 @@ class Guest extends Model {
      * @return {array} [guests, address_street, address_city, address_state, address_zip, (int) invites]
      *
     **/
+    public static function findYesForExport()
+    {
+        $query = static::$app->query->newSelect();
+        $query->cols([
+                'trim(concat(g.first_name, " ", g.last_name)) as guest',
+                'g.party_leader_name as party'
+              ])
+              ->from(static::$table.' as g')
+              // where "guest [g]" is the primary
+              ->where('g.rsvp = "Yes"')
+              // order by has-address, then by primary last name
+              ->orderBy([
+                  'g.party_leader_name',
+                  'g.last_name'
+              ]);
+
+        $guests = [];
+        $res = static::$app->db->fetchAll($query);
+        foreach ($res as $guest) {
+            // $guests []= (new Guest($guest))->toArray();
+            $guests []= $guest;
+        }
+
+        return $guests;
+    }
+
+    /**
+     * Find all guests for export.
+     * @return {array} [guests, address_street, address_city, address_state, address_zip, (int) invites]
+     *
+    **/
     public static function findForExport()
     {
         $query = static::$app->query->newSelect();
